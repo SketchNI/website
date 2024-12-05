@@ -23,7 +23,7 @@ export default {
       'primary-dark': '#527dc2',
       'secondary-dark': '#c25472',
       'accent-dark': '#5ead57',
-      black: colors.black,
+      black: '#11111b',
       white: '#cdd6f4',
       "c-light": '#585b70',
       "c-dark": '#313244',
