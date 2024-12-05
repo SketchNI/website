@@ -15,7 +15,10 @@ export default defineNuxtConfig({
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
       title: 'Sketch World!',
-      link: [{ rel: 'stylesheet', href: 'https://fonts.bunny.net/css?family=fragment-mono:400,400i' }],
+      link: [
+        { rel: 'stylesheet', href: 'https://fonts.bunny.net/css?family=fragment-mono:400,400i' },
+        { rel: 'stylesheet', href: '//prismjs.catppuccin.com/mocha.css' }
+      ],
       script: [
         { src: 'https://kit.fontawesome.com/5b07eb1cee.js', crossorigin: 'anonymous', defer: true }
       ]
@@ -30,9 +33,9 @@ export default defineNuxtConfig({
       theme: 'github-dark',
     },
     markdown: {
-      /*remarkPlugins: {
-        'remark-gfm': true,
-      }*/
+      remarkPlugins: [
+        'remark-gfm'
+      ]
     }
   },
 
