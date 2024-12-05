@@ -86,12 +86,12 @@ const teams = [
 
 <style scoped>
 .card {
-    @apply border-2 border-primary-dark hover:bg-c-darkest p-6 shadow w-1/2 select-none cursor-pointer;
+    @apply border-2 border-primary-dark hover:bg-c-darkest p-6 hover:shadow-md hover:shadow-c-dark w-1/2 select-none cursor-pointer;
     @apply transition duration-150 ease-in;
 }
 
 .card-link {
-    @apply p-2 inline-flex rounded-md text-white hover:shadow-md hover:shadow-c-light hover:bg-c-dark;
+    @apply p-2 inline-flex text-white hover:shadow-md hover:shadow-c-light hover:bg-c-dark;
     @apply transition duration-150 ease-in;
 
     & > svg {

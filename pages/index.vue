@@ -44,7 +44,7 @@ const socials = [
             </p>
             <ul class="inline-flex space-x-2">
                 <li v-for="(item, i) in socials" :key="i">
-                    <nuxt-link :to="item.href" class="text-4xl px-3 py-2 rounded-md hover:shadow hover:bg-c-dark hover:text-white">
+                    <nuxt-link :to="item.href" class="social-link">
                         <i :class="['fa-brands', `fa-${item.logo}`]"></i> <span class="sr-only">{{ item.name }}</span>
                     </nuxt-link>
                 </li>
@@ -55,6 +55,11 @@ const socials = [
 
 <style scoped>
 .logo {
-    @apply bg-black p-2 rounded-md border-2 border-primary w-64 h-64;
+    @apply bg-black p-2 border-2 border-primary w-64 h-64;
+}
+
+.social-link {
+    @apply text-4xl px-3 py-2 hover:shadow hover:shadow-c-darkest hover:bg-c-dark hover:text-white;
+    @apply transition duration-150 ease-in;
 }
 </style>

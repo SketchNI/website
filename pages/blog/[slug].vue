@@ -38,11 +38,16 @@ const article = data;
 
 <style scoped>
 .tag-bar {
-    @apply space-x-5 mb-6 bg-c-darkest group-hover:bg-c-dark px-4 py-3 rounded-full;
+    @apply space-x-5 mb-6 bg-c-darkest group-hover:bg-c-dark px-4 py-3;
     @apply transition duration-150 ease-in;
 }
 
 .tag {
-    @apply inline-flex text-xs bg-primary-dark px-3 py-1.5 font-sans rounded-full;
+    @apply inline-flex text-xs bg-primary-dark px-3 py-1.5 font-sans;
 }
+
+.prose-xl :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply rounded-none shadow-md shadow-c-dark;
+}
+
 </style>
