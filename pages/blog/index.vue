@@ -104,7 +104,7 @@ const setActiveTag = (tag) => {
                 </div>
             </div>
             <template #fallback>
-                <div class="py-6 text-center h-56 shadow rounded-md bg-c-dark text-3xl flex items-center justify-center">
+                <div class="py-6 text-center h-56 shadow shadow-c-darkest rounded-md bg-c-dark text-3xl flex items-center justify-center">
                     <span class="animate-pulse">Loading articles</span>
                 </div>
             </template>
