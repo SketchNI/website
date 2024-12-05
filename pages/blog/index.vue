@@ -104,7 +104,7 @@ const setActiveTag = (tag) => {
                 </div>
             </div>
             <template #fallback>
-                <div class="py-6 text-center h-56 shadow rounded-md bg-blue-700/40 text-3xl flex items-center justify-center">
+                <div class="py-6 text-center h-56 shadow rounded-md bg-c-dark text-3xl flex items-center justify-center">
                     <span class="animate-pulse">Loading articles</span>
                 </div>
             </template>
@@ -114,8 +114,8 @@ const setActiveTag = (tag) => {
 
 <style scoped>
 .entry {
-    @apply border border-transparent shadow rounded-md bg-gray-800 p-6;
-    @apply hover:bg-gray-900 hover:border-primary;
+    @apply border border-transparent shadow shadow-c-darkest hover:shadow-c-dark rounded-md bg-c-dark p-6;
+    @apply hover:bg-c-darkest hover:border-primary;
     @apply transition duration-150 ease-in;
 }
 
@@ -124,11 +124,11 @@ const setActiveTag = (tag) => {
 }
 
 .tag-bar {
-    @apply space-x-5 mb-6 bg-gray-900 group-hover:bg-gray-800 px-4 py-3 rounded-full;
+    @apply space-x-5 mb-6 bg-c-darkest group-hover:bg-c-dark px-4 py-3 rounded-full;
     @apply transition duration-150 ease-in;
 }
 
 .tag {
-    @apply inline-flex text-xs bg-blue-900 px-3 py-1.5 font-sans rounded-full;
+    @apply inline-flex text-xs bg-primary-dark px-3 py-1.5 font-sans rounded-full;
 }
 </style>

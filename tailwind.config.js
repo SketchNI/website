@@ -17,22 +17,30 @@ export default {
   ],
   theme: {
     colors: {
-      primary: colors.blue[500],
-      secondary: colors.red[500],
-      accent: colors.emerald[400],
-      'primary-dark': colors.blue[700],
+      primary: '#89b4fa',
+      secondary: '#fb7185',
+      accent: '#a6e3a1',
+      'primary-dark': '#527dc2',
+      'secondary-dark': '#c25472',
+      'accent-dark': '#5ead57',
       black: colors.black,
-      white: colors.white,
-      gray: colors.neutral,
-      red: colors.rose,
-      blue: colors.blue,
-      purple: colors.purple,
-      green: colors.emerald,
+      white: '#cdd6f4',
+      "c-light": '#585b70',
+      "c-dark": '#313244',
+      "c-darkest": '#11111b',
       inherit: 'inherit',
       current: 'currentColor',
       transparent: 'transparent',
     },
     extend: {
+      boxShadow: {
+        sm: '.4rem .4rem 0 0',
+        DEFAULT: '.4rem .4rem 0 0',
+        md: '.4rem .4rem 0 0',
+      },
+      boxShadowColor: {
+        DEFAULT: '#313244'
+      },
       fontFamily: {
         sans: ['Alata', ...defaultTheme.fontFamily.sans],
         mono: ['Fragment Mono', ...defaultTheme.fontFamily.mono],

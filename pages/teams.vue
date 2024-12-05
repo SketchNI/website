@@ -64,21 +64,21 @@ const teams = [
 <template>
     <div>
         <div class="flex gap-6 my-6">
-            <div v-for="(team, i) in teams" :key="i" class="card space-y-4">
+            <div v-for="(team, i) in teams" :key="i" class="card group space-y-4">
                 <div class="flex items-center space-x-4">
                     <div class="w-24">
                         <img :src="team.image" :alt="`${team.name}'s Logo`" class="" />
                     </div>
                     <h1 class="text-xl text-blue-400">{{ team.name }}</h1>
                 </div>
-                <div class="flex flex-row justify-center items-center space-x-4 text-green-400">
+                <div class="flex flex-row justify-center items-center space-x-4 text-green">
                     <nuxt-link v-for="(link, j) in team.links" :key="j" :to="link.url" target="_blank" class="card-link">
                         <i :class="link.icon"></i>
                         <span class="sr-only">{{ link.name }}</span>
                     </nuxt-link>
                 </div>
-                <p class="text-red-400" v-html="team.description" />
-                <p class="text-green-400" v-html="team.what_i_do" />
+                <p class="text-red" v-html="team.description" />
+                <p class="text-green" v-html="team.what_i_do" />
             </div>
         </div>
     </div>
@@ -86,12 +86,12 @@ const teams = [
 
 <style scoped>
 .card {
-    @apply border-2 border-primary hover:bg-primary/30 p-6 shadow w-1/2 select-none cursor-pointer;
+    @apply border-2 border-primary-dark hover:bg-c-darkest p-6 shadow w-1/2 select-none cursor-pointer;
     @apply transition duration-150 ease-in;
 }
 
 .card-link {
-    @apply p-2 inline-flex hover:text-white hover:bg-green-600;
+    @apply p-2 inline-flex rounded-md text-white hover:shadow-md hover:shadow-c-light hover:bg-c-dark;
     @apply transition duration-150 ease-in;
 
     & > svg {

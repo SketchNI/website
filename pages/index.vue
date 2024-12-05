@@ -12,13 +12,14 @@ const socials = [
 </script>
 
 <template>
-    <div class="space-x-6 text-xl text-blue mx-auto flex items-center justify-center">
+    <div class="space-x-6 text-xl text-white mx-auto flex items-center justify-center">
         <div>
             <img :src="logo" alt="SketchNI Avatar" class="logo" />
         </div>
         <div class="w-[40ch] space-y-6">
             <p>
-                Hello! I'm Sketch 🐍 (aka Denver). I'm a web developer and linux tinkerer with over 0 years experience!
+                Hello! I'm Sketch 🐍 (aka Denver). I'm a <span class="text-green">{{ new Date().getFullYear() - 1991 }}
+                year old</span> web developer and linux tinkerer with over 0 years experience!
             </p>
 
             <p class="font-black">
@@ -30,12 +31,20 @@ const socials = [
                 <span class="text-green">Linux Mint</span>.
             </p>
 
+            <div>
+                <p><span class="text-red">HTML:</span> <span class="text-green">{{ new Date().getFullYear() - 2007 }}</span> years</p>
+                <p><span class="text-red">PHP:</span> <span class="text-green">{{ new Date().getFullYear() - 2010 }}</span> years</p>
+                <p><span class="text-red">CSS:</span> <span class="text-green">{{ new Date().getFullYear() - 2010 }}</span> years</p>
+                <p><span class="text-red">Linux:</span> <span class="text-green">{{ new Date().getFullYear() - 2009 }}</span> years</p>
+                <p><span class="text-red">Javascript:</span> <span class="text-green">{{ new Date().getFullYear() - 2019 }}</span> years</p>
+            </div>
+
             <p>
                 You can find me on these social networks:
             </p>
             <ul class="inline-flex space-x-2">
                 <li v-for="(item, i) in socials" :key="i">
-                    <nuxt-link :to="item.href" class="text-4xl px-3 py-2 rounded-md shadow hover:bg-primary hover:text-white">
+                    <nuxt-link :to="item.href" class="text-4xl px-3 py-2 rounded-md hover:shadow hover:bg-c-dark hover:text-white">
                         <i :class="['fa-brands', `fa-${item.logo}`]"></i> <span class="sr-only">{{ item.name }}</span>
                     </nuxt-link>
                 </li>

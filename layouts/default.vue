@@ -13,9 +13,11 @@ const links = [
         <nav>
             <div class="nav-container">
                 <div>
-                    <div>
-                        <img :src="logo" alt="SketchNI Avatar" class="logo" />
-                    </div>
+                    <nuxt-link to="/" class="text-3xl logo">
+                        <span class="text-blue">Ske</span>
+                        <span class="text-red">tch</span>
+                        <span class="text-green">NI</span>
+                    </nuxt-link>
 
                     <div class="nav-wrapper">
                         <nuxt-link class="link" :to="link.href" :key="i" v-for="(link, i) in links">{{ link.label }}

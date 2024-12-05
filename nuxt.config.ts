@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       bodyAttrs: {
-        class: ['font-mono', 'antialiased', 'bg-gray-900', 'text-blue-100']
+        class: ['font-mono', 'antialiased', 'bg-[#1e1e2e]', 'text-blue-100']
       },
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
