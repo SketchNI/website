@@ -10,8 +10,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "start": "node .output/server/index.mjs"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@headlessui/tailwindcss": "^0.2.1",
