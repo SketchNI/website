@@ -1,3 +1,54 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    color-scheme: only dark;
+}
+
+@layer base {
+    main:not(.admin-main) {
+        @apply text-white max-w-6xl mx-auto py-6;
+    }
+
+    .logo {
+        @apply px-6 py-4 cursor-pointer
+        hover:bg-surface0
+        transition duration-150 ease-in;
+    }
+
+    .homepage-sketch {
+        @apply bg-crust p-2 border-2 border-blue w-64 h-64;
+    }
+
+    .social-link {
+        @apply text-2xl lg:text-4xl px-3 py-2
+        hover:bg-surface0 hover:shadow-md hover:shadow-crust hover:text-white
+        transition duration-150 ease-in;
+    }
+
+    .card {
+        @apply border-2 border-primary-dark p-6 select-none cursor-pointer lg:w-1/2
+        hover:bg-crust hover:shadow-md hover:shadow-surface0
+        transition duration-150 ease-in;
+    }
+
+    .card-link {
+        @apply p-2 inline-flex text-white hover:shadow-sm hover:shadow-overlay0 hover:bg-base
+        transition duration-150 ease-in;
+
+        & > svg {
+            @apply text-2xl;
+        }
+    }
+
+    .link {
+        @apply font-bold text-blue border-b-2 border-transparent cursor-pointer
+        hover:border-blue hover:text-text
+        transition duration-150 ease-in;
+    }
+
+    input:disabled {
+        @apply bg-surface0 cursor-not-allowed;
+    }
+}

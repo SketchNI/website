@@ -1,9 +1,11 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
-import { Head } from '@inertiajs/vue3';
+import AppLayout from "@/Layouts/AppLayout.vue";
+import Divider from "@/Components/divider.vue";
+import useApp from "@/Composables/useApp.js";
+import useRole from "@/Composables/useRole.js";
 
 defineProps({
     mustVerifyEmail: {
@@ -13,44 +15,32 @@ defineProps({
         type: String,
     },
 });
+
+const app = useApp();
+const roles = useRole();
 </script>
 
 <template>
-    <Head title="Profile" />
+    <x-head title="Edit Account" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2
-                class="text-xl font-semibold leading-tight text-gray-800"
-            >
-                Profile
-            </h2>
-        </template>
-
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
-                <div
-                    class="bg-white p-4 shadow sm:rounded-lg sm:p-8"
-                >
-                    <UpdateProfileInformationForm
-                        :must-verify-email="mustVerifyEmail"
-                        :status="status"
-                        class="max-w-xl"
-                    />
+    <app-layout>
+        <div class="mx-auto max-w-7xl space-y-12 sm:px-6 lg:px-8 flex flex-col items-center">
+            <div v-if="app.env === 'local'">
+                <div class="pb-8">
+                    Role: {{ roles.join(', ') }}
                 </div>
 
-                <div
-                    class="bg-white p-4 shadow sm:rounded-lg sm:p-8"
-                >
-                    <UpdatePasswordForm class="max-w-xl" />
-                </div>
-
-                <div
-                    class="bg-white p-4 shadow sm:rounded-lg sm:p-8"
-                >
-                    <DeleteUserForm class="max-w-xl" />
-                </div>
+                <divider class="w-[52rem]" />
             </div>
+            <UpdateProfileInformationForm :must-verify-email="mustVerifyEmail" :status="status" class="max-w-xl" />
+
+            <divider class="w-[52rem]" />
+
+            <UpdatePasswordForm class="max-w-xl" />
+
+            <divider class="w-[52rem]" />
+
+            <DeleteUserForm class="max-w-xl" />
         </div>
-    </AuthenticatedLayout>
+    </app-layout>
 </template>
