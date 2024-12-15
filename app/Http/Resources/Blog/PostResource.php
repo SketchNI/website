@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Blog;
 
-use App\Extensions\CommonMark\TableOfContentsEvent;
 use App\Extensions\CommonMark\TableOfContentsListener;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\UserResource;
@@ -99,7 +98,6 @@ use League\CommonMark\MarkdownConverter;
             ->addExtension(new HeadingPermalinkExtension)
             ->addExtension(new SmartPunctExtension)
             ->addExtension(new TableOfContentsExtension)
-        //->addExtension(new StrikethroughExtension)
             ->addExtension(new EmbedExtension);
 
         $env->addEventListener(DocumentPreRenderEvent::class, [new TableOfContentsListener, 'onDocumentParsed']);
