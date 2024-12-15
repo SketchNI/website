@@ -36,7 +36,7 @@ const showingNavigationDropdown = ref(false);
                                     Home
                                 </nav-link>
                                 <nav-link :href="route('blog.index')"
-                                          :active="route().current('blog.index') || route().current('blog.show')">
+                                          :active="route().current('blog.index') || route().current('blog.show') || route().current('category.show')">
                                     Blog
                                 </nav-link>
                                 <nav-link :href="route('teams')" :active="route().current('teams')">

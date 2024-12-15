@@ -6,7 +6,7 @@ use App\Models\Blog\Post;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
-use Str;
+use Illuminate\Support\Str;
 
 class PostFactory extends Factory
 {
@@ -21,7 +21,7 @@ class PostFactory extends Factory
             'title' => Str::title($title),
             'slug' => Str::slug($title),
             'excerpt' => $this->faker->paragraph(),
-            'content' => $this->faker->paragraphs(),
+            'content' => $this->faker->paragraphs(asText: true),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];

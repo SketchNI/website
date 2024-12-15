@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Blog\Category;
 use App\Models\Blog\Post;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

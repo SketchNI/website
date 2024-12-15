@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Category;
+use App\Models\Blog\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -12,10 +12,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
     {
         return [
             'id' => $this->id,
-            'parent' => [
+            'parent' => $this->parent_id !== null ? [
                 'id' => $this->parent_id,
                 'category' => $this->parent->name,
-            ],
+            ] : null,
+            'posts_count' => $this->posts_count,
             'slug' => $this->slug,
             'name' => $this->name,
         ];

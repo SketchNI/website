@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Blog;
 
-use App\Models\Category;
+use App\Models\Blog\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Str;
 

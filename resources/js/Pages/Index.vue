@@ -18,7 +18,7 @@ const socials = [
     <x-head title="Home" />
 
     <app-layout>
-        <div class="lg:space-x-6 text-xl mx-6 text-white lg:mx-auto lg:flex lg:flex-row lg:items-center lg:justify-center">
+        <div class="lg:space-x-6 text-xl mx-6 text-text lg:mx-auto lg:flex lg:flex-row lg:items-center lg:justify-center">
             <div>
                 <img src="/images/chibinobg.png" alt="SketchNI Avatar" class="homepage-sketch" />
             </div>

@@ -2,14 +2,11 @@
 
 namespace App\Models\Blog;
 
-use App\Models\Category;
-use App\Models\PostHasCategory;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
@@ -31,8 +28,8 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function categories(): HasManyThrough
+    public function categories(): BelongsToMany
     {
-        return $this->hasManyThrough(Category::class, PostHasCategory::class, 'post_id', 'id', 'id', 'category_id');
+        return $this->belongsToMany(Category::class, 'post_has_categories', 'post_id', 'cat_id');
     }
 }

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-    color-scheme: only dark;
+    color-scheme: dark;
 }
 
 @layer base {
@@ -22,8 +22,8 @@
     }
 
     .social-link {
-        @apply text-2xl lg:text-4xl px-3 py-2
-        hover:bg-surface0 hover:shadow-md hover:shadow-crust hover:text-white
+        @apply text-2xl lg:text-4xl px-3 py-2 size-16 inline-flex items-center justify-center
+        hover:bg-surface0 hover:shadow-md hover:shadow-crust hover:text-text
         transition duration-150 ease-in;
     }
 
@@ -51,4 +51,31 @@
     input:disabled {
         @apply bg-surface0 cursor-not-allowed;
     }
+
+    a.external::after {
+        content: "\f08e";
+        font: normal normal normal 14px/1 FontAwesome;
+    }
+}
+
+.table-of-contents {
+    @apply list-none space-y-1 mb-6;
+}
+
+.table-of-contents li {
+    @apply text-text;
+}
+
+.table-of-contents li a::before {
+    content: '# ';
+    @apply text-subtext0 text-lg;
+}
+
+.prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply text-text no-underline hover:underline;
+    @apply transition duration-150 ease-in;
+}
+
+.heading-permalink {
+    @apply text-text no-underline mr-2;
 }
