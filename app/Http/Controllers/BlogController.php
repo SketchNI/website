@@ -7,10 +7,11 @@ use App\Http\Resources\CategoryResource;
 use App\Models\Blog\Post;
 use App\Models\Blog\Category;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class BlogController
 {
-    public function index()
+    public function index(): Response
     {
         $posts = PostResource::collection(
             Post::with(['user', 'categories'])->orderByDesc('created_at')->paginate(6)
@@ -21,7 +22,7 @@ class BlogController
         return inertia('Blog/Index', compact('posts', 'categories'));
     }
 
-    public function show(Post $post)
+    public function show(Post $post): Response
     {
         $categories = CategoryResource::collection(Category::all())->resolve();
 
