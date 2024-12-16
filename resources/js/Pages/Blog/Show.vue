@@ -1,11 +1,30 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
+import moment from "moment";
+import { Deferred } from "@inertiajs/vue3";
+import useApp from "@/Composables/useApp.js";
 
 defineProps({
-    post: Object,
+    post: {
+        id: Number,
+        slug: String,
+        title: String,
+        content: String,
+        excerpt: String,
+        categories: Array,
+        published_at: String,
+        created_at: String,
+        updated_at: String,
+        author: {
+            id: Number,
+            name: String,
+            email: String,
+        }
+    },
     categories: Object,
-    theme: String,
 })
+
+const app = useApp();
 </script>
 
 <template>
@@ -14,7 +33,46 @@ defineProps({
     <app-layout>
         <div class="flex gap-6">
             <div class="space-y-4 w-4/6">
-                <article class="article prose prose-blue" :class="[theme !== 'latte' ? 'prose-invert' : '']" v-html="post.content" />
+                <Deferred data="post">
+                    <template #fallback>
+                        <div class="flex items-center text-4xl justify-center py-32 bg-mantle shadow shadow-crust">
+                            <i class="fas fa-spinner animate-spin mr-2" />
+                            <span>Rendering post</span>
+                        </div>
+                    </template>
+
+                    <article class="article prose prose-blue" :class="[app.theme !== 'latte' ? 'prose-invert' : '']">
+                    <p class="text-subtext0">
+                        Published
+                        <time v-if="moment().diff(post.published_at, 'days') <= 7"
+                              :datetime="post.published_at"
+                              :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')"
+                              class="font-semibold"
+                              :class="[app.theme === 'latte' ? 'text-black' : 'text-white']">
+                            {{ moment(new Date()).from(post.published_at, true) }} ago
+                        </time>
+                        <time v-else
+                              :datetime="post.published_at"
+                              :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')"
+                              class="font-semibold"
+                              :class="[app.theme === 'latte' ? 'text-black' : 'text-white']">
+                            {{ moment(post.published_at).format('Do MMM YYYY [at] hh:mma') }}
+                        </time>
+                        by
+                        <span class="font-semibold font-mono">{{ post.author.name }}</span>
+                        <span v-if="post.categories?.length > 0">
+                            in
+                            <span v-for="(cat, i) in post.categories">
+                                <x-link :href="route('category.show', { slug: cat.slug })" class="tag">
+                                    {{ cat.name }}
+                                </x-link>
+                            </span>
+                        </span>
+                    </p>
+
+                    <div v-html="post.content"/>
+                </article>
+                </Deferred>
             </div>
 
             <div class="bg-mantle w-2/6 p-4 shadow shadow-crust">

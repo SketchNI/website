@@ -2,14 +2,12 @@
 
 namespace App\Http\Resources\Blog;
 
-use App\Extensions\CommonMark\TableOfContentsListener;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\UserResource;
 use App\Models\Blog\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use League\CommonMark\Environment\Environment;
-use League\CommonMark\Event\DocumentPreRenderEvent;
 use League\CommonMark\Exception\CommonMarkException;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\Embed\Bridge\OscaroteroEmbedAdapter;
@@ -77,12 +75,12 @@ use League\CommonMark\MarkdownConverter;
             ],
             'table_of_contents' => [
                 'html_class' => 'table-of-contents not-prose',
-                'position' => 'before-headings',
+                'position' => 'placeholder',
                 'style' => 'bullet',
                 'min_heading_level' => 1,
                 'max_heading_level' => 6,
                 'normalize' => 'flat',
-                'placeholder' => null,
+                'placeholder' => '[TOC]',
             ],
             'embed' => [
                 'adapter' => new OscaroteroEmbedAdapter, // See the "Adapter" documentation below
@@ -99,8 +97,6 @@ use League\CommonMark\MarkdownConverter;
             ->addExtension(new SmartPunctExtension)
             ->addExtension(new TableOfContentsExtension)
             ->addExtension(new EmbedExtension);
-
-        $env->addEventListener(DocumentPreRenderEvent::class, [new TableOfContentsListener, 'onDocumentParsed']);
 
         $converter = new MarkdownConverter($env);
 

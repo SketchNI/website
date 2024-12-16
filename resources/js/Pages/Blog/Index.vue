@@ -2,11 +2,18 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 import moment from 'moment/moment';
 import Pager from "@/Components/Pager.vue";
+import useApp from "@/Composables/useApp.js";
 
 const props = defineProps({
-    posts: Object,
+    posts: {
+        meta: Object,
+        links: Object,
+        data: Object,
+    },
     categories: Object,
 })
+
+const app = useApp();
 </script>
 
 <template>
@@ -25,7 +32,7 @@ const props = defineProps({
             <div class="space-y-4 w-4/6 ">
                 <x-link :href="route('blog.show', { slug: post.slug })"
                         class="block bg-surface0 p-4 shadow shadow-crust hover:bg-mantle group transition duration-150 ease-in"
-                     v-for="post in posts.data" :key="post.id">
+                        v-for="post in posts.data" :key="post.id">
                     <article class="space-y-2">
                         <h1 class="font-semibold text-blue text-xl group-hover:underline">{{ post.title }}</h1>
                         <p class="text-subtext0">
@@ -33,13 +40,15 @@ const props = defineProps({
                             <time v-if="moment().diff(post.published_at, 'days') <= 7"
                                   :datetime="post.published_at"
                                   :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')"
-                                  class="font-semibold">
+                                  class="font-semibold"
+                                  :class="[app.theme === 'latte' ? 'text-black' : 'text-white']">
                                 {{ moment(new Date()).from(post.published_at, true) }} ago
                             </time>
                             <time v-else
                                   :datetime="post.published_at"
                                   :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')"
-                                  class="font-semibold">
+                                  class="font-semibold"
+                                  :class="[app.theme === 'latte' ? 'text-black' : 'text-white']">
                                 {{ moment(post.published_at).format('Do MMM YYYY [at] hh:mma') }}
                             </time>
                             by

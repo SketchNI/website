@@ -6,6 +6,7 @@ use App\Http\Resources\Blog\PostResource;
 use App\Http\Resources\CategoryResource;
 use App\Models\Blog\Post;
 use App\Models\Blog\Category;
+use Inertia\Inertia;
 
 class BlogController
 {
@@ -25,8 +26,10 @@ class BlogController
         $categories = CategoryResource::collection(Category::all())->resolve();
 
         $post = new PostResource($post)->resolve();
-        $theme = session('theme');
 
-        return inertia('Blog/Show', compact('post', 'categories', 'theme'));
+        return inertia('Blog/Show', [
+            'post' => Inertia::defer(fn () => $post),
+            'categories' => $categories,
+        ]);
     }
 }

@@ -59,11 +59,16 @@
 }
 
 .table-of-contents {
-    @apply list-none space-y-1 mb-6;
+    @apply list-none space-y-1 mb-6 bg-mantle shadow shadow-crust p-6;
 }
 
 .table-of-contents li {
     @apply text-text;
+}
+
+.table-of-contents li:first-of-type::before {
+    content: 'Contents';
+    @apply font-semibold uppercase block text-sm mb-2;
 }
 
 .table-of-contents li a::before {
@@ -78,4 +83,8 @@
 
 .heading-permalink {
     @apply text-text no-underline mr-2;
+}
+
+time {
+    @apply font-bold underline cursor-pointer hover:text-blue transition duration-150 ease-in;
 }
