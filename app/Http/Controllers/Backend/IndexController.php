@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use Inertia\Response;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 class IndexController extends Controller
 {
-    public function __invoke()
+    public function __invoke(): Response
     {
-        return view('backend.index');
+        if (! auth()->user()->hasAnyRole(['admin', 'moderator'])) {
+            app()->abort(HttpResponse::HTTP_FORBIDDEN);
+        }
+
+        return inertia('Backend/Index');
     }
 }

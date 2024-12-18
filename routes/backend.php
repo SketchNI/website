@@ -9,9 +9,10 @@ Route::get('/teams', Backend\IndexController::class)->name('teams');
 Route::prefix('blog')->name('blog.')->group(static function () {
     Route::get('/', [Backend\BlogController::class, 'index'])->name('index');
     Route::post('/', [Backend\BlogController::class, 'store']);
-    Route::get('/{slug}/edit', [Backend\BlogController::class, 'show'])->name('show');
-    Route::put('/{slug}/edit', [Backend\IndexController::class, 'update']);
-    Route::delete('/{slug}', [Backend\IndexController::class, 'destroy'])->name('destroy');
+    Route::get('/{post:id}/edit', [Backend\BlogController::class, 'show'])->name('show');
+    Route::get('/{id}/restore', [Backend\BlogController::class, 'restore'])->name('restore');
+    Route::put('/{post:id}/edit', [Backend\BlogController::class, 'update'])->name('update');
+    Route::delete('/{post:id}/delete', [Backend\BlogController::class, 'destroy'])->name('destroy');
 });
 
 Route::prefix('users')->name('users.')->group(static function () {

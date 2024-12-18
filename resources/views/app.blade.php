@@ -19,7 +19,7 @@
     <body class="font-sans antialiased {{ session('theme') ?? 'mocha' }} bg-base h-full">
         @inertia
     </body>
-    <footer class="max-w-6xl my-6 text-center md:flex text-subtext0 items-center justify-between mx-auto">
+    <footer class="{{ Str::contains(request()->fullUrl(), 'backend') ? 'lg:pl-[20rem] lg:pr-8' : 'max-w-6xl' }} my-6 text-center md:flex text-subtext0 items-center justify-between mx-auto">
         <div class="inline-flex space-x-3 items-center">
             <p class="text-sm">&copy; SketchNI {{ date("Y") }}</p>
 

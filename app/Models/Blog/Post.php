@@ -16,6 +16,14 @@ class Post extends Model
 
     protected $table = 'blog_posts';
 
+    protected $fillable = [
+        'title',
+        'slug',
+        'excerpt',
+        'content',
+        'published_at',
+    ];
+
     protected function casts(): array
     {
         return [

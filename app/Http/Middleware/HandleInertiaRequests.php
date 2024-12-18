@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\PermissionViaRoleResource;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -34,11 +35,15 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
                 'roles' => $request->user()?->getRoleNames(),
+                'permissions' => PermissionViaRoleResource::collection(
+                    $request->user()?->getPermissionsViaRoles()
+                )->resolve(),
             ],
             'app' => [
                 'env' => config('app.env'),
                 'theme' => session('theme'),
-            ]
+                'flash' => fn () => $request->session()->get('flash'),
+            ],
         ];
     }
 }
