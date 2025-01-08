@@ -1,3 +1,123 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    color-scheme: dark;
+}
+
+@layer base {
+    main:not(.admin-main) {
+        @apply text-white max-w-6xl mx-auto py-6;
+    }
+
+    .logo {
+        @apply px-6 py-4 cursor-pointer
+        hover:bg-surface0
+        transition duration-150 ease-in;
+    }
+
+    .homepage-sketch {
+        @apply bg-crust p-2 border-2 border-blue w-64 h-64;
+    }
+
+    .social-link {
+        @apply text-2xl lg:text-4xl px-3 py-2 size-16 inline-flex items-center justify-center
+        hover:bg-surface0 hover:shadow-md hover:shadow-crust hover:text-text
+        transition duration-150 ease-in;
+    }
+
+    .card {
+        @apply border-2 border-primary-dark p-6 select-none cursor-pointer lg:w-1/2
+        hover:bg-crust hover:shadow-md hover:shadow-surface0
+        transition duration-150 ease-in;
+    }
+
+    .card-link {
+        @apply p-2 inline-flex text-white hover:shadow-sm hover:shadow-overlay0 hover:bg-base
+        transition duration-150 ease-in;
+
+        & > svg {
+            @apply text-2xl;
+        }
+    }
+
+    .link {
+        @apply font-bold text-blue border-b-2 border-transparent cursor-pointer
+        hover:border-blue hover:text-text
+        transition duration-150 ease-in;
+    }
+
+    input:disabled {
+        @apply bg-surface0 cursor-not-allowed;
+    }
+
+    a.external::after {
+        content: "\f08e";
+        font: normal normal normal 14px/1 FontAwesome;
+    }
+}
+
+.table-of-contents {
+    @apply list-none space-y-1 mb-6 bg-mantle shadow shadow-crust p-6;
+}
+
+.table-of-contents li {
+    @apply text-text;
+}
+
+.table-of-contents li:first-of-type::before {
+    content: 'Contents';
+    @apply font-semibold uppercase block text-sm mb-2;
+}
+
+.table-of-contents li a::before {
+    content: '# ';
+    @apply text-subtext0 text-lg;
+}
+
+.prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply text-text no-underline hover:underline;
+    @apply transition duration-150 ease-in;
+}
+
+.heading-permalink {
+    @apply text-text no-underline mr-2;
+}
+
+time {
+    @apply font-bold underline cursor-pointer hover:text-blue transition duration-150 ease-in;
+}
+
+.vmd-box {
+    @apply !h-[30rem];
+}
+
+.vmd-toolbar {
+    @apply !pt-1.5 !px-3 !pb-px !bg-base !border !border-surface2 !border-b-0 !flex !items-center;
+    @apply !text-base;
+}
+
+.vmd-tooltip {
+    @apply !rounded-none !text-text !bg-base !border-crust shadow-sm shadow-crust;
+}
+
+.vmd-dropdown-item {
+    @apply hover:!bg-overlay2 hover:!text-mantle;
+}
+
+.vmd-toolbar-icon {
+    @apply hover:!bg-surface2 !text-base;
+}
+
+.vmd-svg-icon {
+    @apply !text-text;
+}
+
+.vmd-body {
+    @apply !bg-base !text-text !border !border-surface2;
+
+    & textarea {
+        @apply !bg-crust;
+    }
+}
