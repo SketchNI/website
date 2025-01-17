@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeamController;
@@ -11,18 +10,15 @@ Route::get('/', IndexController::class)->name('home');
 
 Route::get('/teams', TeamController::class)->name('teams');
 
-Route::post('/set-theme', function() {
+Route::post('/set-theme', function () {
     session()->put('theme', request('theme'));
+
     return redirect()->back();
 })->name('set-theme');
 
 Route::prefix('blog')->name('blog.')->group(static function () {
     Route::get('/', [BlogController::class, 'index'])->name('index');
     Route::get('/{post:slug}', [BlogController::class, 'show'])->name('show');
-});
-
-Route::prefix('category')->name('category.')->group(static function () {
-    Route::get('/{category:slug}', [CategoryController::class, 'show'])->name('show');
 });
 
 Route::middleware('auth')->group(function () {

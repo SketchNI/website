@@ -65,11 +65,11 @@ const open = ref(false);
             leave-from-class="opacity-100 scale-100"
             leave-to-class="opacity-0 scale-95"
         >
-            <div v-show="open" class="absolute z-50 shadow-md"
-                :class="[widthClass, alignmentClasses]" style="display: none" @click="open = false">
+            <div v-show="open" :class="[widthClass, alignmentClasses]"
+                 class="absolute z-50 shadow-md" style="display: none" @click="open = false">
                 <div
-                    class="border-l border-mantle"
-                    :class="contentClasses">
+                    :class="contentClasses"
+                    class="border-l border-mantle">
                     <slot name="content" />
                 </div>
             </div>

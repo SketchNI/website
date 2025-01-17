@@ -10,7 +10,7 @@ class IndexController extends Controller
 {
     public function __invoke(): Response
     {
-        if (! auth()->user()->hasAnyRole(['admin', 'moderator'])) {
+        if (!auth()->user()->hasAnyRole(['admin', 'moderator'])) {
             app()->abort(HttpResponse::HTTP_FORBIDDEN);
         }
 

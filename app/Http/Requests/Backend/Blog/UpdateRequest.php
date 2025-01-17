@@ -25,6 +25,7 @@ class UpdateRequest extends FormRequest
     {
         if (request()->user()->hasRole('admin')) {
             $role = Role::findByName('admin');
+
             return $role->hasPermissionTo('update blog entry', 'web');
         }
 

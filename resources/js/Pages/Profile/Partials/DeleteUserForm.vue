@@ -67,10 +67,11 @@ const closeModal = () => {
                 </p>
 
                 <div class="mt-6">
-                    <input-label for="password" value="Password" class="sr-only" />
+                    <input-label class="sr-only" for="password" value="Password" />
 
                     <text-input id="password" ref="passwordInput" v-model="form.password"
-                        type="password" class="mt-1 block w-3/4" placeholder="Password" @keyup.enter="deleteUser" />
+                                class="mt-1 block w-3/4" placeholder="Password" type="password"
+                                @keyup.enter="deleteUser" />
 
                     <input-error :message="form.errors.password" class="mt-2" />
                 </div>
@@ -80,8 +81,8 @@ const closeModal = () => {
                         Cancel
                     </secondary-button>
 
-                    <danger-button class="ms-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
-                                  @click="deleteUser">
+                    <danger-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing" class="ms-3"
+                                   @click="deleteUser">
                         Delete Account
                     </danger-button>
                 </div>

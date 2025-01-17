@@ -41,21 +41,21 @@ const app = useApp();
                         </div>
                     </template>
 
-                    <article class="article prose prose-blue" :class="[app.theme !== 'latte' ? 'prose-invert' : '']">
+                    <article :class="[app.theme !== 'latte' ? 'prose-invert' : '']" class="article prose prose-blue">
                         <div class="text-subtext0 inline-flex space-x-1 items-center">
                             <div>Published</div>
                             <time v-if="moment().diff(post.published_at, 'days') <= 7"
+                                  :class="[app.theme === 'latte' ? 'text-black' : 'text-white']"
                                   :datetime="post.published_at"
                                   :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')"
-                                  class="font-semibold"
-                                  :class="[app.theme === 'latte' ? 'text-black' : 'text-white']">
+                                  class="font-semibold">
                                 {{ moment(new Date()).from(post.published_at, true) }} ago
                             </time>
                             <time v-else
+                                  :class="[app.theme === 'latte' ? 'text-black' : 'text-white']"
                                   :datetime="post.published_at"
                                   :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')"
-                                  class="font-semibold"
-                                  :class="[app.theme === 'latte' ? 'text-black' : 'text-white']">
+                                  class="font-semibold">
                                 {{ moment(post.published_at).format('Do MMM YYYY [at] hh:mma') }}
                             </time>
                             <div>by</div>
@@ -69,13 +69,14 @@ const app = useApp();
                                 </span>
                             </div>
                         </div>
-                        <div v-if="post.created_at !== post.updated_at" class="inline-flex text-overlay2 mt-1 mb-3 text-sm">
+                        <div v-if="post.created_at !== post.updated_at"
+                             class="inline-flex text-overlay2 mt-1 mb-3 text-sm">
                             <span>(Last updated at </span>
                             <time
+                                :class="[app.theme === 'latte' ? 'text-black' : 'text-white', 'pl-1']"
                                 :datetime="post.updated_at"
                                 :title="moment(post.updated_at).format('Do MMM YYYY [at] hh:mma')"
-                                class="font-semibold"
-                                :class="[app.theme === 'latte' ? 'text-black' : 'text-white', 'pl-1']">
+                                class="font-semibold">
                                 {{ moment(post.updated_at).format('Do MMM YYYY [at] hh:mma') }}
                             </time>
                             <span>)</span>
@@ -100,7 +101,7 @@ const app = useApp();
     </app-layout>
 </template>
 
-<style scoped lang="postcss">
+<style lang="postcss" scoped>
 .category {
     @apply font-bold text-blue border-b-2 border-transparent cursor-pointer inline-flex items-center
     hover:bg-blue hover:text-base px-2 py-1.5

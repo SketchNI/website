@@ -33,13 +33,20 @@ class RolesAndPermissionsTableSeeder extends Seeder
             'update permission',
             'delete permission',
             // Blog
+            'view blog entries',
+            'view blog entry',
             'write blog entry',
             'update blog entry',
             'delete blog entry',
             'publish blog entry',
             'unpublish blog entry',
-            'force delete blog entry',
-            'undelete blog entry',
+            'restore blog entry',
+            // Team
+            'view team entries',
+            'view team entry',
+            'write team entry',
+            'update team entry',
+            'delete team entry',
         ];
 
         $moderator_permissions = [
@@ -54,7 +61,7 @@ class RolesAndPermissionsTableSeeder extends Seeder
         Role::create(['display_name' => 'Moderator', 'name' => 'mod']);
 
         foreach ($super_permissions as $permission) {
-            Permission::create(['name' => $permission, 'type' => 'super']);
+            Permission::create(['name' => $permission, 'type' => 'super-admin']);
         }
 
         foreach ($admin_permissions as $permission) {
@@ -79,6 +86,5 @@ class RolesAndPermissionsTableSeeder extends Seeder
         Role::whereName('mod')
             ->first()
             ->syncPermissions($mods);
-
     }
 }

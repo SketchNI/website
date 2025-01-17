@@ -6,14 +6,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', Backend\IndexController::class)->name('index');
 Route::get('/teams', Backend\IndexController::class)->name('teams');
 
-Route::prefix('blog')->name('blog.')->group(static function () {
-    Route::get('/', [Backend\BlogController::class, 'index'])->name('index');
-    Route::post('/', [Backend\BlogController::class, 'store']);
-    Route::get('/{post:id}/edit', [Backend\BlogController::class, 'show'])->name('show');
-    Route::get('/{id}/restore', [Backend\BlogController::class, 'restore'])->name('restore');
-    Route::put('/{post:id}/edit', [Backend\BlogController::class, 'update'])->name('update');
-    Route::delete('/{post:id}/delete', [Backend\BlogController::class, 'destroy'])->name('destroy');
-});
+Route::resource('blog', Backend\BlogController::class)->withTrashed()->except('show');
+Route::resource('teams', Backend\TeamController::class)->except('show');
 
 Route::prefix('users')->name('users.')->group(static function () {
     Route::get('/', Backend\IndexController::class)->name('index');
@@ -79,8 +73,6 @@ Route::prefix('misc')->name('misc.')->group(static function () {
         Route::get('/', Backend\IndexController::class)->name('index');
         Route::get('/show/{id}', Backend\IndexController::class)->name('show');
     });
-
-    Route::get('/logs', Backend\IndexController::class)->name('logs');
 
     Route::prefix('statistics')->name('statistics.')->group(static function () {
         Route::get('/', Backend\IndexController::class)->name('index');

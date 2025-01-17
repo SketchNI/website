@@ -1,25 +1,24 @@
 <script setup>
 import { ref } from 'vue';
 import {
+    BanknotesIcon,
+    DocumentTextIcon,
     HomeModernIcon,
+    LifebuoyIcon,
     ListBulletIcon,
     UsersIcon,
-    DocumentTextIcon,
-    LifebuoyIcon,
-    BanknotesIcon,
 } from "@heroicons/vue/24/outline";
 import {
-    UsersIcon as SolidUsersIcon,
-    PhotoIcon,
     BeakerIcon,
-    PlayCircleIcon,
-    CpuChipIcon,
     BugAntIcon,
-    QueueListIcon,
-    NumberedListIcon,
     ChartPieIcon,
+    CpuChipIcon,
     FlagIcon,
-    SquaresPlusIcon
+    NumberedListIcon,
+    PhotoIcon,
+    PlayCircleIcon,
+    SquaresPlusIcon,
+    UsersIcon as SolidUsersIcon
 } from '@heroicons/vue/20/solid';
 import useUser from "@/Composables/useUser.js";
 import useRole from "@/Composables/useRole.js";
@@ -40,7 +39,7 @@ const menu = [
             { name: "Home", route: 'backend.index', icon: HomeModernIcon, role: 'mod' },
             { name: "Blog", route: 'backend.blog.index', icon: ListBulletIcon, role: 'mod' },
             { name: "Users", route: 'backend.users.index', icon: SolidUsersIcon, role: 'mod' },
-            { name: "Teams", route: 'backend.teams', icon: UsersIcon, role: 'mod' },
+            { name: "Teams", route: 'backend.teams.index', icon: UsersIcon, role: 'mod' },
             { name: "Pages", route: 'backend.pages.index', icon: DocumentTextIcon, role: 'mod' },
             { name: "Support", route: 'backend.support.index', icon: LifebuoyIcon, role: 'mod' },
             { name: "Images", route: 'backend.images.index', icon: PhotoIcon, color: 'red', role: 'super-admin' },
@@ -62,7 +61,6 @@ const menu = [
     },
     {
         name: "Misc", links: [
-            { name: "Logs", route: 'backend.misc.logs', icon: QueueListIcon, role: 'admin' },
             { name: "Audit Logs", route: 'backend.misc.audit-log.index', icon: NumberedListIcon, role: 'admin' },
             { name: "Statistics", route: 'backend.misc.statistics.index', icon: ChartPieIcon, role: 'admin' },
             { name: "Reports", route: 'backend.misc.reports.index', icon: FlagIcon, role: 'admin' },
@@ -85,9 +83,9 @@ const menu = [
                     </x-link>
                 </div>
                 <nav class="flex flex-1 flex-col">
-                    <ul role="list" class="flex flex-1 flex-col gap-y-7 font-sans">
+                    <ul class="flex flex-1 flex-col gap-y-7 font-sans" role="list">
                         <li>
-                            <ul role="list" class="space-y-1 overflow-y-auto min-h-full">
+                            <ul class="space-y-1 overflow-y-auto min-h-full" role="list">
                                 <li v-for="(cat, i) in menu" :key="i">
                                     <ul>
                                         <li class="px-6 py-1 tracking-widest text-subtext0 font-bold text-xs/6 uppercase">
@@ -95,10 +93,11 @@ const menu = [
                                         </li>
 
                                         <li v-for="(item, i) in cat.links" :key="i">
-                                            <admin-link :href="route(item.route)" :icon="item.icon"
-                                                        :color="item.color ?? 'blue'"
+                                            <admin-link v-if="role.includes(item.role)"
                                                         :active="route().current() === item.route"
-                                                        v-if="role.includes(item.role)">
+                                                        :color="item.color ?? 'blue'"
+                                                        :href="route(item.route)"
+                                                        :icon="item.icon">
                                                 {{ item.name }}
                                             </admin-link>
                                         </li>

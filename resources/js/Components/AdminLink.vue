@@ -7,7 +7,7 @@ const props = defineProps({
     active: {
         type: Boolean,
     },
-    icon: String|Function,
+    icon: String | Function,
     color: {
         type: String,
         default: 'blue'
@@ -21,9 +21,12 @@ const active_colors = props.color === 'red' ? 'border-red text-text bg-red/20' :
 
 <template>
     <li>
-        <x-link :href="href" :class="['group text-sm flex space-x-1 px-4 py-2 border-0 border-l-4 link transition duration-150 ease-in', colors, active ? active_colors : '']">
+        <x-link :class="['group text-sm flex space-x-1 px-4 py-2 border-0 border-l-4 link transition duration-150 ease-in', colors, active ? active_colors : '']"
+                :href="href">
             <component :is="icon" class="shrink-0 size-4" />
-            <span><slot /></span>
+            <span>
+                <slot />
+            </span>
         </x-link>
     </li>
 </template>

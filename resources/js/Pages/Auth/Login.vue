@@ -34,48 +34,53 @@ const submit = () => {
 
     <app-layout>
         <div class="max-w-96 mx-auto">
-
-        <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
-            {{ status }}
-        </div>
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email"
-                    autofocus autocomplete="username" />
-
-                <InputError class="mt-2" :message="form.errors.email" />
+            <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
+                {{ status }}
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+            <form @submit.prevent="submit">
+                <div>
+                    <InputLabel for="email" value="Email" />
 
-                <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password"
-                           autocomplete="current-password" />
+                    <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email"
+                               autofocus autocomplete="username" />
 
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
+                    <InputError class="mt-2" :message="form.errors.email" />
+                </div>
 
-            <div class="mt-4 block">
-                <label class="flex items-center">
-                    <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ms-2 text-sm text-subtext1">Remember me</span>
-                </label>
-            </div>
+                <div class="mt-4">
+                    <InputLabel for="password" value="Password" />
 
-            <div class="mt-4 flex items-center justify-between">
-                <x-link v-if="canResetPassword" :href="route('password.request')"
-                    class="link text-sm">
-                    Forgot your password?
-                </x-link>
+                    <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password"
+                               autocomplete="current-password" />
 
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </PrimaryButton>
-            </div>
-        </form>
+                    <InputError class="mt-2" :message="form.errors.password" />
+                </div>
+
+                <div class="mt-4 block">
+                    <label class="flex items-center">
+                        <Checkbox name="remember" v-model:checked="form.remember" />
+                        <span class="ms-2 text-sm text-subtext1">Remember me</span>
+                    </label>
+                </div>
+
+                <div class="mt-4 flex items-center justify-between">
+                    <div class="space-y-4 flex flex-col">
+                        <x-link v-if="canResetPassword" :href="route('password.request')"
+                                class="link text-sm">
+                            Forgot your password?
+                        </x-link>
+
+                        <x-link :href="route('register')" class="link text-sm">
+                            Register
+                        </x-link>
+                    </div>
+
+                    <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                        Log in
+                    </PrimaryButton>
+                </div>
+            </form>
         </div>
     </app-layout>
 </template>

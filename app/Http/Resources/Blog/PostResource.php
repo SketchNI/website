@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Blog;
 
-use App\Http\Resources\CategoryResource;
 use App\Http\Resources\UserResource;
 use App\Models\Blog\Post;
 use Illuminate\Http\Request;
@@ -19,7 +18,8 @@ use League\CommonMark\Extension\SmartPunct\SmartPunctExtension;
 use League\CommonMark\Extension\TableOfContents\TableOfContentsExtension;
 use League\CommonMark\MarkdownConverter;
 
-/** @mixin Post */ class PostResource extends JsonResource
+/** @mixin Post */
+class PostResource extends JsonResource
 {
     /**
      * @throws CommonMarkException
@@ -31,7 +31,6 @@ use League\CommonMark\MarkdownConverter;
             'author' => new UserResource($this->user)->resolve(),
             'title' => $this->title,
             'slug' => $this->slug,
-            'categories' => CategoryResource::collection($this->categories)->resolve(),
             'excerpt' => $this->excerpt,
             'content' => $this->markdownify($this->content),
             'published_at' => $this->published_at?->toIso8601String(),

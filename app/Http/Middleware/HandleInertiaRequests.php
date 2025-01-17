@@ -35,9 +35,9 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
                 'roles' => $request->user()?->getRoleNames(),
-                'permissions' => PermissionViaRoleResource::collection(
+                'permissions' => auth()->check() ? PermissionViaRoleResource::collection(
                     $request->user()?->getPermissionsViaRoles()
-                )->resolve(),
+                )->resolve() : null,
             ],
             'app' => [
                 'env' => config('app.env'),

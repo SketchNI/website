@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\Blog\PostResource;
-use App\Http\Resources\CategoryResource;
 use App\Models\Blog\Post;
-use App\Models\Blog\Category;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -13,24 +11,17 @@ class BlogController
 {
     public function index(): Response
     {
-        $posts = PostResource::collection(
-            Post::with(['user', 'categories'])->orderByDesc('created_at')->paginate(6)
-        );
-
-        $categories = CategoryResource::collection(Category::all())->resolve();
-
-        return inertia('Blog/Index', compact('posts', 'categories'));
+        return inertia('Blog/Index', [
+            'posts' => Inertia::defer(fn () => PostResource::collection(
+                Post::with('user')->orderByDesc('created_at')->paginate(6)
+            )),
+        ]);
     }
 
     public function show(Post $post): Response
     {
-        $categories = CategoryResource::collection(Category::all())->resolve();
-
-        $post = new PostResource($post)->resolve();
-
         return inertia('Blog/Show', [
-            'post' => Inertia::defer(fn () => $post),
-            'categories' => $categories,
+            'post' => Inertia::defer(fn () => new PostResource($post)->resolve()),
         ]);
     }
 }

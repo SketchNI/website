@@ -26,10 +26,24 @@ export default {
             'secondary-dark': '#c25472',
             'accent-dark': '#5ead57',
             black: '#11111b',
-            white: '#cdd6f4',
+            white: '#f0eded',
             inherit: 'inherit',
             current: 'currentColor',
             transparent: 'transparent',
+            red: {
+                DEFAULT: '#F38BA8',
+                50: '#FDE7ED',
+                100: '#FBD5DF',
+                200: '#F7B0C4',
+                300: '#F38BA8',
+                400: '#EE5882',
+                500: '#E8255C',
+                600: '#C21444',
+                700: '#8F0F32',
+                800: '#5C0A21',
+                900: '#29040F',
+                950: '#100206'
+            }
         },
         fontSize: {
             xs: ['0.75rem', { lineHeight: '1rem' }],

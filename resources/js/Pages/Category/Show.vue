@@ -26,15 +26,17 @@ const log = (date) => {
             </div>
 
             <div>
-                <x-link :href="route('blog.index')" class="text-red px-2 py-2 hover:bg-red hover:text-black">Clear filter</x-link>
+                <x-link :href="route('blog.index')" class="text-red px-2 py-2 hover:bg-red hover:text-black">Clear
+                    filter
+                </x-link>
             </div>
         </div>
 
         <div class="flex gap-6">
             <div class="space-y-4 w-4/6 ">
-                <x-link :href="route('blog.show', { slug: post.slug })"
-                        class="block bg-surface0 p-4 shadow shadow-crust hover:bg-mantle group transition duration-150 ease-in"
-                     v-for="post in posts.data" :key="post.id">
+                <x-link v-for="post in posts.data"
+                        :key="post.id"
+                        :href="route('blog.show', { slug: post.slug })" class="block bg-surface0 p-4 shadow shadow-crust hover:bg-mantle group transition duration-150 ease-in">
                     <article class="space-y-2">
                         <h1 class="font-semibold text-blue text-xl group-hover:underline">{{ post.title }}</h1>
                         <p class="text-subtext0">

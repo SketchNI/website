@@ -19,8 +19,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Sketch',
             'email' => 'test@example.com',
-        ])->syncRoles(Role::all()->toArray());
-
+        ])->syncRoles(Role::all(['name'])->toArray());
         // User::factory(10)->create();
     }
 }

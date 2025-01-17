@@ -43,10 +43,6 @@ const props = defineProps({
 const app = useApp();
 const page = usePage();
 
-if (usePage().props.app.flash !== null) {
-    alert(usePage().props.app.flash.message);
-}
-
 const updatePost = () => {
     form.put(route('backend.blog.update', { id: props.post.id }));
 };
@@ -60,10 +56,6 @@ const form = useForm({
     created_at: props.post.created_at,
     published: !!props.post.published_at,
     categories: [],
-});
-
-props.post.categories.forEach(cat => {
-    form.categories.push(cat.slug);
 });
 
 const handleUpload = (event) => {
@@ -98,11 +90,11 @@ const deletePost = () => {
         </div>
 
         <div class="flex items-center justify-between mb-6">
-            <nav class="flex" aria-label="Breadcrumb">
-                <ol role="list" class="flex space-x-4 bg-surface0 px-6 shadow-md shadow-crust">
+            <nav aria-label="Breadcrumb" class="flex">
+                <ol class="flex space-x-4 bg-surface0 px-6 shadow-md shadow-crust" role="list">
                     <li class="flex">
                         <div class="flex items-center">
-                            <x-link href="{{ route('backend.index') }}" class="text-text hover:text-subtext0">
+                            <x-link class="text-text hover:text-subtext0" href="{{ route('backend.index') }}">
                                 <home-modern-icon class="size-5" />
                                 <span class="sr-only">Home</span>
                             </x-link>
@@ -110,9 +102,9 @@ const deletePost = () => {
                     </li>
                     <li class="flex">
                         <div class="flex items-center">
-                            <svg class="h-full w-6 shrink-0 text-overlay0" viewBox="0 0 24 44"
-                                 preserveAspectRatio="none"
-                                 fill="currentColor" aria-hidden="true">
+                            <svg aria-hidden="true" class="h-full w-6 shrink-0 text-overlay0"
+                                 fill="currentColor"
+                                 preserveAspectRatio="none" viewBox="0 0 24 44">
                                 <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
                             </svg>
                             <x-link :href="route('backend.blog.index')"
@@ -123,9 +115,9 @@ const deletePost = () => {
                     </li>
                     <li class="flex">
                         <div class="flex items-center">
-                            <svg class="h-full w-6 shrink-0 text-overlay0" viewBox="0 0 24 44"
-                                 preserveAspectRatio="none"
-                                 fill="currentColor" aria-hidden="true">
+                            <svg aria-hidden="true" class="h-full w-6 shrink-0 text-overlay0"
+                                 fill="currentColor"
+                                 preserveAspectRatio="none" viewBox="0 0 24 44">
                                 <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
                             </svg>
                             <x-link :href="route('backend.blog.index')"
@@ -139,7 +131,7 @@ const deletePost = () => {
         </div>
 
         <div class="">
-            <form @submit.prevent="updatePost" class="flex items-start space-x-6">
+            <form class="flex items-start space-x-6" @submit.prevent="updatePost">
                 <div class="w-4/5 bg-mantle shadow shadow-crust px-6 py-4 space-y-4">
                     <div v-if="page.props.app.hasOwnProperty('flash') && page.props.app.flash !== null" class="my-4">
                         <div v-if="page.props.app.flash.type === 'success'"
@@ -154,13 +146,13 @@ const deletePost = () => {
 
                     <div>
                         <input-label for="title" value="Title" />
-                        <text-input type="text" class="mt-1 block w-full" v-model="form.title" id="title" />
-                        <input-error class="mt-2" :message="form.errors.title" />
+                        <text-input id="title" v-model="form.title" class="mt-1 block w-full" type="text" />
+                        <input-error :message="form.errors.title" class="mt-2" />
                     </div>
 
                     <div>
                         <input-label for="excerpt" value="Summary" />
-                        <text-area-input class="mt-1 block w-full" v-model="form.excerpt" id="excerpt" />
+                        <text-area-input id="excerpt" v-model="form.excerpt" class="mt-1 block w-full" />
                         <input-error :message="form.errors.excerpt" class="mt-2 text-red" />
                     </div>
 
@@ -169,9 +161,9 @@ const deletePost = () => {
 
                         <v-markdown-editor
                             v-model="form.content"
-                            locale="en"
-                            class="mt-2"
                             :upload-action="handleUpload"
+                            class="mt-2"
+                            locale="en"
                         />
 
                         <input-error :message="form.errors.content" class="text-red mt-2" />
@@ -184,7 +176,7 @@ const deletePost = () => {
                         <ul class="space-y-2 mt-2">
                             <li v-for="(cat, i) in categories" :key="i">
                                 <label :for="cat.slug" class="flex items-center">
-                                    <Checkbox :name="cat.slug" :id="cat.slug" v-model:checked="form.categories"
+                                    <Checkbox :id="cat.slug" v-model:checked="form.categories" :name="cat.slug"
                                               :value="cat.slug" />
                                     <span class="ms-2 text-subtext1">{{ cat.name }}</span>
                                 </label>
@@ -202,8 +194,8 @@ const deletePost = () => {
                             <SwitchGroup as="div" class="flex items-center">
                                 <Switch v-model="form.published"
                                         :class="[form.published ? 'bg-blue/60' : 'bg-surface1', 'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue focus:ring-offset-mantle focus:ring-offset-2']">
-                                    <span aria-hidden="true"
-                                          :class="[form.published ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block size-5 transform rounded-full bg-base shadow-lg ring-0 transition duration-200 ease-in-out']" />
+                                    <span :class="[form.published ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block size-5 transform rounded-full bg-base shadow-lg ring-0 transition duration-200 ease-in-out']"
+                                          aria-hidden="true" />
                                 </Switch>
                                 <SwitchLabel as="span" class="ml-3 text select-none">
                                     <span class="font-medium text-subtext2">Publish</span>
@@ -212,17 +204,17 @@ const deletePost = () => {
 
                             <p v-if="form.published_at !== null" class="mt-4 text-sm">
                                 <span class="text-subtext0">Published at </span>
-                                <time :datetime="post.published_at"
+                                <time :class="[app.theme === 'latte' ? 'text-black' : 'text-white']"
+                                      :datetime="post.published_at"
                                       :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')"
-                                      class="font-semibold no-underline"
-                                      :class="[app.theme === 'latte' ? 'text-black' : 'text-white']">
+                                      class="font-semibold no-underline">
                                     {{ moment(post.published_at).format('Do MMM YYYY [at] hh:mma') }}
                                 </time>
                             </p>
 
                             <divider class="my-6" />
 
-                            <danger-button type="button" class="space-x-1" @click="confirmPostDeletion">
+                            <danger-button class="space-x-1" type="button" @click="confirmPostDeletion">
                                 <trash-icon class="size-4 shrink-0" />
                                 <span>Delete Post</span>
                             </danger-button>
@@ -244,8 +236,9 @@ const deletePost = () => {
                                         </secondary-button>
 
                                         <danger-button
-                                            class="ms-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
-                                                       @click="deletePost">
+                                            :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
+                                            class="ms-3"
+                                            @click="deletePost">
                                             Delete Post
                                         </danger-button>
                                     </div>
@@ -255,10 +248,10 @@ const deletePost = () => {
                     </div>
 
                     <div class="bg-mantle shadow shadow-crust px-6 py-4">
-                        <primary-button type="submit" class="w-full text-xl text-center justify-center space-x-1"
-                                        :class="[form.processing ? 'bg-blue/60 cursor-not-allowed disabled:bg-blue/60 disabled:text-mantle' : '']"
-                                        :aria-disabled="form.processing"
-                                        :disabled="form.processing">
+                        <primary-button :aria-disabled="form.processing" :class="[form.processing ? 'bg-blue/60 cursor-not-allowed disabled:bg-blue/60 disabled:text-mantle' : '']"
+                                        :disabled="form.processing"
+                                        class="w-full text-xl text-center justify-center space-x-1"
+                                        type="submit">
                             <span v-if="!form.processing" class="space-x-1.5">
                                 <i class="fas fa-save size-5 shrink-0" />
                                 <span>Save Post</span>
