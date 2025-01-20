@@ -71,12 +71,13 @@
             "@php artisan migrate --graceful --ansi"
         ],
         "prod": [
-            "php8.4 artisan ziggy:generate",
-            "php8.4 artisan package:discover --ansi",
-            "php8.4 ~/.local/bin/composer update",
+            "@php artisan ziggy:generate",
+            "@php artisan package:discover --ansi",
+            "composer update",
             "pnpm install",
             "pnpm run build",
-            "php8.4 artisan optimize"
+            "@php artisan optimize",
+            "@php artisan route:clear"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
