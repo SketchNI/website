@@ -58,7 +58,7 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php8.4 artisan ziggy:generate"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
@@ -70,6 +70,13 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
+        ],
+        "prod": [
+            "@php8.4 artisan package:discover --ansi",
+            "@php8.4 ~/.local/bin/composer update",
+            "pnpm install",
+            "pnpm run build",
+            "@php8.4 artisan optimize"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
