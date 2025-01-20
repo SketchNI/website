@@ -51,7 +51,7 @@ class TeamController
             if (!is_null($team->logo)) {
                 Storage::disk('public')->delete($team->logo);
             }
-            $team->logo = '/'.$request->file('logo')->storePublicly('images', ['disk' => 'public']);
+            $team->logo = '/storage/'.$request->file('logo')->storePublicly('/images', ['disk' => 'public']);
         }
 
         if ($team->save()) {
@@ -132,7 +132,7 @@ class TeamController
             if (!is_null($team->logo)) {
                 Storage::disk('public')->delete($team->logo);
             }
-            $team->logo = '/'.$request->file('logo')->storePublicly('images', ['disk' => 'public']);
+            $team->logo = '/storage/'.$request->file('logo')->storePublicly('/images', ['disk' => 'public']);
         }
 
         if ($team->save()) {
