@@ -71,6 +71,7 @@
             "@php artisan migrate --graceful --ansi"
         ],
         "prod": [
+            "@php artisan clear-compiled",
             "@php artisan ziggy:generate",
             "@php artisan package:discover --ansi",
             "composer update",
