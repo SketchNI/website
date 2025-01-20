@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import {
     BanknotesIcon,
     DocumentTextIcon,
@@ -24,10 +24,24 @@ import useUser from "@/Composables/useUser.js";
 import useRole from "@/Composables/useRole.js";
 import AdminLink from "@/Components/AdminLink.vue";
 import Divider from "@/Components/divider.vue";
+import useApp from "@/Composables/useApp.js";
 
+const app = useApp();
 const user = useUser();
 const role = useRole();
 const showingNavigationDropdown = ref(false);
+
+if (!localStorage.getItem('theme')) {
+    localStorage.setItem('theme', app.theme);
+}
+
+const theme = reactive({ theme: localStorage.getItem('theme') });
+
+watch(() => theme.theme, () => {
+    window.axios.post(route('set-theme'), { theme: theme.theme }).then(() => {
+        localStorage.setItem('theme', theme.theme);
+    });
+});
 
 const log = (...data) => {
     console.log(data);
@@ -71,7 +85,7 @@ const menu = [
 </script>
 
 <template>
-    <div class="h-full">
+    <div :class="[theme.theme, 'bg-base h-full']">
         <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
             <!-- Sidebar component, swap this element with another sidebar if you like -->
             <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-crust bg-mantle">
@@ -122,5 +136,29 @@ const menu = [
             </div>
         </main>
 
+        <footer
+            :class="[app.url.includes('backend') ? 'lg:pl-[20rem] lg:pr-8' : 'max-w-6xl', 'my-6 pb-6 text-center md:flex text-subtext0 items-center justify-between mx-auto']">
+            <div class="inline-flex space-x-3 items-center">
+                <p class="text-sm">&copy; SketchNI {{ new Date().getFullYear() }}</p>
+
+                <div>
+                    <label for="theme" class="text-subtext0 pr-2">Theme</label>
+                    <select name="theme" v-model="theme.theme" id="theme"
+                            class="bg-crust text-text px-1 py-0.5 text-sm w-28 border border-overlay2">
+                        <option value="mocha">Mocha</option>
+                        <option value="macchiato">Macchiato</option>
+                        <option value="frappe">Frappe</option>
+                        <option value="latte">Latte</option>
+                    </select>
+                </div>
+            </div>
+            <p class="text-sm">
+                <span>Built with </span>
+                <a href="https://laravel.com" target="_blank" class="link">Laravel</a>,
+                <a href="https://inertiajs.com/" target="_blank" class="link">InertiaJS</a>,
+                <a href="https://vuejs.org" target="_blank" class="link">VueJS</a> and
+                <a href="https://tailwindcss.com" target="_blank" class="link">TailwindCSS</a>
+            </p>
+        </footer>
     </div>
 </template>

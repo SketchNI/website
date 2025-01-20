@@ -4,17 +4,14 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\ThemeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', IndexController::class)->name('home');
 
 Route::get('/teams', TeamController::class)->name('teams');
 
-Route::post('/set-theme', function () {
-    session()->put('theme', request('theme'));
-
-    return redirect()->back();
-})->name('set-theme');
+Route::post('/set-theme', ThemeController::class)->name('set-theme');
 
 Route::prefix('blog')->name('blog.')->group(static function () {
     Route::get('/', [BlogController::class, 'index'])->name('index');

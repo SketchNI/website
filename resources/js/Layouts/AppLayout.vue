@@ -1,20 +1,37 @@
 <script setup>
-import { ref } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/vue/16/solid';
+import { Bars3Icon, ChevronDownIcon, XMarkIcon } from '@heroicons/vue/16/solid';
 import useUser from "@/Composables/useUser.js";
 import useRole from "@/Composables/useRole.js";
+import useApp from "@/Composables/useApp.js";
+import mitt from 'mitt';
+
+const emitter = mitt();
 
 const user = useUser();
 const role = useRole();
+const app = useApp();
 const showingNavigationDropdown = ref(false);
+
+if (!localStorage.getItem('theme')) {
+    localStorage.setItem('theme', app.theme);
+}
+
+const theme = reactive({ theme: localStorage.getItem('theme') });
+
+watch(() => theme.theme, () => {
+    window.axios.post(route('set-theme'), { theme: theme.theme }).then(() => {
+        localStorage.setItem('theme', theme.theme);
+    });
+});
 </script>
 
 <template>
-    <div>
+    <div :class="[theme.theme, 'bg-base min-h-full']">
         <nav class="bg-mantle font-mono">
             <!-- Primary Navigation Menu -->
             <div class="max-w-6xl lg:mx-auto">
@@ -117,7 +134,7 @@ const showingNavigationDropdown = ref(false);
                 <!-- Responsive Settings Options -->
                 <div class="border-t border-gray-200 pb-1 pt-4" v-if="user !== null">
                     <div class="px-4">
-                        <div class="font-medium text-base text-text">
+                        <div class="font-medium text-[1rem] text-text">
                             {{ user.name }}
                         </div>
                         <div class="font-medium text-sm text-overlay0">
@@ -146,5 +163,30 @@ const showingNavigationDropdown = ref(false);
         <main>
             <slot />
         </main>
+
+        <footer
+            :class="[app.url.includes('backend') ? 'lg:pl-[20rem] lg:pr-8' : 'max-w-6xl', 'my-6 pb-6 text-center md:flex text-subtext0 items-center justify-between mx-auto']">
+            <div class="inline-flex space-x-3 items-center">
+                <p class="text-sm">&copy; SketchNI {{ new Date().getFullYear() }}</p>
+
+                <div>
+                    <label for="theme" class="text-subtext0 pr-2">Theme</label>
+                    <select name="theme" v-model="theme.theme" id="theme"
+                            class="bg-crust text-text px-1 py-0.5 text-sm w-28 border border-overlay2">
+                        <option value="mocha">Mocha</option>
+                        <option value="macchiato">Macchiato</option>
+                        <option value="frappe">Frappe</option>
+                        <option value="latte">Latte</option>
+                    </select>
+                </div>
+            </div>
+            <p class="text-sm">
+                <span>Built with </span>
+                <a href="https://laravel.com" target="_blank" class="link">Laravel</a>,
+                <a href="https://inertiajs.com/" target="_blank" class="link">InertiaJS</a>,
+                <a href="https://vuejs.org" target="_blank" class="link">VueJS</a> and
+                <a href="https://tailwindcss.com" target="_blank" class="link">TailwindCSS</a>
+            </p>
+        </footer>
     </div>
 </template>

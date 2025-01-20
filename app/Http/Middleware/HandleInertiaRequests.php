@@ -42,6 +42,7 @@ class HandleInertiaRequests extends Middleware
             'app' => [
                 'env' => config('app.env'),
                 'theme' => session('theme'),
+                'url' => request()->fullUrl(),
                 'flash' => fn () => $request->session()->get('flash'),
             ],
         ];

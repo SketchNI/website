@@ -7,6 +7,10 @@
 }
 
 @layer base {
+    #app {
+        @apply h-full;
+    }
+
     main:not(.admin-main) {
         @apply text-white max-w-6xl mx-auto py-6;
     }
