@@ -58,7 +58,6 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php8.4 artisan ziggy:generate"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
@@ -72,11 +71,12 @@
             "@php artisan migrate --graceful --ansi"
         ],
         "prod": [
-            "@php8.4 artisan package:discover --ansi",
-            "@php8.4 ~/.local/bin/composer update",
+            "php8.4 artisan ziggy:generate",
+            "php8.4 artisan package:discover --ansi",
+            "php8.4 ~/.local/bin/composer update",
             "pnpm install",
             "pnpm run build",
-            "@php8.4 artisan optimize"
+            "php8.4 artisan optimize"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
