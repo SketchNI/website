@@ -176,7 +176,6 @@ watch(() => theme.theme, () => {
                         <option value="mocha">Mocha</option>
                         <option value="macchiato">Macchiato</option>
                         <option value="frappe">Frappe</option>
-                        <option value="latte">Latte</option>
                     </select>
                 </div>
             </div>

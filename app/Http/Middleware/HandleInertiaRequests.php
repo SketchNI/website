@@ -35,9 +35,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
                 'roles' => $request->user()?->getRoleNames(),
-                'permissions' => auth()->check() ? PermissionViaRoleResource::collection(
-                    $request->user()?->getPermissionsViaRoles()
-                )->resolve() : null,
+                'permissions' => $this->getPermissions($request),
             ],
             'app' => [
                 'env' => config('app.env'),
@@ -46,5 +44,23 @@ class HandleInertiaRequests extends Middleware
                 'flash' => fn () => $request->session()->get('flash'),
             ],
         ];
+    }
+
+    private function getPermissions($request)
+    {
+        if (auth()->check()) {
+            $perm_name = sprintf('permissions.%s', auth()->id());
+            if (!cache()->has($perm_name)) {
+                $perms = PermissionViaRoleResource::collection(
+                    $request->user()?->getPermissionsViaRoles()
+                )->resolve();
+
+                cache()->put($perm_name, $perms, now()->addMinutes(10));
+            }
+
+            return cache($perm_name);
+        }
+
+        return null;
     }
 }

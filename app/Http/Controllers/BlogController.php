@@ -24,7 +24,7 @@ class BlogController
     public function show(Post $post): Response
     {
         return inertia('Blog/Show', [
-            'post' => Inertia::defer(fn () => new PostResource($post)->resolve()),
+            'post' => new PostResource($post)->resolve(),
             'categories' => CategoryResource::collection(Category::with('children')->whereNull('parent_id')->get())->resolve(),
         ]);
     }

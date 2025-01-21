@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Http\Requests\Backend\Blog\CreateRequest;
 use App\Http\Requests\Backend\Blog\UpdateRequest;
 use App\Http\Resources\Blog\PostResource;
 use App\Http\Resources\CategoryResource;
@@ -9,6 +10,7 @@ use App\Models\Blog\Category;
 use App\Models\Blog\Post;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -64,6 +66,40 @@ class BlogController
         return inertia('Backend/Blog/Create', [
             'categories' => $categories,
         ]);
+    }
+
+    public function store(CreateRequest $request): RedirectResponse
+    {
+        if (!auth()->user()->hasPermissionTo('write blog entry')) {
+            app()->abort(HttpResponse::HTTP_FORBIDDEN);
+        }
+
+        if ($request->get('published') && !auth()->user()->hasPermissionTo('publish blog entry')) {
+            app()->abort(HttpResponse::HTTP_FORBIDDEN);
+        }
+
+        $post = new Post;
+
+        $post->user_id = auth()->id();
+        $post->title = $request->get('title');
+        $post->slug = Str::slug($request->get('title'));
+        $post->excerpt = $request->get('excerpt');
+        $post->content = $request->get('content');
+        if ($post->published_at === null) {
+            $post->published_at = $request->get('published') ? now() : null;
+        }
+
+        if ($post->save()) {
+            foreach($request->get('categories') as $category) {
+                DB::table('post_has_categories')
+                    ->insert(['post_id' => $post->fresh()->id, 'cat_id' => $category]);
+            }
+            session()->flash('flash', ['message' => 'Blog post updated successfully.', 'type' => 'success']);
+        } else {
+            session()->flash('flash', ['message' => 'Blog post not updated.', 'type' => 'error']);
+        }
+
+        return redirect()->route('backend.blog.edit', $post);
     }
 
     public function edit(int $id): Response

@@ -115,7 +115,7 @@ const showViewCategoryModal = () => {
 
                         <x-link :href="route('backend.blog.index', { filter: 'deleted' })" class="filter-link">
                             <span>Deleted</span>
-                            <span>(<span class="text-red">{{ counts.unpublished }}</span>)</span>
+                            <span>(<span class="text-red">{{ counts.deleted }}</span>)</span>
                         </x-link>
                     </div>
                     <template #fallback></template>
@@ -190,10 +190,13 @@ const showViewCategoryModal = () => {
                                             <p class="text-text" v-text="post.title" />
                                             <p class="text-subtext0 font-normal" v-text="post.author.name" />
                                         </td>
-                                        <td class="whitespace-nowrap px-3 py-4 text-sm inline-flex items-center space-x-2">
-                                            <p :class="post.published_at === null ? 'bg-red' : 'bg-green'"
-                                               class="p-1.5 rounded-full " />
-                                            <p v-text="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')" />
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm space-x-2">
+                                            <div class=" inline-flex items-center space-x-2">
+                                                <span :class="post.published_at === null ? 'bg-red' : 'bg-green'"
+                                                      class="size-2.5 rounded-full inline-block" />
+                                                <span
+                                                    v-text="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')" />
+                                            </div>
                                         </td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm"
                                             v-text="moment(post.created_at).format('Do MMM YYYY [at] hh:mma')" />

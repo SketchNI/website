@@ -14,7 +14,7 @@ Route::get('/teams', TeamController::class)->name('teams');
 
 Route::post('/set-theme', ThemeController::class)->name('set-theme');
 
-Route::prefix('blog')->name('blog.')->group(static function () {
+Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('index');
     Route::get('/{post:slug}', [BlogController::class, 'show'])->name('show');
 });

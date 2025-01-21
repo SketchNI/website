@@ -28,10 +28,8 @@ Route::prefix('support')->name('support.')->group(static function () {
     Route::get('/show/{id}', Backend\IndexController::class)->name('show');
 });
 
-Route::prefix('images')->name('images.')->group(static function () {
-    Route::get('/', Backend\IndexController::class)->name('index');
-    Route::get('/show/{id}', Backend\IndexController::class)->name('show');
-});
+Route::resource('images', Backend\ImageController::class)
+    ->except(['edit', 'create']);
 
 Route::prefix('finance')->name('finance.')->group(static function () {
     Route::prefix('invoices')->name('invoices.')->group(static function () {

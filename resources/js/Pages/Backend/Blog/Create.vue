@@ -9,8 +9,8 @@ import TextAreaInput from "@/Components/TextAreaInput.vue";
 import Checkbox from "@/Components/Checkbox.vue";
 import { SwitchGroup, Switch, SwitchLabel } from "@headlessui/vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import { VMarkdownEditor } from 'vue3-markdown';
-import 'vue3-markdown/dist/style.css';
+import { MdEditor } from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
 
 const props = defineProps({
     categories: Object,
@@ -19,7 +19,7 @@ const props = defineProps({
 const page = usePage();
 
 const createPost = () => {
-    form.put(route('backend.blog.store'));
+    form.post(route('backend.blog.store'));
 };
 
 const form = useForm({
@@ -31,21 +31,41 @@ const form = useForm({
     categories: [],
 });
 
-/*props.categories.forEach(cat => {
-    form.categories.push(cat.slug);
-});*/
-
 const toggleSelection = (id) => {
-    if (form.categories.includes(id)) {
-        form.categories = form.categories.filter(ids => ids !== id);
-        return;
+    if (!checkAndRemoveSelection(id)) {
+        form.categories.push(id);
     }
-
-    form.categories.push(id);
 }
 
-const handleUpload = (event) => {
-    console.log(event)
+const checkAndRemoveSelection = (id) => {
+    if (form.categories.includes(id)) {
+        form.categories = form.categories.filter(ids => ids !== id);
+
+        return true;
+    }
+
+    return false;
+}
+
+const handleUpload = async (files, func) => {
+    const res = await Promise.all(files.map(file => {
+        return new Promise((rev, rej) => {
+            const form = new FormData();
+            form.append('image', file);
+            window.axios
+                .post(route('backend.images.store'), form, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                })
+                .then(response => rev(response))
+                .catch(err => rej(err))
+        })
+    }));
+
+    func(res.map(img => ({
+        url: img.data.image,
+        alt: img.data.alt_text,
+        title: img.data.caption,
+    })));
 }
 </script>
 
@@ -130,11 +150,18 @@ const handleUpload = (event) => {
                         <div>
                             <input-label for="content" value="Post Content" />
 
-                            <v-markdown-editor
+                            <md-editor
                                 v-model="form.content"
-                                locale="en"
+                                language="en-US"
+                                :show-code-row-number="true"
+                                preview-theme="github"
+                                :noKatex="true"
+                                :noMermaid="true"
+                                code-theme="ally"
+                                :show-toolbar-name="false"
+                                theme="dark"
                                 class="mt-2"
-                                :upload-action="handleUpload"
+                                :on-upload-img="handleUpload"
                             />
 
                             <input-error :message="form.errors.content" class="text-red mt-2" />

@@ -9,7 +9,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'theme' => ['required', 'in:latte,frappe,macchiato,mocha'],
+            'theme' => ['required', 'in:frappe,macchiato,mocha'],
         ];
     }
 

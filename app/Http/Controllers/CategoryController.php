@@ -15,7 +15,7 @@ class CategoryController extends Controller
 
         $posts = PostResource::collection($posts);
 
-        $categories = CategoryResource::collection(Category::all())->resolve();
+        $categories = CategoryResource::collection(Category::with('children')->whereNull('parent_id')->get())->resolve();
 
         $current = $category->name;
 

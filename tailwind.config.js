@@ -30,6 +30,20 @@ export default {
             inherit: 'inherit',
             current: 'currentColor',
             transparent: 'transparent',
+            blue: {
+                DEFAULT: '#89B4FA',
+                50: '#EBF2FE',
+                100: '#D7E6FD',
+                200: '#B0CDFC',
+                300: '#89B4FA',
+                400: '#5392F8',
+                500: '#1D70F5',
+                600: '#0955D2',
+                700: '#073F9C',
+                800: '#042A66',
+                900: '#021430',
+                950: '#010915'
+            },
             red: {
                 DEFAULT: '#F38BA8',
                 50: '#FDE7ED',
@@ -61,9 +75,8 @@ export default {
             '9xl': ['8rem', { lineHeight: '1' }],
         },
         extend: {
-            fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
-                mono: ['Red Hat Mono', ...defaultTheme.fontFamily.mono],
+            textSize: {
+                md: defaultTheme.fontSize.base,
             },
             boxShadow: {
                 sm: '.2rem .2rem 0 0',

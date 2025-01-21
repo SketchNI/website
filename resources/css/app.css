@@ -80,50 +80,24 @@
     @apply text-subtext0 text-lg;
 }
 
-.prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-    @apply text-text no-underline hover:underline;
-    @apply transition duration-150 ease-in;
-}
-
 .heading-permalink {
     @apply text-text no-underline mr-2;
 }
 
+.prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply !p-0 !m-0;
+}
+
 time {
-    @apply font-bold underline cursor-pointer hover:text-blue transition duration-150 ease-in;
+    @apply font-bold cursor-pointer hover:text-blue transition duration-150 ease-in;
 }
 
-.vmd-box {
-    @apply !h-[30rem];
+.md-editor-toolbar-item-name {
+    @apply !text-xs !capitalize;
 }
 
-.vmd-toolbar {
-    @apply !pt-1.5 !px-3 !pb-px !bg-base !border !border-surface2 !border-b-0 !flex !items-center;
-    @apply !text-base;
-}
-
-.vmd-tooltip {
-    @apply !rounded-none !text-text !bg-base !border-crust shadow-sm shadow-crust;
-}
-
-.vmd-dropdown-item {
-    @apply hover:!bg-overlay2 hover:!text-mantle;
-}
-
-.vmd-toolbar-icon {
-    @apply hover:!bg-surface2 !text-base;
-}
-
-.vmd-svg-icon {
-    @apply !text-text;
-}
-
-.vmd-body {
-    @apply !bg-base !text-text !border !border-surface2;
-
-    & textarea {
-        @apply !bg-crust;
-    }
+.md-editor-icon {
+    @apply !size-6 p-0 m-0;
 }
 
 .loading::after {
