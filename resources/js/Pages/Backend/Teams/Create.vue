@@ -8,9 +8,8 @@ import InputError from "@/Components/InputError.vue";
 import { PhotoIcon } from "@heroicons/vue/16/solid";
 import TextAreaInput from "@/Components/TextAreaInput.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import 'vue3-markdown/dist/style.css';
 import { ref } from "vue";
-import TextInputPrefix from "@/Pages/Backend/Teams/TextInputPrefix.vue";
+import TextInputPrefix from "@/Components/TextInputPrefix.vue";
 
 const page = usePage();
 const logoPreview = ref(null);

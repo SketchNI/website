@@ -9,11 +9,10 @@ import { ArrowTurnUpLeftIcon, PhotoIcon, TrashIcon } from "@heroicons/vue/16/sol
 import TextAreaInput from "@/Components/TextAreaInput.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import DangerButton from "@/Components/DangerButton.vue";
-import 'vue3-markdown/dist/style.css';
 import Modal from "@/Components/Modal.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import { ref } from "vue";
-import TextInputPrefix from "@/Pages/Backend/Teams/TextInputPrefix.vue";
+import TextInputPrefix from "@/Components/TextInputPrefix.vue";
 
 const props = defineProps({
   team: {
