@@ -14,11 +14,11 @@ import useApp from "@/Composables/useApp.js";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Divider from "@/Components/divider.vue";
 import DangerButton from "@/Components/DangerButton.vue";
-import { VMarkdownEditor } from 'vue3-markdown';
 import 'vue3-markdown/dist/style.css';
 import Modal from "@/Components/Modal.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import { ref } from "vue";
+import { MdEditor } from "md-editor-v3";
 
 const props = defineProps({
     post: {
@@ -159,12 +159,19 @@ const deletePost = () => {
                     <div>
                         <input-label for="content" value="Post Content" />
 
-                        <v-markdown-editor
-                            v-model="form.content"
-                            :upload-action="handleUpload"
-                            class="mt-2"
-                            locale="en"
-                        />
+                        <md-editor
+                                v-model="form.content"
+                                language="en-US"
+                                :show-code-row-number="true"
+                                preview-theme="github"
+                                :noKatex="true"
+                                :noMermaid="true"
+                                code-theme="ally"
+                                :show-toolbar-name="false"
+                                theme="dark"
+                                class="mt-2"
+                                :on-upload-img="handleUpload"
+                            />
 
                         <input-error :message="form.errors.content" class="text-red mt-2" />
                     </div>
