@@ -173,9 +173,9 @@ watch(() => theme.theme, () => {
                     <label for="theme" class="text-subtext0 pr-2">Theme</label>
                     <select name="theme" v-model="theme.theme" id="theme"
                             class="bg-crust text-text px-1 py-0.5 text-sm w-28 border border-overlay2">
-                        <option value="mocha">Mocha</option>
-                        <option value="macchiato">Macchiato</option>
-                        <option value="frappe">Frappe</option>
+                        <option value="mocha" :selected="theme.theme === 'mocha'">Mocha</option>
+                        <option value="macchiato" :selected="theme.theme === 'macchiato'">Macchiato</option>
+                        <option value="frappe" :selected="theme.theme === 'frappe'">Frappe</option>
                     </select>
                 </div>
             </div>
