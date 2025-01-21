@@ -15,7 +15,7 @@ class BlogController
     {
         return inertia('Blog/Index', [
             'posts' => Inertia::defer(fn () => PostResource::collection(
-                Post::with('user')->orderByDesc('created_at')->paginate(6)
+                Post::normal()->paginate(6)
             )),
             'categories' => CategoryResource::collection(Category::with('children')->whereNull('parent_id')->get())->resolve(),
         ]);
@@ -23,6 +23,7 @@ class BlogController
 
     public function show(Post $post): Response
     {
+        $post = Post::normal()->findOrFail($post->id);
         return inertia('Blog/Show', [
             'post' => new PostResource($post)->resolve(),
             'categories' => CategoryResource::collection(Category::with('children')->whereNull('parent_id')->get())->resolve(),
