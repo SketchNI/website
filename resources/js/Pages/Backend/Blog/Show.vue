@@ -14,11 +14,11 @@ import useApp from "@/Composables/useApp.js";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Divider from "@/Components/divider.vue";
 import DangerButton from "@/Components/DangerButton.vue";
-import 'vue3-markdown/dist/style.css';
 import Modal from "@/Components/Modal.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import { ref } from "vue";
 import { MdEditor } from "md-editor-v3";
+import 'md-editor-v3/lib/style.css';
 
 const props = defineProps({
     post: {
