@@ -8,13 +8,13 @@ use App\Http\Resources\Blog\PostResource;
 use App\Http\Resources\CategoryResource;
 use App\Models\Blog\Category;
 use App\Models\Blog\Post;
+use App\Models\Blog\PostHasCategory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
-use Spatie\Tags\Tag;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 class BlogController
@@ -25,35 +25,23 @@ class BlogController
             app()->abort(HttpResponse::HTTP_FORBIDDEN);
         }
 
-        $posts = Post::with('user')->orderByDesc('id')->paginate(10);
 
-        if ($request->get('filter')) {
-            $filter = $request->get('filter');
-
-            if ($filter === 'deleted') {
-                $posts = Post::with('user')
-                    ->orderByDesc('id')
-                    ->onlyTrashed()
-                    ->paginate(10);
-            }
-
-            if ($filter === 'unpublished') {
-                $posts = Post::with('user')
-                    ->orderByDesc('id')
-                    ->whereNull('published_at')
-                    ->paginate(10);
-            }
-        }
+        $posts = match ($request->get('filter')) {
+            'deleted' => Post::isDeleted()->paginate(10),
+            'unpublished' => Post::unpublished()->paginate(10),
+            default => Post::normal()->paginate(10),
+        };
 
         $counts = [
-            'deleted' => Post::onlyTrashed()->count(),
-            'unpublished' => Post::whereNull('published_at')->count(),
+            'posts' => Post::count(),
+            'deleted' => Post::isDeleted()->count(),
+            'unpublished' => Post::unpublished()->count(),
         ];
 
         return inertia('Backend/Blog/Index', [
-            'posts' => Inertia::defer(fn () => PostResource::collection($posts)),
-            'counts' => Inertia::defer(fn () => $counts),
-            'categories' => fn () => CategoryResource::collection(Category::all()),
+            'posts' => Inertia::defer(fn () => PostResource::collection($posts), 'posts'),
+            'counts' => Inertia::defer(fn () => $counts, 'posts'),
+            'categories' => fn () => CategoryResource::collection(Category::with('parent')->get()),
         ]);
     }
 
@@ -90,7 +78,7 @@ class BlogController
         }
 
         if ($post->save()) {
-            foreach($request->get('categories') as $category) {
+            foreach ($request->get('categories') as $category) {
                 DB::table('post_has_categories')
                     ->insert(['post_id' => $post->fresh()->id, 'cat_id' => $category]);
             }
@@ -108,17 +96,11 @@ class BlogController
             app()->abort(HttpResponse::HTTP_FORBIDDEN);
         }
 
-        $post = Post::withTrashed()->find($id)->with('user')->first();
-
-        activity('admin')
-            ->by(auth()->user())
-            ->causedBy(auth()->user())
-            ->withProperties(['post' => $post, 'user' => auth()->user()])
-            ->log(sprintf('%s updated blog post', auth()->user()->name));
+        $post = Post::withTrashed()->find($id)->with(['user', 'categories'])->first();
 
         return inertia('Backend/Blog/Show', [
             'post' => $post,
-            'categories' => Tag::whereType('blog')->get(),
+            'categories' => CategoryResource::collection(Category::all())->resolve(),
         ]);
     }
 
@@ -143,8 +125,31 @@ class BlogController
         }
 
         if ($post->save()) {
+            // Delete all categories.
+            PostHasCategory::wherePostId($post->id)->delete();
+            foreach ($request->get('categories') as $category) {
+                /* Imho, this is nasty and I should definitely do something
+                 * like spatie does in spatie/laravel-permissions where they
+                 * sync roles and permissions with a user. - Sketch, 09:23pm 21/01/2025
+                 */
+                // Insert new categories.
+                DB::table('post_has_categories')
+                    ->insert(['post_id' => $post->fresh()->id, 'cat_id' => $category]);
+            }
+
+            activity('admin')
+                ->by(auth()->user())
+                ->causedBy(auth()->user())
+                ->withProperties(['post' => $post, 'user' => auth()->user()])
+                ->log('updated blog post');
+
             session()->flash('flash', ['message' => 'Blog post updated successfully.', 'type' => 'success']);
         } else {
+            activity('admin')
+                ->by(auth()->user())
+                ->causedBy(auth()->user())
+                ->withProperties(['post' => $post, 'user' => auth()->user()])
+                ->log('failed to updat blog post');
             session()->flash('flash', ['message' => 'Blog post not updated.', 'type' => 'error']);
         }
 

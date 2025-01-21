@@ -3,6 +3,7 @@
 namespace App\Models\Blog;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,6 +34,29 @@ class Post extends Model
         return [
             'published_at' => 'datetime',
         ];
+    }
+
+    public function scopeNormal(Builder $query): Builder
+    {
+        return $query
+            ->with(['user', 'categories'])
+            ->orderByDesc('id');
+    }
+
+    public function scopeUnpublished(Builder $query): Builder
+    {
+        return $query
+            ->with(['user', 'categories'])
+            ->whereNull('published_at')
+            ->orderByDesc('id');
+    }
+
+    public function scopeIsDeleted(Builder $query): Builder
+    {
+        return $query
+            ->with(['user', 'categories'])
+            ->orderByDesc('id')
+            ->onlyTrashed();
     }
 
     public function user(): BelongsTo

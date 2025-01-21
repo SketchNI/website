@@ -13,6 +13,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
         return [
             'id' => $this->id,
             'parent_id' => $this->parent_id,
+            'parent' => $this->whenLoaded('parent'),
             'children' => $this->whenLoaded(
                 'children',
                 CategoryChildResource::collection($this->load('children')->children)->resolve()
