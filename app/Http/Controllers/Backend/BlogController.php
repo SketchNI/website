@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Requests\Backend\Blog\UpdateRequest;
 use App\Http\Resources\Blog\PostResource;
+use App\Http\Resources\CategoryResource;
+use App\Models\Blog\Category;
 use App\Models\Blog\Post;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -49,15 +51,18 @@ class BlogController
         return inertia('Backend/Blog/Index', [
             'posts' => Inertia::defer(fn () => PostResource::collection($posts)),
             'counts' => Inertia::defer(fn () => $counts),
+            'categories' => fn () => CategoryResource::collection(Category::all()),
         ]);
     }
 
     public function create(): Response
     {
-        $tags = Tag::whereType('blog')->get();
+        $categories = CategoryResource::collection(
+            Category::all(),
+        )->resolve();
 
         return inertia('Backend/Blog/Create', [
-            'tags' => $tags,
+            'categories' => $categories,
         ]);
     }
 

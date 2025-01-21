@@ -9,7 +9,7 @@ use Inertia\Response;
 
 class CategoryController extends Controller
 {
-    public function show(Category $category): Response
+    public function __invoke(Category $category): Response
     {
         $posts = $category->posts()->with(['categories', 'user'])->paginate(5);
 

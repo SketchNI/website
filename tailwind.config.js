@@ -70,6 +70,9 @@ export default {
                 DEFAULT: '.4rem .4rem 0 0',
                 md: '.4rem .4rem 0 0',
             },
+            animation: {
+                'spin-slow': 'spin 1.5s ease-in-out infinite',
+            }
         },
     },
 

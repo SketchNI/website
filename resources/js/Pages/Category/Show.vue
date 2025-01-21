@@ -4,7 +4,11 @@ import moment from 'moment';
 import Pager from "@/Components/Pager.vue";
 
 const props = defineProps({
-    posts: Object,
+    posts: {
+        data: Object,
+        meta: Object,
+        links: Object,
+    },
     categories: Object,
     current: String,
 })
