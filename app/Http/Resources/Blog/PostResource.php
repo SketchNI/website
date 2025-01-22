@@ -34,6 +34,7 @@ class PostResource extends JsonResource
             'slug' => $this->slug,
             'excerpt' => $this->excerpt,
             'content' => $this->markdownify($this->content),
+            'featured_image' => null,
             'categories' => CategoryResource::collection($this->categories)->resolve(),
             'published_at' => $this->published_at?->toIso8601String(),
             'deleted_at' => $this->deleted_at?->toIso8601String(),
@@ -77,16 +78,14 @@ class PostResource extends JsonResource
             ],
             'table_of_contents' => [
                 'html_class' => 'table-of-contents not-prose',
-                'position' => 'placeholder',
                 'style' => 'bullet',
                 'min_heading_level' => 1,
                 'max_heading_level' => 6,
                 'normalize' => 'flat',
-                'placeholder' => '[TOC]',
             ],
             'embed' => [
                 'adapter' => new OscaroteroEmbedAdapter, // See the "Adapter" documentation below
-                'allowed_domains' => ['youtube.com', 'twitter.com', 'github.com', 'x.com', 'bsky.app'],
+                'allowed_domains' => ['youtube.com', 'twitter.com', 'github.com', 'x.com', 'bsky.app', 'opengraph.githubassets.com'],
                 'fallback' => 'link',
             ],
         ];

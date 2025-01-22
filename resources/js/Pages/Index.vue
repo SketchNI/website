@@ -20,7 +20,7 @@ const socials = [
     <app-layout>
         <div
             class="lg:space-x-6 text-xl mx-6 text-text lg:mx-auto lg:flex lg:flex-row lg:items-center lg:justify-center">
-            <div>
+            <div class="flex justify-center lg:justify-normal">
                 <img alt="SketchNI Avatar" class="homepage-sketch" src="/images/chibinobg.png" />
             </div>
             <div class="lg:w-[40ch] mt-6 lg:mt-0 space-y-6">
@@ -44,7 +44,7 @@ const socials = [
 
                 <divider class="lg:hidden" />
 
-                <div>
+                <div class="max-lg:text-center max-lg:w-full">
                     <p>
                         <span class="text-red">HTML: </span>
                         <span class="text-green">{{ moment().subtract(2007, 'years').format("YY ") }}</span> years
@@ -69,11 +69,11 @@ const socials = [
 
                 <divider class="lg:hidden" />
 
-                <p>
+                <p class="max-lg:text-center max-lg:w-full">
                     You can find me on these social networks:
                 </p>
-                <ul class="inline-flex space-x-2">
-                    <li v-for="(item, i) in socials" :key="i">
+                <ul class="inline-flex space-x-1 sm:space-x-2 max-lg:justify-center max-lg:w-full">
+                    <li v-for="(item, i) in socials" :key="i" class="flex justify-between">
                         <a :href="item.href" class="social-link">
                             <i :class="`fa-brands fa-${item.logo}`"></i>
                             <span class="sr-only" v-text="item.name" />

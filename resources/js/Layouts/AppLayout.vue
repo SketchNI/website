@@ -36,19 +36,17 @@ watch(() => theme.theme, () => {
             <!-- Primary Navigation Menu -->
             <div class="max-w-6xl lg:mx-auto">
                 <div class="w-full">
-                    <div class="flex items-center justify-between space-x-2">
-                        <div class="flex">
+                    <div class="flex items-center justify-between">
+                        <div class="flex space-x-2">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <x-link :href="route('home')" class="text-3xl logo space-x-0">
-                                    <span class="text-blue">Ske</span>
-                                    <span class="text-red">tch</span>
-                                    <span class="text-green">NI</span>
+                                    <img src="/images/WebLogo.png" alt="SketchNI Logo" class="h-14" />
                                 </x-link>
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-4 sm:-my-px sm:ms-4 sm:flex">
+                            <div class="hidden space-x-2 lg:flex">
                                 <nav-link :href="route('home')" :active="route().current('home')">
                                     Home
                                 </nav-link>
@@ -66,7 +64,7 @@ watch(() => theme.theme, () => {
                             </div>
                         </div>
 
-                        <div class="hidden sm:ms-6 sm:flex sm:items-center" v-if="user !== null">
+                        <div class="hidden lg:flex lg:items-center" v-if="user !== null">
                             <!-- Settings Dropdown -->
                             <dropdown align="right" width="48">
                                 <template #trigger>
@@ -114,7 +112,7 @@ watch(() => theme.theme, () => {
             </div>
 
             <!-- Responsive Navigation Menu -->
-            <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
+            <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="lg:hidden">
                 <div class="space-y-1 pb-3 pt-2">
                     <responsive-nav-link :href="route('home')" :active="route().current('home')">
                         Home
@@ -165,7 +163,7 @@ watch(() => theme.theme, () => {
         </main>
 
         <footer
-            :class="[app.url.includes('backend') ? 'lg:pl-[20rem] lg:pr-8' : 'max-w-6xl', 'my-6 pb-6 text-center md:flex text-subtext0 items-center justify-between mx-auto']">
+            :class="[app.url.includes('backend') ? 'lg:pl-[20rem] lg:pr-8' : 'max-w-6xl', 'my-6 pb-6 text-center md:flex text-subtext0 items-center justify-between lg:mx-auto space-y-3 mx-4 md:space-y-0']">
             <div class="inline-flex space-x-3 items-center">
                 <p class="text-sm">&copy; SketchNI {{ new Date().getFullYear() }}</p>
 

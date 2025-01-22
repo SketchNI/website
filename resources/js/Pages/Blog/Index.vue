@@ -24,7 +24,7 @@ const app = useApp();
     <x-head title="Blog Posts" />
 
     <app-layout>
-        <div class="flex bg-surface0 p-4 shadow shadow-crust mb-6 text-subtext1 items-center justify-between">
+        <div class="flex bg-surface0 p-4 shadow shadow-crust mb-6 text-subtext1 items-center justify-between mx-4 lg:mx-0">
             <div class="flex items-center space-x-1">
                 <span>Category:</span>
                 <span class="text-blue font-bold">All</span>
@@ -32,7 +32,7 @@ const app = useApp();
             </div>
         </div>
 
-        <div class="flex items-start gap-6 w-full">
+        <div class="flex flex-col lg:flex-row items-start gap-y-6 lg:gap-6 w-full px-4 lg:px-0">
             <div class="w-full">
                 <Deferred data="posts">
                     <template #fallback>
@@ -47,9 +47,9 @@ const app = useApp();
                         </div>
                     </div>
                     <div v-else>
-                        <div class="space-y-4 w-full">
+                        <div class="space-y-4 w-full flex">
                             <x-link :href="route('blog.show', { post })"
-                                    class="block bg-surface0 p-4 shadow shadow-crust hover:bg-mantle group transition duration-150 ease-in"
+                                    class="w-1/2 bg-surface0 p-4 shadow shadow-crust hover:bg-mantle group transition duration-150 ease-in"
                                     v-for="post in posts.data" :key="post.id">
                                 <article class="space-y-2">
                                     <h1 class="font-semibold text-blue text-xl group-hover:underline">
@@ -83,7 +83,8 @@ const app = useApp();
                                     <p class="text-subtext1">{{ post.excerpt }}</p>
                                 </article>
                             </x-link>
-
+                        </div>
+                        <div class="mt-6">
                             <Pager :pagination="posts.meta" />
                         </div>
                     </div>
@@ -103,8 +104,7 @@ const app = useApp();
 }
 
 .tag {
-    @apply text-xs font-semibold text-base bg-blue px-2 py-1 shadow-sm shadow-overlay0 mx-1
-    hover:bg-overlay0 hover:text-text hover:shadow-none uppercase tracking-wide;
-    @apply transition duration-150 ease-in;
+    @apply font-bold font-mono text-blue cursor-pointer inline-flex items-center
+    transition duration-150 ease-in;
 }
 </style>

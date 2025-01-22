@@ -14,8 +14,8 @@ return new class extends Migration
             $table->foreignIdFor(User::class);
             $table->string('title');
             $table->string('slug');
-            $table->longText('content');
             $table->text('excerpt');
+            $table->longText('content');
             $table->timestamp('published_at')->nullable();
             $table->softDeletes();
             $table->timestamps();

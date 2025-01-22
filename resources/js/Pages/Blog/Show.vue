@@ -5,7 +5,7 @@ import useApp from "@/Composables/useApp.js";
 import hljs from 'highlight.js/lib/common';
 import '@/../css/a11y-dark.css';
 import '@catppuccin/highlightjs/css/catppuccin-macchiato.css';
-import { nextTick } from "vue";
+import { nextTick, ref } from "vue";
 import CategoryPanel from "@/Components/CategoryPanel.vue";
 
 const props = defineProps({
@@ -29,19 +29,22 @@ const props = defineProps({
 })
 
 const app = useApp();
+
 nextTick(() => {
     hljs.highlightAll();
 });
+
 </script>
 
 <template>
     <x-head title="Blog Posts" />
 
     <app-layout>
-        <div class="flex gap-6 items-start">
+        <div class="flex max-lg:flex-col gap-6 items-start max-lg:px-4">
             <div class="space-y-4 w-full">
-                <article class="article prose prose-blue prose-invert !w-full">
+                <article class="article prose max-w-[82.5ch] prose-blue prose-invert">
                     <div class="flex flex-col space-y-2 mb-4">
+                        <h1 class="text-5xl mb-2 w-full border-b border-blue/60 pb-2" v-text="post.title" />
                         <div class="text-subtext0 space-x-1 items-center">
                             <span>Published</span>
                             <time v-if="moment().diff(post.published_at, 'days') <= 7"

@@ -16,7 +16,7 @@
     }
 
     .logo {
-        @apply px-6 py-4 cursor-pointer
+        @apply px-3 py-1.5 cursor-pointer
         hover:bg-surface0
         transition duration-150 ease-in;
     }
@@ -59,6 +59,10 @@
     a.external::after {
         content: "\f08e";
         font: normal normal normal 14px/1 FontAwesome;
+    }
+
+    code {
+        @apply !overflow-x-scroll max-w-[100ch];
     }
 }
 

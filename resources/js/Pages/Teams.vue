@@ -11,7 +11,7 @@ defineProps({
 
     <app-layout>
         <div>
-            <div class="flex gap-6 my-6 flex-col lg:flex-row">
+            <div class="flex mx-4 lg:mx-0 gap-6 my-6 flex-col lg:flex-row">
                 <div v-for="(team, i) in teams.data" :key="i" class="card group space-y-4">
                     <div class="flex justify-center items-center space-x-4">
                         <img :alt="`${team.name}'s Logo`" :src="team.logo"

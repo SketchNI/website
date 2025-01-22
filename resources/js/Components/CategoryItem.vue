@@ -6,7 +6,7 @@ defineProps({
 </script>
 
 <template>
-    <ul class="text-lg">
+    <ul>
         <li v-for="category in categories" :key="category.id">
             <x-link :href="route('category.show', { category })" :class="[className, 'group category']">
                 <span v-text="category.name" />
@@ -19,13 +19,13 @@ defineProps({
 
 <style scoped>
 .category {
-    @apply font-bold font-mono text-blue w-full text-normal cursor-pointer inline-flex
-    items-center hover:bg-surface1 hover:text-text px-2 py-1 space-x-2
+    @apply font-bold font-mono text-blue w-full cursor-pointer inline-flex items-center px-2 py-1 space-x-2
+    text-sm hover:bg-surface1 hover:text-text
     transition duration-150 ease-in;
 
     &::before {
         content: "/";
-        @apply pr-2 text-red-400 font-black hover:text-red-600 text-sm;
+        @apply pr-2 text-red-400 font-black hover:text-red-600 text-xs;
         @apply transition duration-150 ease-in;
     }
 }
