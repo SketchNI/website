@@ -47,7 +47,7 @@ const app = useApp();
                         </div>
                     </div>
                     <div v-else>
-                        <div class="space-y-4 w-full flex">
+                        <div class="gap-4 w-full flex">
                             <x-link :href="route('blog.show', { post })"
                                     class="w-1/2 bg-surface0 p-4 shadow shadow-crust hover:bg-mantle group transition duration-150 ease-in"
                                     v-for="post in posts.data" :key="post.id">
