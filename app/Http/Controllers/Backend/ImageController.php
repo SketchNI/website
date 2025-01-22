@@ -17,6 +17,7 @@ class ImageController extends Controller
         $image->image = '/storage/'.$request->file('image')->storePublicly('/images', ['disk' => 'public']);
         if ($image->save()) {
             $image = $image->fresh();
+
             return response()->json([
                 'image' => $image->image,
                 'caption' => $image->caption,

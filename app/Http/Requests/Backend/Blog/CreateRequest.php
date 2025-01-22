@@ -5,7 +5,6 @@ namespace App\Http\Requests\Backend\Blog;
 use App\Models\Blog\Category;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Spatie\Permission\Models\Role;
 
 class CreateRequest extends FormRequest
 {
@@ -23,6 +22,6 @@ class CreateRequest extends FormRequest
 
     public function authorize(): bool
     {
-            return request()->user()->hasPermissionTo('write blog entry', 'web');
+        return request()->user()->hasPermissionTo('write blog entry', 'web');
     }
 }

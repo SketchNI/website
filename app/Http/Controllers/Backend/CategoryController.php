@@ -25,6 +25,7 @@ class CategoryController extends Controller
         }
 
         session()->flash('flash', ['message' => 'Unable to create category.', 'type' => 'error']);
+
         return redirect()->back();
     }
 

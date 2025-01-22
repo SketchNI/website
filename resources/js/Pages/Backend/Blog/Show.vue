@@ -19,6 +19,7 @@ import SecondaryButton from "@/Components/SecondaryButton.vue";
 import { ref } from "vue";
 import { MdEditor } from "md-editor-v3";
 import 'md-editor-v3/lib/style.css';
+import CategoryPanel from "@/Components/CategoryPanel.vue";
 
 const props = defineProps({
     post: {
@@ -43,6 +44,8 @@ const props = defineProps({
 const app = useApp();
 const page = usePage();
 
+
+
 const updatePost = () => {
     form.put(route('backend.blog.update', { id: props.post.id }));
 };
@@ -58,8 +61,45 @@ const form = useForm({
     categories: [],
 });
 
-const handleUpload = (event) => {
-    console.log(event)
+const toggleSelection = (id) => {
+    if (!checkAndRemoveSelection(id)) {
+        form.categories.push(id);
+    }
+}
+
+const checkAndRemoveSelection = (id) => {
+    if (form.categories.includes(id)) {
+        form.categories = form.categories.filter(ids => ids !== id);
+
+        return true;
+    }
+
+    return false;
+}
+
+props.post.categories.forEach((category) => {
+    toggleSelection(category.id);
+})
+
+const handleUpload = async (files, func) => {
+    const res = await Promise.all(files.map(file => {
+        return new Promise((rev, rej) => {
+            const form = new FormData();
+            form.append('image', file);
+            window.axios
+                .post(route('backend.images.store'), form, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                })
+                .then(response => rev(response))
+                .catch(err => rej(err))
+        })
+    }));
+
+    func(res.map(img => ({
+        url: img.data.image,
+        alt: img.data.alt_text,
+        title: img.data.caption,
+    })));
 }
 
 const confirmingPostDeletion = ref(false);
@@ -160,18 +200,18 @@ const deletePost = () => {
                         <input-label for="content" value="Post Content" />
 
                         <md-editor
-                                v-model="form.content"
-                                language="en-US"
-                                :show-code-row-number="true"
-                                preview-theme="github"
-                                :noKatex="true"
-                                :noMermaid="true"
-                                code-theme="ally"
-                                :show-toolbar-name="false"
-                                theme="dark"
-                                class="mt-2"
-                                :on-upload-img="handleUpload"
-                            />
+                            v-model="form.content"
+                            language="en-US"
+                            :show-code-row-number="true"
+                            preview-theme="github"
+                            :noKatex="true"
+                            :noMermaid="true"
+                            code-theme="ally"
+                            :show-toolbar-name="false"
+                            theme="dark"
+                            class="mt-2"
+                            :on-upload-img="handleUpload"
+                        />
 
                         <input-error :message="form.errors.content" class="text-red mt-2" />
                     </div>
@@ -180,16 +220,16 @@ const deletePost = () => {
                 <div class="w-1/5 space-y-4">
                     <div class="bg-mantle shadow shadow-crust px-6 py-4">
                         <h1 class="uppercase text-sm text-subtext2 font-bold">Categories</h1>
-                        <ul class="space-y-2 mt-2">
-                            <li v-for="(cat, i) in categories" :key="i">
-                                <label :for="cat.slug" class="flex items-center">
-                                    <Checkbox :id="cat.slug" v-model:checked="form.categories" :name="cat.slug"
-                                              :value="cat.slug" />
-                                    <span class="ms-2 text-subtext1">{{ cat.name }}</span>
+                        <p class="mt-2 text-red">{{ form.errors.categories }}</p>
+                        <ul class="space-y-2 text-lg">
+                            <li v-for="category in categories" :key="category.id" class="space-y-2">
+                                <label :for="`checkbox.${category.id}`" class="flex items-center space-x-2">
+                                    <checkbox @click="toggleSelection(category.id)"
+                                              :id="`checkbox.${category.id}`"
+                                              :checked="form.categories.includes(category.id)"
+                                              :value="category.id" />
+                                    <span class="font-bold text-sm text-text">{{ category.name }}</span>
                                 </label>
-                            </li>
-                            <li>
-                                <p class="mt-2 text-red">{{ form.errors.categories }}</p>
                             </li>
                         </ul>
                     </div>
@@ -201,8 +241,9 @@ const deletePost = () => {
                             <SwitchGroup as="div" class="flex items-center">
                                 <Switch v-model="form.published"
                                         :class="[form.published ? 'bg-blue/60' : 'bg-surface1', 'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue focus:ring-offset-mantle focus:ring-offset-2']">
-                                    <span :class="[form.published ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block size-5 transform rounded-full bg-base shadow-lg ring-0 transition duration-200 ease-in-out']"
-                                          aria-hidden="true" />
+                                    <span
+                                        :class="[form.published ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block size-5 transform rounded-full bg-base shadow-lg ring-0 transition duration-200 ease-in-out']"
+                                        aria-hidden="true" />
                                 </Switch>
                                 <SwitchLabel as="span" class="ml-3 text select-none">
                                     <span class="font-medium text-subtext2">Publish</span>
@@ -255,7 +296,8 @@ const deletePost = () => {
                     </div>
 
                     <div class="bg-mantle shadow shadow-crust px-6 py-4">
-                        <primary-button :aria-disabled="form.processing" :class="[form.processing ? 'bg-blue/60 cursor-not-allowed disabled:bg-blue/60 disabled:text-mantle' : '']"
+                        <primary-button :aria-disabled="form.processing"
+                                        :class="[form.processing ? 'bg-blue/60 cursor-not-allowed disabled:bg-blue/60 disabled:text-mantle' : '']"
                                         :disabled="form.processing"
                                         class="w-full text-xl text-center justify-center space-x-1"
                                         type="submit">

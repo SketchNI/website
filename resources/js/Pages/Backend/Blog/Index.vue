@@ -22,8 +22,8 @@ defineProps({
         links: Object,
     },
     counts: {
+        posts: Number,
         deleted: Number,
-        published: Number,
         unpublished: Number,
     },
     categories: {
@@ -80,47 +80,58 @@ const showViewCategoryModal = () => {
         </div>
 
         <div class="flex items-center justify-between mb-6">
-            <nav aria-label="Breadcrumb" class="flex space-x-4 items-center">
-                <ol class="flex space-x-4 bg-surface0 px-6 shadow-md shadow-crust" role="list">
-                    <li class="flex">
-                        <div class="flex items-center">
-                            <x-link :href="route('backend.index')" class="text-text hover:text-subtext0">
-                                <home-modern-icon class="size-5" />
-                                <span class="sr-only">Home</span>
-                            </x-link>
-                        </div>
-                    </li>
-                    <li class="flex">
-                        <div class="flex items-center">
-                            <svg aria-hidden="true" class="h-full w-6 shrink-0 text-overlay0"
-                                 fill="currentColor"
-                                 preserveAspectRatio="none" viewBox="0 0 24 44">
-                                <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
-                            </svg>
-                            <x-link :href="route('backend.blog.index')"
-                                    class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">Blog
-                            </x-link>
-                        </div>
-                    </li>
-                </ol>
+            <div class="flex items-ccenter space-x-4">
+                <nav aria-label="Breadcrumb" class="flex space-x-4 items-center">
+                    <ol class="flex space-x-4 bg-surface0 px-6 shadow-md shadow-crust" role="list">
+                        <li class="flex">
+                            <div class="flex items-center">
+                                <x-link :href="route('backend.index')" class="text-text hover:text-subtext0">
+                                    <home-modern-icon class="size-5" />
+                                    <span class="sr-only">Home</span>
+                                </x-link>
+                            </div>
+                        </li>
+                        <li class="flex">
+                            <div class="flex items-center">
+                                <svg aria-hidden="true" class="h-full w-6 shrink-0 text-overlay0"
+                                     fill="currentColor"
+                                     preserveAspectRatio="none" viewBox="0 0 24 44">
+                                    <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
+                                </svg>
+                                <x-link :href="route('backend.blog.index')"
+                                        class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">Blog
+                                </x-link>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
 
                 <Deferred data="counts">
                     <div class="flex items-center">
-                        <x-link :href="route('backend.blog.index', { filter: 'unpublished' })" class="filter-link">
-                            <span>Unpublished</span>
-                            <span>(<span class="text-blue">{{ counts.unpublished }}</span>)</span>
+                        <x-link :href="route('backend.blog.index', { filter: 'unpublished' })"
+                                class="group filter-link">
+                            <span>Posts</span>
+                            <span class="filter-counter text-green">{{ counts.posts }}</span>
                         </x-link>
 
                         <div class="h-8 border-r mx-3 border-surface2"></div>
 
-                        <x-link :href="route('backend.blog.index', { filter: 'deleted' })" class="filter-link">
+                        <x-link :href="route('backend.blog.index', { filter: 'unpublished' })"
+                                class="group filter-link">
+                            <span>Unpublished</span>
+                            <span class="filter-counter text-yellow">{{ counts.unpublished }}</span>
+                        </x-link>
+
+                        <div class="h-8 border-r mx-3 border-surface2"></div>
+
+                        <x-link :href="route('backend.blog.index', { filter: 'deleted' })" class="group filter-link">
                             <span>Deleted</span>
-                            <span>(<span class="text-red">{{ counts.deleted }}</span>)</span>
+                            <span class="filter-counter text-red">{{ counts.deleted }}</span>
                         </x-link>
                     </div>
                     <template #fallback></template>
                 </Deferred>
-            </nav>
+            </div>
 
             <div class="flex items-center space-x-4">
                 <secondary-button class="shadow-sm shadow-crust space-x-1.5 text-sm"
@@ -385,7 +396,12 @@ const showViewCategoryModal = () => {
 
 <style scoped>
 .filter-link {
-    @apply flex items-center space-x-1 px-2 py-1 text-overlay2 hover:text-text hover:bg-surface2/50
+    @apply flex items-center space-x-2 px-2 py-1 text-overlay2 hover:text-text hover:bg-surface2/50
     hover:shadow-sm hover:shadow-crust transition duration-150 ease-in;
+}
+
+.filter-counter {
+    @apply bg-surface0 font-black font-mono group-hover:bg-surface2 rounded-full px-2 py-0.5 text-sm;
+    @apply transition duration-150 ease-in;
 }
 </style>

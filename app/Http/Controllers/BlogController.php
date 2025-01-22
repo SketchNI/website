@@ -24,6 +24,7 @@ class BlogController
     public function show(Post $post): Response
     {
         $post = Post::normal()->findOrFail($post->id);
+
         return inertia('Blog/Show', [
             'post' => new PostResource($post)->resolve(),
             'categories' => CategoryResource::collection(Category::with('children')->whereNull('parent_id')->get())->resolve(),

@@ -21,7 +21,7 @@ class TeamController
         }
 
         return inertia('Backend/Teams/Index', [
-            'teams' => Inertia::defer(fn() => TeamResource::collection(Team::all())),
+            'teams' => Inertia::defer(fn () => TeamResource::collection(Team::all())),
         ]);
     }
 
