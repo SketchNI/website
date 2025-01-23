@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->uuid('id');
             $table->string('image');
+            $table->text('from')->default('web');
             $table->text('alt_text')->nullable();
             $table->text('caption')->nullable();
             $table->timestamps();

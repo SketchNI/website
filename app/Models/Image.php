@@ -12,5 +12,20 @@ class Image extends Model
     protected $fillable = [
         'image',
         'caption',
+        'alt_text',
     ];
+
+    public function setCaption(string $caption): Image
+    {
+        $this->caption = $caption;
+
+        return $this;
+    }
+
+    public function setAltText(string $alt_text): Image
+    {
+        $this->alt_text = $alt_text;
+
+        return $this;
+    }
 }

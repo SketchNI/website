@@ -73,7 +73,7 @@ const showViewCategoryModal = () => {
 
     <admin-layout>
         <div class="mb-6 inline-flex space-x-2 items-end">
-            <h1 :class="['font-semibold', app.theme === 'latte' ? 'text-black' : 'text-white']">
+            <h1 class="font-semibold text-white">
                 Blog Posts
             </h1>
             <p class="text-sm text-subtext0">View and edit your blog posts.</p>

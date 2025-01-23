@@ -46,13 +46,18 @@ class RolesAndPermissionsTableSeeder extends Seeder
             'create categories',
             'update categories',
             'delete categories',
-
             // Team
             'view team entries',
             'view team entry',
             'write team entry',
             'update team entry',
             'delete team entry',
+            // Images
+            'view images',
+            'create image',
+            'view image',
+            'update image',
+            'delete image',
         ];
 
         $moderator_permissions = [
