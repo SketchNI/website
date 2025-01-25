@@ -26,6 +26,7 @@
         "spatie/laravel-sitemap": "^7.3.2",
         "spatie/laravel-sluggable": "^3.7.2",
         "spatie/laravel-tags": "^4.9",
+        "spatie/laravel-web-tinker": "^1.10",
         "tightenco/ziggy": "^2.4.2"
     },
     "require-dev": {

@@ -13,6 +13,12 @@ class ThemeMiddleware
             ? session()->put('theme', 'mocha')
             : session('theme');
 
+        if (session()->has('theme')) {
+            session('theme');
+        } else {
+            session()->put('theme', 'mocha');
+        }
+
         return $next($request);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Backend;
 
 use App\Models\Blog\Category;
 use Illuminate\Http\Request;

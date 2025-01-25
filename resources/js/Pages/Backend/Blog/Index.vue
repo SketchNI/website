@@ -80,7 +80,7 @@ const showViewCategoryModal = () => {
         </div>
 
         <div class="flex items-center justify-between mb-6">
-            <div class="flex items-ccenter space-x-4">
+            <div class="flex items-center space-x-4">
                 <nav aria-label="Breadcrumb" class="flex space-x-4 items-center">
                     <ol class="flex space-x-4 bg-surface0 px-6 shadow-md shadow-crust" role="list">
                         <li class="flex">

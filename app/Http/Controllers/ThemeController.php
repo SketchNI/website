@@ -8,6 +8,6 @@ class ThemeController extends Controller
 {
     public function __invoke(UpdateRequest $request): void
     {
-        session('theme', $request->get('theme'));
+        session()->put('theme', $request->get('theme'));
     }
 }

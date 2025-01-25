@@ -11,18 +11,42 @@ class RolesAndPermissionsTableSeeder extends Seeder
 {
     public function run(): void
     {
-        $super_permissions = [
-            // Backup
-            'backup site',
-            'restore site',
-            'update site',
-            'rollback site',
+        $user_permissions = [
+            // Profile
+            'user::view profile',
+            'user::update profile',
+            'user::delete profile',
+            // Teams
+            'user::view team',
+            // Blog
+            'user::view blog entries',
+            // Comments
+            'user::view comment',
+            'user::create comment',
+            'user::update comment',
+            'user::delete comment',
+            // Votes
+            'user::create vote',
+            'user::delete vote',
+        ];
+
+        $moderator_permissions = [
+            // User
+            'view users',
+            'view user',
+            'update user',
+            'delete user',
+            // Comments
+            'view comments',
+            'create comment',
+            'view comment',
+            'update comment',
+            'delete comment',
         ];
 
         $admin_permissions = [
             // User
             'create user',
-            'delete user',
             // Roles
             'create role',
             'read role',
@@ -60,16 +84,18 @@ class RolesAndPermissionsTableSeeder extends Seeder
             'delete image',
         ];
 
-        $moderator_permissions = [
-            // User
-            'read user',
-            'update user',
-            'validate user',
+        $super_permissions = [
+            // Backup
+            'backup site',
+            'restore site',
+            'update site',
+            'rollback site',
         ];
 
         Role::create(['display_name' => 'Super Administrator', 'name' => 'super-admin']);
         Role::create(['display_name' => 'Administrator', 'name' => 'admin']);
         Role::create(['display_name' => 'Moderator', 'name' => 'mod']);
+        Role::create(['display_name' => 'Member', 'name' => 'user']);
 
         foreach ($super_permissions as $permission) {
             Permission::create(['name' => $permission, 'type' => 'super-admin']);
@@ -83,8 +109,13 @@ class RolesAndPermissionsTableSeeder extends Seeder
             Permission::create(['name' => $permission, 'type' => 'mod']);
         }
 
+        foreach ($user_permissions as $permission) {
+            Permission::create(['name' => $permission, 'type' => 'user']);
+        }
+
         $admins = new Collection(Permission::whereType('admin')->get());
         $mods = new Collection(Permission::whereType('mod')->get());
+        $users = new Collection(Permission::whereType('user')->get());
 
         Role::whereName('super-admin')
             ->first()
@@ -96,6 +127,10 @@ class RolesAndPermissionsTableSeeder extends Seeder
 
         Role::whereName('mod')
             ->first()
-            ->syncPermissions($mods);
+            ->syncPermissions($mods->merge($users));
+
+        Role::whereName('user')
+            ->first()
+            ->syncPermissions($users);
     }
 }

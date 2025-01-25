@@ -9,11 +9,7 @@ Route::get('/teams', Backend\IndexController::class)->name('teams');
 Route::resource('blog', Backend\BlogController::class)->withTrashed()->except('show');
 Route::resource('category', Backend\CategoryController::class)->only(['store', 'destroy']);
 Route::resource('teams', Backend\TeamController::class)->except('show');
-
-Route::prefix('users')->name('users.')->group(static function () {
-    Route::get('/', Backend\IndexController::class)->name('index');
-    Route::get('/show/{id}', Backend\IndexController::class)->name('show');
-});
+Route::resource('users', Backend\UserController::class);
 
 Route::prefix('pages')->name('pages.')->group(static function () {
     Route::get('/', Backend\IndexController::class)->name('index');

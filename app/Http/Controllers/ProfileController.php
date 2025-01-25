@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ForbiddenException;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Traits\Flashable;
+use App\Traits\ThrowsException;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,11 +16,18 @@ use Inertia\Response;
 
 class ProfileController extends Controller
 {
+    use Flashable;
+    use ThrowsException;
+
     /**
      * Display the user's profile form.
+     *
+     * @throws ForbiddenException
      */
     public function edit(Request $request): Response
     {
+        $this->forbidden('user::view profile');
+
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
@@ -26,9 +36,13 @@ class ProfileController extends Controller
 
     /**
      * Update the user's profile information.
+     *
+     * @throws ForbiddenException
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        $this->forbidden('user::update profile');
+
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
@@ -42,9 +56,13 @@ class ProfileController extends Controller
 
     /**
      * Delete the user's account.
+     *
+     * @throws ForbiddenException
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $this->forbidden('user::delete profile');
+
         $request->validate([
             'password' => ['required', 'current_password'],
         ]);

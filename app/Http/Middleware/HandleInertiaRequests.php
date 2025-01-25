@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Resources\PermissionViaRoleResource;
+use App\Http\Resources\Backend\PermissionViaRoleResource;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -34,12 +34,12 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
-                'roles' => $request->user()?->getRoleNames(),
+                'role' => $request->user()?->getRoleNames()->first(),
                 'permissions' => $this->getPermissions($request),
             ],
             'app' => [
                 'env' => config('app.env'),
-                'theme' => session('theme'),
+                'theme' => session('theme', 'mocha'),
                 'url' => request()->fullUrl(),
                 'flash' => fn () => $request->session()->get('flash'),
             ],

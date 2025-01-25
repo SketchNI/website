@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, watch } from 'vue';
+import { ref } from 'vue';
 import {
     BanknotesIcon,
     DocumentTextIcon,
@@ -25,67 +25,58 @@ import useRole from "@/Composables/useRole.js";
 import AdminLink from "@/Components/AdminLink.vue";
 import Divider from "@/Components/divider.vue";
 import useApp from "@/Composables/useApp.js";
+import Theme from "@/Components/Theme.vue";
 
 const app = useApp();
 const user = useUser();
 const role = useRole();
 const showingNavigationDropdown = ref(false);
 
-if (!localStorage.getItem('theme')) {
-    localStorage.setItem('theme', app.theme);
-}
+const theme = ref(localStorage.getItem('theme'));
 
-const theme = reactive({ theme: localStorage.getItem('theme') });
-
-watch(() => theme.theme, () => {
-    window.axios.post(route('set-theme'), { theme: theme.theme }).then(() => {
-        localStorage.setItem('theme', theme.theme);
-    });
-});
-
-const log = (...data) => {
-    console.log(data);
-}
+window.mitt.on('theme:update', (event) => {
+    theme.value = event;
+})
 
 const menu = [
     {
         name: "General", links: [
-            { name: "Home", route: 'backend.index', icon: HomeModernIcon, role: 'mod' },
-            { name: "Blog", route: 'backend.blog.index', icon: ListBulletIcon, role: 'mod' },
-            { name: "Users", route: 'backend.users.index', icon: SolidUsersIcon, role: 'mod' },
-            { name: "Teams", route: 'backend.teams.index', icon: UsersIcon, role: 'mod' },
-            { name: "Pages", route: 'backend.pages.index', icon: DocumentTextIcon, role: 'mod' },
-            { name: "Support", route: 'backend.support.index', icon: LifebuoyIcon, role: 'mod' },
-            { name: "Images", route: 'backend.images.index', icon: PhotoIcon, color: 'red', role: 'super-admin' },
+            { name: "Home", route: 'backend.index', icon: HomeModernIcon, role: ['mod', 'admin', 'super-admin'] },
+            { name: "Blog", route: 'backend.blog.index', icon: ListBulletIcon, role: ['mod', 'admin', 'super-admin'] },
+            { name: "Users", route: 'backend.users.index', icon: SolidUsersIcon, role: ['mod', 'admin', 'super-admin'] },
+            { name: "Teams", route: 'backend.teams.index', icon: UsersIcon, role: ['mod', 'admin', 'super-admin'] },
+            { name: "Pages", route: 'backend.pages.index', icon: DocumentTextIcon, role: ['mod', 'admin', 'super-admin'] },
+            { name: "Support", route: 'backend.support.index', icon: LifebuoyIcon, role: ['mod', 'admin', 'super-admin'] },
+            { name: "Images", route: 'backend.images.index', icon: PhotoIcon, color: 'red', role: ['super-admin'] },
         ],
     },
     {
         name: "Finance", links: [
-            { name: "Invoices", route: 'backend.finance.invoices.index', icon: BanknotesIcon, role: 'mod' },
-            { name: "Customers", route: 'backend.finance.customers.index', icon: UsersIcon, role: 'mod' },
+            { name: "Invoices", route: 'backend.finance.invoices.index', icon: BanknotesIcon, role: ['mod', 'admin', 'super-admin'] },
+            { name: "Customers", route: 'backend.finance.customers.index', icon: UsersIcon, role: ['mod', 'admin', 'super-admin'] },
         ]
     },
     {
         name: "Infrastructural", links: [
-            { name: "Builds", route: 'backend.infrastructure.builds.index', icon: BeakerIcon, role: 'admin' },
-            { name: "Releases", route: 'backend.infrastructure.releases.index', icon: PlayCircleIcon, role: 'admin' },
-            { name: "Runners", route: 'backend.infrastructure.runners.index', icon: CpuChipIcon, role: 'admin' },
-            { name: "Issues", route: 'backend.infrastructure.issues.index', icon: BugAntIcon, role: 'mod' },
+            { name: "Builds", route: 'backend.infrastructure.builds.index', icon: BeakerIcon, role: ['admin', 'super-admin'] },
+            { name: "Releases", route: 'backend.infrastructure.releases.index', icon: PlayCircleIcon, role: ['admin', 'super-admin'] },
+            { name: "Runners", route: 'backend.infrastructure.runners.index', icon: CpuChipIcon, role: ['admin', 'super-admin'] },
+            { name: "Issues", route: 'backend.infrastructure.issues.index', icon: BugAntIcon, role: ['mod', 'admin', 'super-admin'] },
         ]
     },
     {
         name: "Misc", links: [
-            { name: "Audit Logs", route: 'backend.misc.audit-log.index', icon: NumberedListIcon, role: 'admin' },
-            { name: "Statistics", route: 'backend.misc.statistics.index', icon: ChartPieIcon, role: 'admin' },
-            { name: "Reports", route: 'backend.misc.reports.index', icon: FlagIcon, role: 'admin' },
-            { name: "Scheduler", route: 'backend.misc.scheduler.index', icon: SquaresPlusIcon, role: 'mod' },
+            { name: "Audit Logs", route: 'backend.misc.audit-log.index', icon: NumberedListIcon, role: ['admin', 'super-admin'] },
+            { name: "Statistics", route: 'backend.misc.statistics.index', icon: ChartPieIcon, role: ['admin', 'super-admin'] },
+            { name: "Reports", route: 'backend.misc.reports.index', icon: FlagIcon, role: ['admin', 'super-admin'] },
+            { name: "Scheduler", route: 'backend.misc.scheduler.index', icon: SquaresPlusIcon, role: ['mod', 'admin', 'super-admin'] },
         ]
     }
 ]
 </script>
 
 <template>
-    <div :class="[theme.theme, 'bg-base h-full']">
+    <div :class="[theme, 'bg-base h-full']">
         <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
             <!-- Sidebar component, swap this element with another sidebar if you like -->
             <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-crust bg-mantle">
@@ -107,7 +98,7 @@ const menu = [
                                         </li>
 
                                         <li v-for="(item, i) in cat.links" :key="i">
-                                            <admin-link v-if="role.includes(item.role)"
+                                            <admin-link v-if="item.role.includes(role)"
                                                         :active="route().current() === item.route"
                                                         :color="item.color ?? 'blue'"
                                                         :href="route(item.route)"
@@ -141,15 +132,7 @@ const menu = [
             <div class="inline-flex space-x-3 items-center">
                 <p class="text-sm">&copy; SketchNI {{ new Date().getFullYear() }}</p>
 
-                <div>
-                    <label for="theme" class="text-subtext0 pr-2">Theme</label>
-                    <select name="theme" v-model="theme.theme" id="theme"
-                            class="bg-crust text-text px-1 py-0.5 text-sm w-28 border border-overlay2">
-                        <option value="mocha" :selected="theme.theme === 'mocha'">Mocha</option>
-                        <option value="macchiato" :selected="theme.theme === 'macchiato'">Macchiato</option>
-                        <option value="frappe" :selected="theme.theme === 'frappe'">Frappe</option>
-                    </select>
-                </div>
+                <theme />
             </div>
             <p class="text-sm">
                 <span>Built with </span>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Requests\Backend\Team\CreateRequest;
 use App\Http\Requests\Backend\Team\UpdateRequest;
-use App\Http\Resources\TeamResource;
+use App\Http\Resources\Backend\TeamResource;
 use App\Models\Team;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;

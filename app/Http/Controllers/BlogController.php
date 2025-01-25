@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\Blog\PostResource;
-use App\Http\Resources\CategoryResource;
+use App\Http\Resources\Backend\CategoryResource;
 use App\Models\Blog\Category;
 use App\Models\Blog\Post;
 use Inertia\Inertia;

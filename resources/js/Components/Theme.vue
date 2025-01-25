@@ -34,7 +34,7 @@ watch(() => activeTheme.value, (new_theme) => {
 
     window.axios.post(route('set-theme'), { theme: new_theme.name })
         .then(() => {
-            localStorage.setItem('theme', themeRef.value.name);
+            localStorage.setItem('theme', themeRef.value);
             window.mitt.emit('theme:update', themeRef.value);
         })
 });

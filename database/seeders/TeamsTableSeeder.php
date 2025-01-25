@@ -15,7 +15,7 @@ class TeamsTableSeeder extends Seeder
             'role' => 'I develop for the web site of the infrastructure.',
             'github' => 'madhouseplatform',
             'website' => 'https://madhouseminers.com',
-            'logo' => '/images/maddie.png',
+            'logo' => '/storage/images/Cdn9mxDm4KDp8JAgmnQbcxUkFzbGwEmaGxicHpVZ.png',
         ]);
 
         Team::create([
@@ -24,7 +24,7 @@ class TeamsTableSeeder extends Seeder
             'role' => 'I help administer the minecraft servers and moderate the Discord server.',
             'github' => 'madhouseminers',
             'website' => 'https://madhouseminers.com',
-            'logo' => '/images/maddie.png',
+            'logo' => '/storage/images/uDcr5jMVTkDSRBjZgr2KxsPO2JOxt7dB5N7fUchG.png',
         ]);
     }
 }

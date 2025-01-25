@@ -15,9 +15,9 @@ use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    use ThrowsException;
     use HasFactory;
     use SoftDeletes;
+    use ThrowsException;
 
     protected $table = 'blog_posts';
 
@@ -64,8 +64,8 @@ class Post extends Model
     {
         return $query
             ->with(['user', 'categories'])
-            ->orderByDesc('id')
-            ->onlyTrashed();
+            ->whereNull('deleted_at')
+            ->orderByDesc('id');
     }
 
     public function user(): BelongsTo
