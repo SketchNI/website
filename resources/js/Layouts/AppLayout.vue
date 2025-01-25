@@ -8,30 +8,24 @@ import { Bars3Icon, ChevronDownIcon, XMarkIcon } from '@heroicons/vue/16/solid';
 import useUser from "@/Composables/useUser.js";
 import useRole from "@/Composables/useRole.js";
 import useApp from "@/Composables/useApp.js";
-import mitt from 'mitt';
-
-const emitter = mitt();
+import Theme from "@/Components/Theme.vue";
 
 const user = useUser();
 const role = useRole();
 const app = useApp();
+
+const isAdmin = (['super-admin', 'admin', 'mod'].includes(role))
+
 const showingNavigationDropdown = ref(false);
+const theme = ref(localStorage.getItem('theme'));
 
-if (!localStorage.getItem('theme')) {
-    localStorage.setItem('theme', app.theme);
-}
-
-const theme = reactive({ theme: localStorage.getItem('theme') });
-
-watch(() => theme.theme, () => {
-    window.axios.post(route('set-theme'), { theme: theme.theme }).then(() => {
-        localStorage.setItem('theme', theme.theme);
-    });
-});
+window.mitt.on('theme:update', (event) => {
+    theme.value = event;
+})
 </script>
 
 <template>
-    <div :class="[theme.theme, 'bg-base min-h-full']">
+    <div :class="[theme, 'bg-base min-h-full transition duration-150 ease-in']">
         <nav class="bg-mantle font-mono">
             <!-- Primary Navigation Menu -->
             <div class="max-w-6xl lg:mx-auto">
@@ -85,7 +79,7 @@ watch(() => theme.theme, () => {
                                     </dropdown-link>
 
                                     <dropdown-link :href="route('backend.index')"
-                                                   v-if="role.includes('mod')"
+                                                   v-if="isAdmin"
                                                    class="text-red hover:bg-red hover:text-mantle">
                                         Backend
                                     </dropdown-link>
@@ -145,7 +139,7 @@ watch(() => theme.theme, () => {
                             Profile
                         </responsive-nav-link>
                         <responsive-nav-link :href="route('backend.index')"
-                                             v-if="role.includes('mod')"
+                                             v-if="isAdmin"
                                              class="text-red hover:bg-red hover:text-mantle">
                             Backend
                         </responsive-nav-link>
@@ -167,15 +161,7 @@ watch(() => theme.theme, () => {
             <div class="inline-flex space-x-3 items-center">
                 <p class="text-sm">&copy; SketchNI {{ new Date().getFullYear() }}</p>
 
-                <div>
-                    <label for="theme" class="text-subtext0 pr-2">Theme</label>
-                    <select name="theme" v-model="theme.theme" id="theme"
-                            class="bg-crust text-text px-1 py-0.5 text-sm w-28 border border-overlay2">
-                        <option value="mocha" :selected="theme.theme === 'mocha'">Mocha</option>
-                        <option value="macchiato" :selected="theme.theme === 'macchiato'">Macchiato</option>
-                        <option value="frappe" :selected="theme.theme === 'frappe'">Frappe</option>
-                    </select>
-                </div>
+                <theme />
             </div>
             <p class="text-sm">
                 <span>Built with </span>
