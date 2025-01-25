@@ -18,11 +18,11 @@ class UserResource extends JsonResource
             'email_verified' => (bool) $this->email_verified_at,
             'created_at' => $this->created_at,
             'role' => $this->roles()->orderBy('id')->first()->display_name,
-            'permissions' => $this->whenLoaded('permissions', PermissionViaRoleResource::collection($this->permissions)->resolve()),
-            'permissions_via_role' => $this->whenLoaded('permissions', PermissionViaRoleResource::collection($this->getPermissionsViaRoles())->resolve()),
+            'permissions' => $this->whenLoaded('permissions', PermissionViaRoleResource::collection($this->getPermissionsViaRoles())->resolve()),
 
-            'permissions_count' => $this->permissions()->count(),
-            'permissions_via_role_count' => $this->getPermissionsViaRoles()->count(),
+            'comments_count' => 0,
+            'votes_count' => 0,
+            'permissions_count' => $this->getPermissionsViaRoles()->count(),
             'roles_count' => $this->roles()->count(),
             'posts_count' => $this->posts()->count(),
         ];

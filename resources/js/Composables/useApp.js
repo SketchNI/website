@@ -1,5 +1,11 @@
 import { usePage } from "@inertiajs/vue3";
 
 export default function () {
-    return usePage().props.app;
+    const app = usePage().props.app;
+    return usePage().props.app = {
+        env: app.env,
+        flash: app.flash,
+        theme: app.theme,
+        url: app.url,
+    };
 }

@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Backend;
 
 use App\Exceptions\ForbiddenException;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Backend\PermissionViaRoleResource;
 use App\Http\Resources\Backend\UserResource;
 use App\Models\User;
 use App\Traits\ThrowsException;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -41,8 +44,12 @@ class UserController extends Controller
     {
         $this->forbidden('view user');
 
+        $roles = Role::all();
+
         return inertia('Backend/Users/Show', [
-            'user' => Inertia::defer(fn () => new UserResource(User::find($user->id))->resolve()),
+            'user' => new UserResource(User::with(['permissions'])->find($user->id))->resolve(),
+            'roles' => $roles,
+            'permissions' => PermissionViaRoleResource::collection(Permission::all())->resolve(),
         ]);
     }
 }
