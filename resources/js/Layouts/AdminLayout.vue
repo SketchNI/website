@@ -43,33 +43,93 @@ const menu = [
         name: "General", links: [
             { name: "Home", route: 'backend.index', icon: HomeModernIcon, role: ['mod', 'admin', 'super-admin'] },
             { name: "Blog", route: 'backend.blog.index', icon: ListBulletIcon, role: ['mod', 'admin', 'super-admin'] },
-            { name: "Users", route: 'backend.users.index', icon: SolidUsersIcon, role: ['mod', 'admin', 'super-admin'] },
+            {
+                name: "Users",
+                route: 'backend.users.index',
+                icon: SolidUsersIcon,
+                role: ['mod', 'admin', 'super-admin']
+            },
             { name: "Teams", route: 'backend.teams.index', icon: UsersIcon, role: ['mod', 'admin', 'super-admin'] },
-            { name: "Pages", route: 'backend.pages.index', icon: DocumentTextIcon, role: ['mod', 'admin', 'super-admin'] },
-            { name: "Support", route: 'backend.support.index', icon: LifebuoyIcon, role: ['mod', 'admin', 'super-admin'] },
+            {
+                name: "Pages",
+                route: 'backend.pages.index',
+                icon: DocumentTextIcon,
+                role: ['mod', 'admin', 'super-admin']
+            },
+            {
+                name: "Support",
+                route: 'backend.support.index',
+                icon: LifebuoyIcon,
+                role: ['mod', 'admin', 'super-admin']
+            },
             { name: "Images", route: 'backend.images.index', icon: PhotoIcon, color: 'red', role: ['super-admin'] },
         ],
     },
     {
         name: "Finance", links: [
-            { name: "Invoices", route: 'backend.finance.invoices.index', icon: BanknotesIcon, role: ['mod', 'admin', 'super-admin'] },
-            { name: "Customers", route: 'backend.finance.customers.index', icon: UsersIcon, role: ['mod', 'admin', 'super-admin'] },
+            {
+                name: "Invoices",
+                route: 'backend.finance.invoices.index',
+                icon: BanknotesIcon,
+                role: ['mod', 'admin', 'super-admin']
+            },
+            {
+                name: "Customers",
+                route: 'backend.finance.customers.index',
+                icon: UsersIcon,
+                role: ['mod', 'admin', 'super-admin']
+            },
         ]
     },
     {
         name: "Infrastructural", links: [
-            { name: "Builds", route: 'backend.infrastructure.builds.index', icon: BeakerIcon, role: ['admin', 'super-admin'] },
-            { name: "Releases", route: 'backend.infrastructure.releases.index', icon: PlayCircleIcon, role: ['admin', 'super-admin'] },
-            { name: "Runners", route: 'backend.infrastructure.runners.index', icon: CpuChipIcon, role: ['admin', 'super-admin'] },
-            { name: "Issues", route: 'backend.infrastructure.issues.index', icon: BugAntIcon, role: ['mod', 'admin', 'super-admin'] },
+            {
+                name: "Builds",
+                route: 'backend.infrastructure.builds.index',
+                icon: BeakerIcon,
+                role: ['admin', 'super-admin']
+            },
+            {
+                name: "Releases",
+                route: 'backend.infrastructure.releases.index',
+                icon: PlayCircleIcon,
+                role: ['admin', 'super-admin']
+            },
+            {
+                name: "Runners",
+                route: 'backend.infrastructure.runners.index',
+                icon: CpuChipIcon,
+                role: ['admin', 'super-admin']
+            },
+            {
+                name: "Issues",
+                route: 'backend.infrastructure.issues.index',
+                icon: BugAntIcon,
+                role: ['mod', 'admin', 'super-admin']
+            },
         ]
     },
     {
         name: "Misc", links: [
-            { name: "Audit Logs", route: 'backend.misc.audit-log.index', icon: NumberedListIcon, role: ['admin', 'super-admin'] },
-            { name: "Statistics", route: 'backend.misc.statistics.index', icon: ChartPieIcon, role: ['admin', 'super-admin'] },
+            {
+                name: "Audit Logs",
+                route: 'backend.misc.audit-log.index',
+                icon: NumberedListIcon,
+                role: ['admin', 'super-admin']
+            },
+            {
+                name: "Statistics",
+                route: 'backend.misc.statistics.index',
+                icon: ChartPieIcon,
+                role: ['admin', 'super-admin']
+            },
             { name: "Reports", route: 'backend.misc.reports.index', icon: FlagIcon, role: ['admin', 'super-admin'] },
-            { name: "Scheduler", route: 'backend.misc.scheduler.index', icon: SquaresPlusIcon, role: ['mod', 'admin', 'super-admin'] },
+            {
+                name: "Scheduler",
+                route: 'backend.misc.scheduler.index',
+                icon: SquaresPlusIcon,
+                role: ['mod', 'admin', 'super-admin']
+            },
         ]
     }
 ]
@@ -81,10 +141,8 @@ const menu = [
             <!-- Sidebar component, swap this element with another sidebar if you like -->
             <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-crust bg-mantle">
                 <div class="flex h-16 shrink-0 items-center sticky top-0 bg-mantle border-b-2 border-surface0">
-                    <x-link :href="route('home')" class="text-3xl logo w-full">
-                        <span class="text-blue">Ske</span>
-                        <span class="text-red">tch</span>
-                        <span class="text-green">NI</span>
+                    <x-link :href="route('home')" class="logo space-x-0">
+                        <img src="/images/WebLogo.png" alt="SketchNI Logo" class="h-14" />
                     </x-link>
                 </div>
                 <nav class="flex flex-1 flex-col">
