@@ -1,12 +1,8 @@
 <script setup>
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import moment from "moment/moment";
-import { HomeModernIcon, PlusCircleIcon } from "@heroicons/vue/20/solid/index.js";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
-import { ListBulletIcon } from "@heroicons/vue/24/outline/index.js";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
+import { HomeModernIcon } from "@heroicons/vue/20/solid/index.js";
 import { Deferred, usePage } from "@inertiajs/vue3";
-import NoInfoPager from "@/Components/NoInfoPager.vue";
 import useUser from "@/Composables/useUser.js";
 import useApp from "@/Composables/useApp.js";
 import LoadingPane from "@/Pages/Blog/LoadingPane.vue";

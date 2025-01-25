@@ -2,7 +2,7 @@
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import useApp from "@/Composables/useApp.js";
 import { HomeModernIcon, PlusCircleIcon } from "@heroicons/vue/20/solid";
-import { ArchiveBoxXMarkIcon, TrashIcon, ListBulletIcon } from "@heroicons/vue/24/outline";
+import { ListBulletIcon } from "@heroicons/vue/24/outline";
 import NoInfoPager from "@/Components/NoInfoPager.vue";
 import moment from "moment";
 import { Deferred, router, useForm, usePage } from "@inertiajs/vue3";
