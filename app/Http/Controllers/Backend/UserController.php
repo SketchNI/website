@@ -35,9 +35,11 @@ class UserController extends Controller
 
     /**
      * Render the view for a single user
+     *
      * @param  User  $user
      *
      * @return Response
+     *
      * @throws ForbiddenException
      */
     public function edit(User $user): Response
