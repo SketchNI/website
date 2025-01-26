@@ -117,9 +117,8 @@ class Post extends Model
      */
     public function setPublishedAt(bool $is_published): Post
     {
-        $this->forbidden('publish blog entry');
-
         if ($is_published) {
+            $this->forbidden('publish blog entry');
             $this->published_at = now();
         }
 
