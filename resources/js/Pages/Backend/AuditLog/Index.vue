@@ -104,7 +104,7 @@ const page = usePage();
                                         <p class="text-text" v-text="log.causer.name" />
                                         <p class="text-subtext0 text-xs font-normal" v-text="log.causer.email" />
                                     </td>
-                                    <td class="w-2/12 pl-4 pr-3 py-2 text-sm font-medium">
+                                    <td v-if="log.subject_id !== null" class="w-2/12 pl-4 pr-3 py-2 text-sm font-medium">
                                         <p class="text-text" v-text="log.subject.name" />
                                         <p class="text-subtext0 text-xs font-normal" v-text="log.subject.email" />
                                     </td>
