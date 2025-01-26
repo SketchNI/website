@@ -23,7 +23,7 @@ class UpdateRequest extends FormRequest
 
     public function authorize(): bool
     {
-        if (request()->user()->hasRole('admin')) {
+        if (request()->user()->hasAnyRole(['super-admin', 'admin'])) {
             $role = Role::findByName('admin');
 
             return $role->hasPermissionTo('update blog entry', 'web');

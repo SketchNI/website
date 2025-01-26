@@ -2,9 +2,7 @@
 
 namespace App\Models\Blog;
 
-use App\Exceptions\ForbiddenException;
 use App\Models\User;
-use App\Traits\ThrowsException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +15,6 @@ class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    use ThrowsException;
 
     protected $table = 'blog_posts';
 
@@ -112,13 +109,10 @@ class Post extends Model
         return $this;
     }
 
-    /**
-     * @throws ForbiddenException
-     */
     public function setPublishedAt(bool $is_published): Post
     {
         if ($is_published) {
-            $this->forbidden('publish blog entry');
+            // $this->forbidden('publish blog entry', $this);
             $this->published_at = now();
         }
 

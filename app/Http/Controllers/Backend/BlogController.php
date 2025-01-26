@@ -77,8 +77,11 @@ class BlogController
         $post->setAuthor(auth()->id())
             ->setTitle($request->get('title'))
             ->setExcerpt($request->get('excerpt'))
-            ->setContent($request->get('content'))
-            ->setPublishedAt($request->get('published'));
+            ->setContent($request->get('content'));
+
+        if (auth()->user()->hasPermissionTo('publish blog entry')) {
+            $post->setPublishedAt($request->get('published'));
+        }
 
         if (!$post->save()) {
             $this->flash('Blog post not created.', 'error');
@@ -104,17 +107,17 @@ class BlogController
     /**
      * Render the edit blog post page.
      *
-     * @param  int  $id
+     * @param  Post  $post
      *
      * @return Response
      *
      * @throws ForbiddenException
      */
-    public function edit(int $id): Response
+    public function edit(Post $post): Response
     {
-        $this->forbidden('update blog entry');
+        $this->forbidden('update blog entry', $post);
 
-        $post = Post::withTrashed()->find($id)->with(['user', 'categories'])->first();
+        $post = Post::withTrashed()->find($post->id)->with(['user', 'categories'])->first();
 
         return inertia('Backend/Blog/Show', [
             'post' => $post,
@@ -126,17 +129,17 @@ class BlogController
      * Update a blog post.
      *
      * @param  UpdateRequest  $request
-     * @param  int  $id
+     * @param  Post  $post
      *
      * @return RedirectResponse
      *
      * @throws ForbiddenException
      */
-    public function update(UpdateRequest $request, int $id): RedirectResponse
+    public function update(UpdateRequest $request, Post $post): RedirectResponse
     {
-        $this->forbidden('update blog entry');
+        $this->forbidden('update blog entry', $post);
 
-        $post = Post::find($id)
+        $post = Post::find($post->id)
             ->setTitle($request->get('title'))
             ->setExcerpt($request->get('excerpt'))
             ->setContent($request->get('content'))

@@ -205,21 +205,22 @@ const showViewCategoryModal = () => {
                                             <div class=" inline-flex items-center space-x-2">
                                                 <span :class="post.published_at === null ? 'bg-red' : 'bg-green'"
                                                       class="size-2.5 rounded-full inline-block" />
-                                                <span
+                                                <span v-if="post.published_at !== null"
                                                     v-text="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')" />
+                                                <span v-else class="italic">- Not Published -</span>
                                             </div>
                                         </td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm"
                                             v-text="moment(post.created_at).format('Do MMM YYYY [at] hh:mma')" />
                                         <td class="relative whitespace-nowrap text-right text-sm font-medium pr-4">
                                             <x-link v-if="post.deleted_at === null"
-                                                    :href="route('backend.blog.edit', { id: post.id})"
+                                                    :href="route('backend.blog.edit', { post })"
                                                     class="bg-blue text-mantle hover:bg-base hover:text-text py-3 px-4 transition duration-150 ease-in">
                                                 Edit
                                             </x-link>
 
                                             <x-link v-else
-                                                    :href="route('backend.blog.edit', { id: post.id })"
+                                                    :href="route('backend.blog.edit', { post })"
                                                     class="bg-red text-mantle hover:bg-base hover:text-text py-3 px-4 transition duration-150 ease-in">
                                                 Restore
                                             </x-link>

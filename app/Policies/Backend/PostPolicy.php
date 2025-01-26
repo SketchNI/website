@@ -12,36 +12,36 @@ class PostPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyRole(['admin', 'mod']);
+        return $user->hasAnyRole(['super-admin', 'admin', 'mod']);
     }
 
     public function view(User $user, Post $post): bool
     {
-        return $user->hasAnyRole(['admin', 'mod']);
+        return $user->hasAnyRole(['super-admin', 'admin', 'mod']);
     }
 
     public function create(User $user): bool
     {
-        return $user->hasRole('admin');
+        return $user->hasAnyRole(['super-admin', 'admin']);
     }
 
     public function update(User $user, Post $post): bool
     {
-        return $user->hasRole('admin');
+        return $user->hasAnyRole(['super-admin', 'admin']);
     }
 
     public function delete(User $user, Post $post): bool
     {
-        return $user->hasRole('admin') && $user->id === $post->user_id;
+        return $user->hasAnyRole(['super-admin', 'admin']) && $user->id === $post->user_id;
     }
 
     public function restore(User $user, Post $post): bool
     {
-        return $user->hasRole('admin') && $user->id === $post->user_id;
+        return $user->hasAnyRole(['super-admin', 'admin']) && $user->id === $post->user_id;
     }
 
     public function forceDelete(User $user, Post $post): bool
     {
-        return $user->hasRole('admin') && $user->id === $post->user_id;
+        return $user->hasAnyRole(['super-admin', 'admin']) && $user->id === $post->user_id;
     }
 }
