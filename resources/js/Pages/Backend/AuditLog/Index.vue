@@ -84,6 +84,9 @@ const page = usePage();
                                         Causer
                                     </th>
                                     <th class="px-3 py-3.5 text-left text-sm font-semibold text-text" scope="col">
+                                        Target Type
+                                    </th>
+                                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-text" scope="col">
                                         Target
                                     </th>
                                     <th class="px-3 py-3.5 text-left text-sm font-semibold text-text" scope="col">
@@ -100,23 +103,28 @@ const page = usePage();
                                 <tbody class="divide-y divide-surface0 bg-surface2">
                                 <tr v-for="(log, i) in logs.data" :key="log.id"
                                     :class="[i % 2 === 0 ? 'bg-surface0' : 'bg-surface1', 'hover:bg-surface2 select-none cursor-default']">
-                                    <td class="w-2/12 pl-4 pr-3 text-sm font-medium">
+                                    <td class="w-2/12 py-2 pl-4 pr-3 text-sm font-medium">
                                         <p class="text-text" v-text="log.causer.name" />
                                         <p class="text-subtext0 text-xs font-normal" v-text="log.causer.email" />
                                     </td>
+                                    <td class="w-24 pl-4 pr-3 py-2 text-sm font-medium">
+                                        <div v-if="log.subject_type !== null">
+                                            <p class="text-text" v-text="log.subject_type.replace('App\\Models\\', '')" />
+                                        </div>
+                                    </td>
                                     <td class="w-2/12 pl-4 pr-3 py-2 text-sm font-medium">
-                                        <p v-if="log.subject_id !== null">
+                                        <div v-if="log.subject_id !== null">
                                             <p class="text-text" v-text="log.subject.name" />
                                             <p class="text-subtext0 text-xs font-normal" v-text="log.subject.email" />
-                                        </p>
+                                        </div>
                                     </td>
-                                    <td class="whitespace-nowrap px-3 py-2 text-sm font-medium text-text">
+                                    <td class="w-24 whitespace-nowrap px-3 py-2 text-sm font-medium text-text">
                                         <p class="text-text" v-text="log.log_name" />
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-2 text-sm font-medium text-text">
                                         <p class="text-text" v-text="log.description" />
                                     </td>
-                                    <td class="whitespace-nowrap px-3 text-sm"
+                                    <td class="w-44 whitespace-nowrap px-3 text-sm"
                                             v-text="moment(log.created_at).format('Do MMM YYYY [at] hh:mma')" />
                                 </tr>
                                 </tbody>
