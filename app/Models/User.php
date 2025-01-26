@@ -82,6 +82,10 @@ class User extends Authenticatable implements MustVerifyEmail
             $this->email_verified_at = now();
         }
 
+        if (!$is_verified) {
+            $this->email_verified_at = null;
+        }
+
         return $this;
     }
 }
