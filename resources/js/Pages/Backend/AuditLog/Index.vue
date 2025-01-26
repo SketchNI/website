@@ -1,34 +1,32 @@
 <script setup>
 import AdminLayout from "@/Layouts/AdminLayout.vue";
-import moment from "moment/moment";
 import { HomeModernIcon } from "@heroicons/vue/20/solid/index.js";
-import { Deferred, usePage } from "@inertiajs/vue3";
-import useApp from "@/Composables/useApp.js";
-import LoadingPane from "@/Pages/Blog/LoadingPane.vue";
+import { usePage } from "@inertiajs/vue3";
 import NoInfoPager from "@/Components/NoInfoPager.vue";
+import moment from "moment/moment";
 
 const props = defineProps({
-    users: {
+    logs: {
         data: Object,
         meta: Object,
         links: Object,
     },
-})
+});
+
+console.log(props.logs);
 
 const page = usePage();
-const app = useApp();
-
 </script>
 
 <template>
-    <x-head title="User Manager" />
+    <x-head title="Audit Logs" />
 
     <admin-layout>
         <div class="mb-6 inline-flex space-x-2 items-end">
             <h1 class="font-semibold text-white">
-                Users
+                Audit Logs
             </h1>
-            <p class="text-sm text-subtext0">View and edit registered users.</p>
+            <p class="text-sm text-subtext0">View application audit logs.</p>
         </div>
 
         <div class="flex items-center justify-between mb-6">
@@ -50,9 +48,9 @@ const app = useApp();
                                      preserveAspectRatio="none" viewBox="0 0 24 44">
                                     <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
                                 </svg>
-                                <x-link :href="route('backend.users.index')"
+                                <x-link :href="route('backend.misc.audit-log.index')"
                                         class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">
-                                    Users
+                                    Audit Logs
                                 </x-link>
                             </div>
                         </li>
@@ -83,72 +81,49 @@ const app = useApp();
                                 <tr>
                                     <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-text sm:pl-6 lg:w-8"
                                         scope="col">
-                                        ID
+                                        Causer
                                     </th>
                                     <th class="px-3 py-3.5 text-left text-sm font-semibold text-text" scope="col">
-                                        Name
+                                        Target
                                     </th>
                                     <th class="px-3 py-3.5 text-left text-sm font-semibold text-text" scope="col">
-                                        Verified
+                                        Type
                                     </th>
                                     <th class="px-3 py-3.5 text-left text-sm font-semibold text-text" scope="col">
-                                        Created
+                                        Event
                                     </th>
                                     <th class="px-3 py-3.5 text-left text-sm font-semibold text-text" scope="col">
-                                        Role
-                                    </th>
-                                    <th class="relative py-3.5 pl-3 pr-4 sm:pr-6" scope="col">
-                                        <span class="sr-only">Edit</span>
+                                        When
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody class="divide-y divide-surface0 bg-surface2">
-                                <Deferred data="users">
-                                    <tr v-for="(user, i) in users.data" :key="user.id"
-                                        :class="[i % 2 === 0 ? 'bg-surface0' : 'bg-surface1', 'hover:bg-surface2 select-none cursor-default']">
-                                        <td class="pl-4 pr-3 text-sm font-medium text-center">
-                                            {{ user.id }}
-                                        </td>
-                                        <td class="whitespace-nowrap px-3 py-2 text-sm font-medium">
-                                            <p class="text-text" v-text="user.name" />
-                                            <p class="text-subtext0 text-xs font-normal" v-text="user.email" />
-                                        </td>
-                                        <td class="whitespace-nowrap px-3 text-sm space-x-2">
-                                            <div class="inline-flex items-center space-x-2">
-                                                <span :class="user.email_verified ? 'bg-green' : 'bg-red'"
-                                                      class="size-2.5 rounded-full inline-block" />
-                                                <span v-text="user.email_verified ? 'Verified' : 'Unverified'" />
-                                            </div>
-                                        </td>
-                                        <td class="whitespace-nowrap px-3 text-sm"
-                                            v-text="moment(user.created_at).format('Do MMM YYYY [at] hh:mma')" />
-                                        <td class="whitespace-nowrap px-3 text-sm"
-                                            v-text="user.role" />
-                                        <td class="relative whitespace-nowrap text-right text-sm font-medium pr-4">
-                                            <x-link :href="route('backend.users.edit', { user })"
-                                                    class="bg-blue text-mantle hover:bg-base hover:text-text py-2 px-4 transition duration-150 ease-in">
-                                                Edit
-                                            </x-link>
-                                        </td>
-                                    </tr>
-                                    <template #fallback>
-                                        <tr>
-                                            <td class="py-8 w-full" colspan="6">
-                                                <LoadingPane resource="users" />
-                                            </td>
-                                        </tr>
-                                    </template>
-                                </Deferred>
+                                <tr v-for="(log, i) in logs.data" :key="log.id"
+                                    :class="[i % 2 === 0 ? 'bg-surface0' : 'bg-surface1', 'hover:bg-surface2 select-none cursor-default']">
+                                    <td class="w-2/12 pl-4 pr-3 text-sm font-medium">
+                                        <p class="text-text" v-text="log.causer.name" />
+                                        <p class="text-subtext0 text-xs font-normal" v-text="log.causer.email" />
+                                    </td>
+                                    <td class="w-2/12 pl-4 pr-3 py-2 text-sm font-medium">
+                                        <p class="text-text" v-text="log.subject.name" />
+                                        <p class="text-subtext0 text-xs font-normal" v-text="log.subject.email" />
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-2 text-sm font-medium text-text">
+                                        <p class="text-text" v-text="log.log_name" />
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-2 text-sm font-medium text-text">
+                                        <p class="text-text" v-text="log.description" />
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 text-sm"
+                                            v-text="moment(log.created_at).format('Do MMM YYYY [at] hh:mma')" />
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <Deferred data="users">
-                            <div v-if="users.meta.total > users.meta.per_page">
-                                <no-info-pager :pagination="users.meta" />
-                            </div>
-                            <template #fallback></template>
-                        </Deferred>
+                        <div v-if="logs.total > logs.per_page">
+                            <no-info-pager :pagination="logs" />
+                        </div>
                     </div>
                 </div>
             </div>

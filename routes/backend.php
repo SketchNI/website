@@ -65,8 +65,7 @@ Route::prefix('misc')->name('misc.')->group(static function () {
     Route::get('/', Backend\IndexController::class)->name('index');
 
     Route::prefix('audit-logs')->name('audit-log.')->group(static function () {
-        Route::get('/', Backend\IndexController::class)->name('index');
-        Route::get('/show/{id}', Backend\IndexController::class)->name('show');
+        Route::get('/', Backend\AuditLogController::class)->name('index');
     });
 
     Route::prefix('statistics')->name('statistics.')->group(static function () {
