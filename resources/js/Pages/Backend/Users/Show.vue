@@ -25,7 +25,6 @@ import {
 import Checkbox from "@/Components/Checkbox.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Divider from "@/Components/divider.vue";
-import { ref } from "vue";
 
 const props = defineProps({
     user: {
@@ -46,10 +45,8 @@ const props = defineProps({
     permissions: Array,
 });
 
-const app = useApp();
 const page = usePage();
-
-const permissions = ref(props.permissions);
+const app = useApp();
 
 const form = useForm({
     id: props.user.id,
@@ -58,6 +55,7 @@ const form = useForm({
     email_verified: props.user.email_verified,
     created_at: props.user.created_at,
     role: props.user.role,
+    permissions: props.user.permissions,
 });
 
 props.roles.forEach((role, i) => {
@@ -68,13 +66,13 @@ props.roles.forEach((role, i) => {
 
 const toggleSelection = (name) => {
     if (!checkAndRemoveSelection(name)) {
-        permissions.value.push(name);
+        form.permissions.push(name);
     }
 }
 
 const checkAndRemoveSelection = (name) => {
-    if (permissions.value.includes(name)) {
-        permissions.value = permissions.value.filter(names => names !== name);
+    if (form.permissions.includes(name)) {
+        form.permissions = form.permissions.filter(names => names !== name);
 
         return true;
     }
@@ -158,15 +156,15 @@ const updateUser = () => {
             <div class="flow-root">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                        <div v-if="app.flash !== null"
+                        <div v-if="page.props.app.flash !== null"
                              class="my-4">
-                            <div v-if="app.flash.type === 'success'"
+                            <div v-if="page.props.app.flash.type === 'success'"
                                  class="bg-green shadow shadow-crust text-base px-6 py-4">
-                                {{ app.flash.message }}
+                                {{ page.props.app.flash.message }}
                             </div>
-                            <div v-else-if="app.flash.type === 'error'"
+                            <div v-else-if="page.props.app.flash.type === 'error'"
                                  class="bg-red shadow shadow-crust text-base px-6 py-4">
-                                {{ app.flash.message }}
+                                {{ page.props.app.flash.message }}
                             </div>
                         </div>
                     </div>
@@ -262,7 +260,7 @@ const updateUser = () => {
                                     <label :for="`checkbox.${permission.id}`" class="flex items-center space-x-2">
                                         <checkbox :id="`checkbox.${permission.name}`"
                                                   disabled="disabled"
-                                                  :checked="permissions.includes(permission.name)"
+                                                  :checked="form.permissions.includes(permission.name)"
                                                   :value="permission.id" />
                                         <span class="font-bold text-sm text-text">
                                             {{ permission.name }}
