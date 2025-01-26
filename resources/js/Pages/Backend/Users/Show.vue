@@ -1,11 +1,11 @@
 <script setup>
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import {
+    ArrowPathIcon,
     CheckIcon,
-    XMarkIcon,
     ChevronUpDownIcon,
     HomeModernIcon,
-    ArrowPathIcon
+    XMarkIcon
 } from "@heroicons/vue/20/solid/index.js";
 import { UserCircleIcon } from '@heroicons/vue/24/outline';
 import { useForm, usePage } from "@inertiajs/vue3";
@@ -14,10 +14,10 @@ import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import useApp from "@/Composables/useApp.js";
 import {
+    Listbox,
     ListboxButton,
     ListboxOption,
     ListboxOptions,
-    Listbox,
     Switch,
     SwitchGroup,
     SwitchLabel
@@ -25,6 +25,7 @@ import {
 import Checkbox from "@/Components/Checkbox.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Divider from "@/Components/divider.vue";
+import { ref } from "vue";
 
 const props = defineProps({
     user: {
@@ -48,6 +49,8 @@ const props = defineProps({
 const app = useApp();
 const page = usePage();
 
+const permissions = ref(props.permissions);
+
 const form = useForm({
     id: props.user.id,
     name: props.user.name,
@@ -55,7 +58,6 @@ const form = useForm({
     email_verified: props.user.email_verified,
     created_at: props.user.created_at,
     role: props.user.role,
-    permissions: props.user.permissions,
 });
 
 props.roles.forEach((role, i) => {
@@ -66,13 +68,13 @@ props.roles.forEach((role, i) => {
 
 const toggleSelection = (name) => {
     if (!checkAndRemoveSelection(name)) {
-        form.permissions.push(name);
+        permissions.value.push(name);
     }
 }
 
 const checkAndRemoveSelection = (name) => {
-    if (form.permissions.includes(name)) {
-        form.permissions = form.permissions.filter(names => names !== name);
+    if (permissions.value.includes(name)) {
+        permissions.value = permissions.value.filter(names => names !== name);
 
         return true;
     }
@@ -90,7 +92,11 @@ const stats = [
     { name: 'Permissions', stat: props.user.permissions_count },
     { name: 'Comments', stat: props.user.comments_count },
     { name: 'Votes', stat: props.user.votes_count }
-]
+];
+
+const updateUser = () => {
+    form.put(route('backend.users.update', { user: props.user }));
+}
 
 </script>
 
@@ -231,7 +237,6 @@ const stats = [
                                                 v-text="form.email_verified ? 'Verified' : 'Unverified'" />
                                         </SwitchLabel>
                                     </SwitchGroup>
-
                                 </div>
 
                                 <primary-button type="submit">
@@ -257,7 +262,7 @@ const stats = [
                                     <label :for="`checkbox.${permission.id}`" class="flex items-center space-x-2">
                                         <checkbox :id="`checkbox.${permission.name}`"
                                                   disabled="disabled"
-                                                  :checked="form.permissions.includes(permission.name)"
+                                                  :checked="permissions.includes(permission.name)"
                                                   :value="permission.id" />
                                         <span class="font-bold text-sm text-text">
                                             {{ permission.name }}

@@ -57,4 +57,31 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Post::class);
     }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        if ($this->isDirty('email')) {
+            $this->email_verified_at = null;
+        }
+
+        return $this;
+    }
+
+    public function setEmailVerified(bool $is_verified): self
+    {
+        if ($this->isDirty('email_verified') && $is_verified) {
+            $this->email_verified_at = now();
+        }
+
+        return $this;
+    }
 }
