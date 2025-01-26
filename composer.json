@@ -73,8 +73,8 @@
         "prod": [
             "@php artisan clear-compiled",
             "@php artisan optimize:clear",
+            "composer install",
             "@php artisan package:discover --ansi",
-            "composer update",
             "pnpm install",
             "pnpm run build",
             "@php artisan optimize",
