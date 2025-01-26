@@ -78,7 +78,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function setEmailVerified(bool $is_verified): self
     {
-        if ($this->email_verified_at !== null && $is_verified) {
+        if ($this->email_verified_at === null && $is_verified) {
             $this->email_verified_at = now();
         }
 

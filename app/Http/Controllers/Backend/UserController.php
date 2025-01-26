@@ -93,7 +93,7 @@ class UserController extends Controller
                 ->on($user)
                 ->log('updated user entry.');
         } else {
-            $this->flash('User updated successfully.', 'error');
+            $this->flash('Failed to update user.', 'error');
         }
 
         return redirect(route('backend.users.edit', ['user' => $user->fresh()]));
