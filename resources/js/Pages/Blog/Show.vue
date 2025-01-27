@@ -5,7 +5,7 @@ import useApp from "@/Composables/useApp.js";
 import hljs from 'highlight.js/lib/common';
 import '@/../css/a11y-dark.css';
 import '@catppuccin/highlightjs/css/catppuccin-macchiato.css';
-import { nextTick, ref } from "vue";
+import { nextTick } from "vue";
 import CategoryPanel from "@/Components/CategoryPanel.vue";
 
 const props = defineProps({
@@ -37,7 +37,21 @@ nextTick(() => {
 </script>
 
 <template>
-    <x-head title="Blog Posts" />
+    <x-head>
+        <title>{{ post.title }}</title>
+        <meta :content="post.title" property="og:title" />
+        <meta :content="post.excerpt" property="og:description" />
+        <meta :content="post.url" property="og:url" />
+        <meta :content="post.featured_image" property="og:image" />
+        <meta content="en_GB" property="og:locale" />
+        <meta content="sketchni.uk" property="og:site_name" />
+        <meta content="article" property="og:type" />
+        <meta :content="post.featured_image" name="image" />
+        <meta :content="post.excerpt" name="description" />
+        <meta content="Written by" name="twitter:label1" />
+        <meta :content="post.author.name" name="twitter:data1" />
+        <link :href="post.url" rel="canonical" />
+    </x-head>
 
     <app-layout>
         <div class="flex max-lg:flex-col gap-6 items-start max-lg:px-4">

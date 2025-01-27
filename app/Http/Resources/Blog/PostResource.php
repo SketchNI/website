@@ -32,6 +32,7 @@ class PostResource extends JsonResource
             'author' => $this->whenLoaded('user', new UserResource($this->user)->resolve()),
             'title' => $this->title,
             'slug' => $this->slug,
+            'url' => route('posts.show', ['post' => $this->id]),
             'excerpt' => $this->excerpt,
             'content' => $this->markdownify($this->content),
             'featured_image' => null,

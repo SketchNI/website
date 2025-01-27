@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeamController;
@@ -19,6 +20,8 @@ Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/{post:slug}', [BlogController::class, 'show'])->name('show');
 });
 
+Route::get('feed.xml', FeedController::class)->name('feed');
+
 Route::prefix('category')->name('category.')->group(static function () {
     Route::get('/{category:slug}', CategoryController::class)->name('show');
 });
@@ -34,5 +37,3 @@ require __DIR__.'/auth.php';
 Route::middleware(['role:mod|admin|super-admin'])->prefix('backend')->name('backend.')->group(static function () {
     require_once __DIR__.'/backend.php';
 });
-
-Route::feeds();

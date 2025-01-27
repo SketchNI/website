@@ -9,12 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Spatie\Feed\Feedable;
-use Spatie\Feed\FeedItem;
 
-class Post extends Model implements Feedable
+class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -45,25 +42,6 @@ class Post extends Model implements Feedable
         ];
     }
 
-    public function toFeedItem(): FeedItem
-    {
-        $user = $this->load('user')->user;
-
-        return FeedItem::create()
-            ->id($this->id)
-            ->title($this->title)
-            ->summary($this->excerpt)
-            ->updated($this->updated_at)
-            ->link(route('blog.show', ['post' => $this]))
-            ->authorName($user->name)
-            ->authorEmail($user->email);
-    }
-
-    public static function getFeedItems(): Collection
-    {
-        return Post::all();
-    }
-
     public function scopeNormal(Builder $query): Builder
     {
         return $query
@@ -76,6 +54,14 @@ class Post extends Model implements Feedable
         return $query
             ->with(['user', 'categories'])
             ->whereNull('published_at')
+            ->orderByDesc('id');
+    }
+
+    public function scopePublished(Builder $query): Builder
+    {
+        return $query
+            ->with(['user', 'categories'])
+            ->whereNotNull('published_at')
             ->orderByDesc('id');
     }
 
