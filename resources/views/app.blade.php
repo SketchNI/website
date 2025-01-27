@@ -10,7 +10,6 @@
         href="https://fonts.bunny.net/css?family=nunito:300,400,500,600,700|red-hat-mono:300,400,500,600,700&display=swap"
         crossorigin="anonymous"
         rel="stylesheet" />
-    @include('feed::links')
     <!-- Scripts -->
     @routes
     @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
