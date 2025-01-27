@@ -47,28 +47,6 @@ Route::prefix('finance')->name('finance.')->group(static function () {
     });
 });
 
-Route::prefix('infrastructure')->name('infrastructure.')->group(static function () {
-    Route::prefix('builds')->name('builds.')->group(static function () {
-        Route::get('/', Backend\IndexController::class)->name('index');
-        Route::get('/show/{id}', Backend\IndexController::class)->name('show');
-    });
-
-    Route::prefix('releases')->name('releases.')->group(static function () {
-        Route::get('/', Backend\IndexController::class)->name('index');
-        Route::get('/show/{id}', Backend\IndexController::class)->name('show');
-    });
-
-    Route::prefix('runners')->name('runners.')->group(static function () {
-        Route::get('/', Backend\IndexController::class)->name('index');
-        Route::get('/show/{id}', Backend\IndexController::class)->name('show');
-    });
-
-    Route::prefix('issues')->name('issues.')->group(static function () {
-        Route::get('/', Backend\IndexController::class)->name('index');
-        Route::get('/show/{id}', Backend\IndexController::class)->name('show');
-    });
-});
-
 Route::prefix('misc')->name('misc.')->group(static function () {
     Route::get('/', Backend\IndexController::class)->name('index');
 

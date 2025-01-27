@@ -9,18 +9,13 @@ import {
     UsersIcon,
 } from "@heroicons/vue/24/outline";
 import {
-    BeakerIcon,
-    BugAntIcon,
     ChartPieIcon,
-    CpuChipIcon,
     FlagIcon,
     NumberedListIcon,
     PhotoIcon,
-    PlayCircleIcon,
     SquaresPlusIcon,
     UsersIcon as SolidUsersIcon
 } from '@heroicons/vue/20/solid';
-import useUser from "@/Composables/useUser.js";
 import useRole from "@/Composables/useRole.js";
 import AdminLink from "@/Components/AdminLink.vue";
 import Divider from "@/Components/divider.vue";
@@ -28,9 +23,7 @@ import useApp from "@/Composables/useApp.js";
 import Theme from "@/Components/Theme.vue";
 
 const app = useApp();
-const user = useUser();
 const role = useRole();
-const showingNavigationDropdown = ref(false);
 
 const theme = ref(localStorage.getItem('theme'));
 
@@ -82,34 +75,6 @@ const menu = [
         ]
     },
     {
-        name: "Infrastructural", links: [
-            {
-                name: "Builds",
-                route: 'backend.infrastructure.builds.index',
-                icon: BeakerIcon,
-                role: ['admin', 'super-admin']
-            },
-            {
-                name: "Releases",
-                route: 'backend.infrastructure.releases.index',
-                icon: PlayCircleIcon,
-                role: ['admin', 'super-admin']
-            },
-            {
-                name: "Runners",
-                route: 'backend.infrastructure.runners.index',
-                icon: CpuChipIcon,
-                role: ['admin', 'super-admin']
-            },
-            {
-                name: "Issues",
-                route: 'backend.infrastructure.issues.index',
-                icon: BugAntIcon,
-                role: ['mod', 'admin', 'super-admin']
-            },
-        ]
-    },
-    {
         name: "Misc", links: [
             {
                 name: "Audit Logs",
@@ -137,8 +102,7 @@ const menu = [
 
 <template>
     <div :class="[theme, 'bg-base h-full']">
-        <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-            <!-- Sidebar component, swap this element with another sidebar if you like -->
+        <div class="lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
             <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-crust bg-mantle">
                 <div class="flex h-16 shrink-0 items-center sticky top-0 bg-mantle border-b-2 border-surface0">
                     <x-link :href="route('home')" class="logo space-x-0">
