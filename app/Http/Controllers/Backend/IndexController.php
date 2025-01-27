@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog\Post;
+use App\Models\User;
 use Inertia\Response;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
@@ -14,6 +16,11 @@ class IndexController extends Controller
             app()->abort(HttpResponse::HTTP_FORBIDDEN);
         }
 
-        return inertia('Backend/Index');
+        $counts = [
+            ['name' => 'Users', 'value' => User::count(), 'unit' => null],
+            ['name' => 'Posts', 'value' => Post::count(), 'unit' => null],
+        ];
+
+        return inertia('Backend/Index', compact('counts'));
     }
 }
