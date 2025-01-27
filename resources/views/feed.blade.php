@@ -20,9 +20,9 @@
     @foreach($posts as $post)
     <entry>
         <title>{{ $post->title }}</title>
-        <id>{{ route('blog.show', ['post' => $post]) }}</id>
-        <updated>{{ $post->updated_at->format('r') }}</updated>
-        <link href="{{ route('blog.show', ['post' => $post]) }}" rel="alternative" />
+        <id>{{ route('blog.show', ['post' => $post->id]) }}</id>
+        <updated>{{ $post->updated_at }}</updated>
+        <link href="{{ route('blog.show', ['post' => $post->id]) }}" rel="alternative" />
         <content xml:base="{{ config('app.url') }}" xml:lang="en" type="html">
             {!! $post->content !!}
         </content>

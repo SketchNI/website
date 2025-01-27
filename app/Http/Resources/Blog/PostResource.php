@@ -32,7 +32,7 @@ class PostResource extends JsonResource
             'author' => $this->whenLoaded('user', new UserResource($this->user)->resolve()),
             'title' => $this->title,
             'slug' => $this->slug,
-            'url' => route('posts.show', ['post' => $this->id]),
+            'url' => route('blog.show', ['post' => $this->id]),
             'excerpt' => $this->excerpt,
             'raw_content' => $this->content,
             'content' => $this->markdownify($this->content),
@@ -42,6 +42,7 @@ class PostResource extends JsonResource
             'deleted_at' => $this->deleted_at?->toIso8601String(),
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String(),
+            'raw_updated_at' => $this->updated_at->format('r'),
         ];
     }
 
