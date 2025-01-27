@@ -9,9 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Spatie\Feed\Feedable;
+use Spatie\Feed\FeedItem;
 
-class Post extends Model
+class Post extends Model implements Feedable
 {
     use HasFactory;
     use SoftDeletes;
@@ -40,6 +43,23 @@ class Post extends Model
             'deleted' => $this->isDeleted()->count(),
             'unpublished' => $this->unpublished()->count(),
         ];
+    }
+
+    public function toFeedItem(): FeedItem
+    {
+        return FeedItem::create()
+            ->id($this->id)
+            ->title($this->title)
+            ->summary($this->excerpt)
+            ->updated($this->updated_at)
+            ->link(route('blog.show', ['post' => $this]))
+            ->authorName($this->user->name)
+            ->authorEmail($this->user->email);
+    }
+
+    public static function getFeedItems(): Collection
+    {
+        return Post::all();
     }
 
     public function scopeNormal(Builder $query): Builder

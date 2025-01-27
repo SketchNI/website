@@ -34,3 +34,5 @@ require __DIR__.'/auth.php';
 Route::middleware(['role:mod|admin|super-admin'])->prefix('backend')->name('backend.')->group(static function () {
     require_once __DIR__.'/backend.php';
 });
+
+Route::feeds();

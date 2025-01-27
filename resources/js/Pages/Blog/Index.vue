@@ -5,7 +5,7 @@ import Pager from "@/Components/Pager.vue";
 import useApp from "@/Composables/useApp.js";
 import { Deferred } from "@inertiajs/vue3";
 import LoadingPane from "@/Pages/Blog/LoadingPane.vue";
-import { ExclamationTriangleIcon } from "@heroicons/vue/24/solid";
+import { ExclamationTriangleIcon, RssIcon } from "@heroicons/vue/24/solid";
 import CategoryPanel from "@/Components/CategoryPanel.vue";
 
 const props = defineProps({
@@ -24,7 +24,15 @@ const app = useApp();
     <x-head title="Blog Posts" />
 
     <app-layout>
-        <div class="flex bg-surface0 p-4 shadow shadow-crust mb-6 text-subtext1 items-center justify-between mx-4 lg:mx-0">
+        <a class="flex items-center mb-4 text-blue-300 transition duration-150 ease-in-out group"
+                href="/feed">
+            <span class="group group-hover:bg-orange/40 px-1 py-1">
+                <rss-icon class="size-5 text-orange group" />
+            </span>
+            <span class="group group-hover:bg-blue-300/40 px-2 py-0.5">RSS Feed</span>
+        </a>
+        <div
+            class="flex bg-surface0 p-4 shadow shadow-crust mb-6 text-subtext1 items-center justify-between mx-4 lg:mx-0">
             <div class="flex items-center space-x-1">
                 <span>Category:</span>
                 <span class="text-blue font-bold">All</span>

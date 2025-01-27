@@ -2,6 +2,7 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 import catppuccin from '@catppuccin/tailwindcss';
 import typography from '@tailwindcss/typography';
+import colors from "tailwindcss/colors";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -30,6 +31,7 @@ export default {
             inherit: 'inherit',
             current: 'currentColor',
             transparent: 'transparent',
+            orange: colors.orange[400],
             blue: {
                 DEFAULT: '#89B4FA',
                 50: '#EBF2FE',
