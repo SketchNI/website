@@ -3,7 +3,7 @@ import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { HomeModernIcon } from "@heroicons/vue/20/solid/index.js";
 import { usePage } from "@inertiajs/vue3";
 import NoInfoPager from "@/Components/NoInfoPager.vue";
-import moment from "moment/moment";
+import LogEntry from "@/Components/AuditLog/LogEntry.vue";
 
 const props = defineProps({
     logs: {
@@ -12,8 +12,6 @@ const props = defineProps({
         links: Object,
     },
 });
-
-console.log(props.logs);
 
 const page = usePage();
 </script>
@@ -63,21 +61,9 @@ const page = usePage();
             <div class="flow-root">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                        <div v-if="page.props.app.hasOwnProperty('flash') && page.props.app.flash !== null"
-                             class="my-4">
-                            <div v-if="page.props.app.flash.type === 'success'"
-                                 class="bg-green shadow shadow-crust text-base px-6 py-4">
-                                {{ page.props.app.flash.message }}
-                            </div>
-                            <div v-else-if="page.props.app.flash.type === 'error'"
-                                 class="bg-red shadow shadow-crust text-base px-6 py-4">
-                                {{ page.props.app.flash.message }}
-                            </div>
-                        </div>
-
                         <div class="overflow-hidden shadow shadow-mantle ring-1 ring-mantle/5">
-                            <table class="min-w-full divide-y divide-overlay0">
-                                <thead class="bg-surface0">
+                            <table class="min-w-full !border-0">
+                                <thead class="bg-crust">
                                 <tr>
                                     <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-text sm:pl-6 lg:w-8"
                                         scope="col">
@@ -93,46 +79,28 @@ const page = usePage();
                                         Type
                                     </th>
                                     <th class="px-3 py-3.5 text-left text-sm font-semibold text-text" scope="col">
+                                        Description
+                                    </th>
+                                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-text" scope="col">
                                         Event
                                     </th>
                                     <th class="px-3 py-3.5 text-left text-sm font-semibold text-text" scope="col">
                                         When
                                     </th>
+                                    <th></th>
                                 </tr>
                                 </thead>
-                                <tbody class="divide-y divide-surface0 bg-surface2">
-                                <tr v-for="(log, i) in logs.data" :key="log.id"
-                                    :class="[i % 2 === 0 ? 'bg-surface0' : 'bg-surface1', 'hover:bg-surface2 select-none cursor-default']">
-                                    <td class="w-2/12 py-2 pl-4 pr-3 text-sm font-medium">
-                                        <p class="text-text" v-text="log.causer.name" />
-                                        <p class="text-subtext0 text-xs font-normal" v-text="log.causer.email" />
-                                    </td>
-                                    <td class="w-24 pl-4 pr-3 py-2 text-sm font-medium">
-                                        <div v-if="log.subject_type !== null">
-                                            <p class="text-text" v-text="log.subject_type.replace('App\\Models\\', '')" />
-                                        </div>
-                                    </td>
-                                    <td class="w-2/12 pl-4 pr-3 py-2 text-sm font-medium">
-                                        <div v-if="log.subject_id !== null">
-                                            <p class="text-text" v-text="log.subject.name" />
-                                            <p class="text-subtext0 text-xs font-normal" v-text="log.subject.email" />
-                                        </div>
-                                    </td>
-                                    <td class="w-24 whitespace-nowrap px-3 py-2 text-sm font-medium text-text">
-                                        <p class="text-text" v-text="log.log_name" />
-                                    </td>
-                                    <td class="whitespace-nowrap px-3 py-2 text-sm font-medium text-text">
-                                        <p class="text-text" v-text="log.description" />
-                                    </td>
-                                    <td class="w-44 whitespace-nowrap px-3 text-sm"
-                                            v-text="moment(log.created_at).format('Do MMM YYYY [at] hh:mma')" />
-                                </tr>
+                                <tbody class="">
+                                    <tr v-for="(log, i) in logs.data" :key="log.id"
+                                        :class="[i % 2 === 0 ? 'bg-surface0' : 'bg-surface1', 'hover:bg-surface2 select-none cursor-default transition duration-150 ease-in-out']">
+                                        <log-entry :item="log" />
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <div v-if="logs.total > logs.per_page">
-                            <no-info-pager :pagination="logs" />
+                        <div v-if="logs.meta.total > logs.meta.per_page">
+                            <no-info-pager :pagination="logs.meta" />
                         </div>
                     </div>
                 </div>

@@ -22,7 +22,7 @@ class UserResource extends JsonResource
 
             'comments_count' => 0,
             'votes_count' => 0,
-            'permissions_count' => $this->getPermissionsViaRoles()->count(),
+            'permissions_count' => $this->whenLoaded('permissions', $this->getPermissionsViaRoles()->count()),
             'roles_count' => $this->roles()->count(),
             'posts_count' => $this->posts()->count(),
         ];
