@@ -47,14 +47,16 @@ class Post extends Model implements Feedable
 
     public function toFeedItem(): FeedItem
     {
+        $user = $this->with('user')->user;
+
         return FeedItem::create()
             ->id($this->id)
             ->title($this->title)
             ->summary($this->excerpt)
             ->updated($this->updated_at)
             ->link(route('blog.show', ['post' => $this]))
-            ->authorName($this->user->name)
-            ->authorEmail($this->user->email);
+            ->authorName($user->name)
+            ->authorEmail($user->email);
     }
 
     public static function getFeedItems(): Collection

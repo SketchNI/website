@@ -72,6 +72,7 @@
             "@php artisan migrate --graceful --ansi"
         ],
         "prod": [
+            "@php artisan down --retry=5",
             "@php artisan clear-compiled",
             "@php artisan optimize:clear",
             "composer install",
@@ -79,7 +80,8 @@
             "pnpm install",
             "pnpm run build",
             "@php artisan optimize",
-            "@php artisan route:clear"
+            "@php artisan route:clear",
+            "@php artisan up"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
