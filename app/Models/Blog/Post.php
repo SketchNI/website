@@ -47,7 +47,7 @@ class Post extends Model implements Feedable
 
     public function toFeedItem(): FeedItem
     {
-        $user = $this->with('user')->user;
+        $user = $this->load('user')->user;
 
         return FeedItem::create()
             ->id($this->id)
