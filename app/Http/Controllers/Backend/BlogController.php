@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Exceptions\ForbiddenException;
 use App\Http\Requests\Backend\Blog\CreateRequest;
 use App\Http\Requests\Backend\Blog\UpdateRequest;
-use App\Http\Resources\Backend\CategoryResource;
+use App\Http\Resources\Blog\CategoryResource;
 use App\Http\Resources\Blog\PostResource;
 use App\Models\Blog\Category;
 use App\Models\Blog\Post;
@@ -37,9 +37,15 @@ class BlogController
     {
         $this->forbidden('view blog entries');
 
+        $post = new Post;
+
         return inertia('Backend/Blog/Index', [
             'posts' => Inertia::defer(fn () => $this->resolvePosts($request->get('filter')), 'posts'),
-            'counts' => Inertia::defer(fn () => (new Post)->counts(), 'posts'),
+            'counts' => Inertia::defer(fn () => [
+                'posts' => $post->isNotDeleted()->published()->count(),
+                'unpublished' => $post->isNotDeleted()->unpublished()->count(),
+                'deleted' => $post->isDeleted()->count(),
+            ], 'posts'),
             'categories' => fn () => CategoryResource::collection(Category::with('parent')->get()),
         ]);
     }
@@ -234,7 +240,7 @@ class BlogController
         return PostResource::collection(match ($filter) {
             'deleted' => Post::isDeleted()->paginate(10),
             'unpublished' => Post::unpublished()->paginate(10),
-            default => Post::normal()->paginate(10),
+            default => Post::published()->isNotDeleted()->paginate(10),
         });
     }
 }

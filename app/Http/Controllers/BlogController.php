@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Backend\CategoryResource;
+use App\Http\Resources\Blog\CategoryResource;
 use App\Http\Resources\Blog\PostResource;
 use App\Models\Blog\Category;
 use App\Models\Blog\Post;
@@ -15,7 +15,7 @@ class BlogController
     {
         return inertia('Blog/Index', [
             'posts' => Inertia::defer(fn () => PostResource::collection(
-                Post::normal()->paginate(6)
+                Post::published()->isNotDeleted()->paginate(6)
             )),
             'categories' => CategoryResource::collection(Category::with('children')->whereNull('parent_id')->get())->resolve(),
         ]);
@@ -23,7 +23,7 @@ class BlogController
 
     public function show(Post $post): Response
     {
-        $post = Post::normal()->findOrFail($post->id);
+        $post = Post::published()->isNotDeleted()->findOrFail($post->id);
 
         return inertia('Blog/Show', [
             'post' => new PostResource($post)->resolve(),

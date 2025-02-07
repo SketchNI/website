@@ -105,7 +105,14 @@ const user = useUser();
                                 </thead>
                                 <tbody class="divide-y divide-surface0 bg-surface2">
                                 <Deferred data="teams">
-                                    <tr v-for="(team, i) in teams.data" :key="i"
+                                    <tr v-if="teams.data.length === 0" class="bg-mantle">
+                                        <td colspan="5">
+                                            <div class="text-3xl text-blue flex justify-center items-center h-32">
+                                                No data to show
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr v-else v-for="(team, i) in teams.data" :key="i"
                                         :class="[i % 2 === 0 ? 'bg-surface0' : 'bg-surface1', 'hover:bg-surface2 select-none cursor-default']">
                                         <td class="whitespace-nowrap py-4 pl-4 pr-3 font-medium">
                                             <p class="text-text" v-text="team.name" />

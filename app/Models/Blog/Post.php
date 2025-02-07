@@ -42,13 +42,6 @@ class Post extends Model
         ];
     }
 
-    public function scopeNormal(Builder $query): Builder
-    {
-        return $query
-            ->with(['user', 'categories'])
-            ->orderByDesc('id');
-    }
-
     public function scopeUnpublished(Builder $query): Builder
     {
         return $query
@@ -66,6 +59,14 @@ class Post extends Model
     }
 
     public function scopeIsDeleted(Builder $query): Builder
+    {
+        return $query
+            ->with(['user', 'categories'])
+            ->whereNotNull('deleted_at')
+            ->orderByDesc('id');
+    }
+
+    public function scopeIsNotDeleted(Builder $query): Builder
     {
         return $query
             ->with(['user', 'categories'])

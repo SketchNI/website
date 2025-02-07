@@ -12,7 +12,7 @@ class CreateRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string'],
-            'content' => ['required', 'string'],
+            'content' => ['string', 'nullable'],
             'excerpt' => ['required', 'string'],
             'published' => ['required', 'boolean'],
             'categories' => ['required', 'array'],

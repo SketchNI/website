@@ -108,7 +108,7 @@ const showViewCategoryModal = () => {
 
                 <Deferred data="counts">
                     <div class="flex items-center">
-                        <x-link :href="route('backend.blog.index', { filter: 'unpublished' })"
+                        <x-link :href="route('backend.blog.index')"
                                 class="group filter-link">
                             <span>Posts</span>
                             <span class="filter-counter text-green">{{ counts.posts }}</span>
@@ -195,7 +195,14 @@ const showViewCategoryModal = () => {
                                 </thead>
                                 <tbody class="divide-y divide-surface0 bg-surface2">
                                 <Deferred data="posts">
-                                    <tr v-for="(post, i) in posts.data" :key="i"
+                                    <tr v-if="posts.data.length === 0" class="bg-mantle">
+                                        <td colspan="4">
+                                            <div class="text-3xl text-blue flex justify-center items-center h-32">
+                                                No data to show
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr v-else v-for="(post, i) in posts.data" :key="i"
                                         :class="[i % 2 === 0 ? 'bg-surface0' : 'bg-surface1', 'hover:bg-surface2 select-none cursor-default']">
                                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium md:w-3/5">
                                             <p class="text-text" v-text="post.title" />

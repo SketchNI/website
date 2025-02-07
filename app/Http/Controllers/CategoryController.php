@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Backend\CategoryResource;
+use App\Http\Resources\Blog\CategoryResource;
 use App\Http\Resources\Blog\PostResource;
 use App\Models\Blog\Category;
 use Inertia\Response;
@@ -11,7 +11,11 @@ class CategoryController extends Controller
 {
     public function __invoke(Category $category): Response
     {
-        $posts = $category->posts()->with(['categories', 'user'])->paginate(5);
+        $posts = $category->posts()
+            ->with(['categories', 'user'])
+            ->isNotDeleted()
+            ->published()
+            ->paginate(5);
 
         $posts = PostResource::collection($posts);
 

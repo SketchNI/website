@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Blog;
 
-use App\Http\Resources\Backend\CategoryResource;
 use App\Http\Resources\UserResource;
 use App\Models\Blog\Post;
 use Illuminate\Http\Request;
