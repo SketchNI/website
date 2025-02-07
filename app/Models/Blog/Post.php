@@ -122,6 +122,8 @@ class Post extends Model
         if ($is_published) {
             // $this->forbidden('publish blog entry', $this);
             $this->published_at = now();
+        } else {
+            $this->published_at = null;
         }
 
         return $this;
