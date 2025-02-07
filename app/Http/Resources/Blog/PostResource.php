@@ -34,7 +34,7 @@ class PostResource extends JsonResource
             'url' => route('blog.show', ['post' => $this->id]),
             'excerpt' => $this->excerpt,
             'raw_content' => $this->content,
-            'content' => $this->markdownify($this->content),
+            'content' => $this->markdownify($this->content) ?? null,
             'featured_image' => null,
             'categories' => CategoryResource::collection($this->categories)->resolve(),
             'published_at' => $this->published_at?->toIso8601String(),
