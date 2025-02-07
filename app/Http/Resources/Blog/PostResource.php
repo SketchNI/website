@@ -48,7 +48,7 @@ class PostResource extends JsonResource
     /**
      * @throws CommonMarkException
      */
-    private function markdownify(string $text): string
+    private function markdownify(?string $text): string
     {
         $config = [
             'external_link' => [
