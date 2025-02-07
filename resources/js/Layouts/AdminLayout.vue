@@ -101,7 +101,7 @@ const menu = [
 </script>
 
 <template>
-    <div :class="[theme, 'bg-base h-full']">
+    <div :class="[theme, 'bg-base min-h-full']">
         <div class="lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
             <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-crust bg-mantle">
                 <div class="flex h-16 shrink-0 items-center sticky top-0 bg-mantle border-b-2 border-surface0">
