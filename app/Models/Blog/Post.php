@@ -111,7 +111,7 @@ class Post extends Model
         return $this;
     }
 
-    public function setContent(string $content): Post
+    public function setContent(?string $content): Post
     {
         $this->content = $content;
 
