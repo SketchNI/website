@@ -117,7 +117,7 @@ class BlogController
     {
         $this->forbidden('update blog entry', $post);
 
-        $post = Post::withTrashed()->find($post->id)->with(['user', 'categories'])->first();
+        $post = Post::withTrashed()->with(['user', 'categories'])->find($post->id);
 
         return inertia('Backend/Blog/Show', [
             'post' => $post,
