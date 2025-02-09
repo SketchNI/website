@@ -16,49 +16,49 @@ const logoPreview = ref(null);
 const logoSelector = ref(null);
 
 const form = useForm({
-  name: '',
-  description: '',
-  role: '',
-  github: '',
-  website: '',
-  logo: null,
+    name: '',
+    description: '',
+    role: '',
+    github: '',
+    website: '',
+    logo: null,
 });
 
 const updateTeam = () => {
-  form.post(route('backend.teams.store'), {
-    onSuccess: () => clearLogoInput(),
-  });
+    form.post(route('backend.teams.store'), {
+        onSuccess: () => clearLogoInput(),
+    });
 };
 
 const selectLogo = () => {
-  logoSelector.value.click();
+    logoSelector.value.click();
 }
 
 const updateLogoPreview = () => {
-  const logo = logoSelector.value.files[0];
+    const logo = logoSelector.value.files[0];
 
-  if (!logo) return;
+    if (!logo) return;
 
-  const reader = new FileReader();
+    const reader = new FileReader();
 
-  reader.onload = (e) => {
-    logoPreview.value = e.target.result;
-  };
+    reader.onload = (e) => {
+        logoPreview.value = e.target.result;
+    };
 
-  reader.readAsDataURL(logo);
-  form.logo = logoSelector.value.files[0];
+    reader.readAsDataURL(logo);
+    form.logo = logoSelector.value.files[0];
 };
 
 const clearLogoInput = () => {
-  if (logoSelector.value?.value) {
-    logoSelector.value.value = null;
-  }
+    if (logoSelector.value?.value) {
+        logoSelector.value.value = null;
+    }
 }
 
 </script>
 
 <template>
-    <x-head :title="`Create Bew Team // Team Manager`" />
+    <x-head :title="`Create New Team // Team Manager`" />
 
     <admin-layout>
         <div class="mb-6 inline-flex space-x-2 items-end">

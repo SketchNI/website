@@ -52,9 +52,9 @@ watch(() => activeTheme.value, (new_theme) => {
                 <listbox-option
                     v-for="(theme, i) in themes"
                     :key="i"
+                    v-slot="{ active, selected }"
                     :value="theme"
-                    as="ul"
-                    v-slot="{ active, selected }">
+                    as="ul">
                     <li :class="[active ? 'active' : '', selected ? 'selected' : '', 'option']">
                         <span>{{ theme.label }}</span>
                         <check-icon v-show="selected" />
@@ -73,7 +73,7 @@ watch(() => activeTheme.value, (new_theme) => {
 }
 
 .label {
-    @apply bg-mantle border border-r-0 border-blue pl-3 py-1.5 pt-[.45rem] pb-[.45rem];
+    @apply bg-mantle border border-r-0 border-blue pl-3 py-1.5 pt-[.35rem] pb-[.30rem];
 }
 
 .selected {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Requests\Backend\Team\CreateRequest;
 use App\Http\Requests\Backend\Team\UpdateRequest;
 use App\Http\Resources\Backend\TeamResource;
+use App\Models\Image;
 use App\Models\Team;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
@@ -52,6 +53,11 @@ class TeamController
                 Storage::disk('public')->delete($team->logo);
             }
             $team->logo = '/storage/'.$request->file('logo')->storePublicly('/images', ['disk' => 'public']);
+            new Image()
+                ->setImage($team->logo)
+                ->setAltText($team->name)
+                ->setCaption($team->name)
+                ->save();
         }
 
         if ($team->save()) {
@@ -62,7 +68,7 @@ class TeamController
                 ->causedBy(auth()->user())
                 ->withProperties(['team' => $team, 'user' => auth()->user()])
                 ->on($team)
-                ->log(sprintf('%s created team entry', auth()->user()->name));
+                ->log(sprintf('%s created team entry', $request->user()->name));
 
             return redirect(route('backend.teams.edit', ['team' => $team->fresh()]));
         } else {
@@ -73,7 +79,7 @@ class TeamController
                 ->causedBy(auth()->user())
                 ->on($team)
                 ->withProperties(['team' => $team, 'user' => auth()->user()])
-                ->log(sprintf('%s attempted to created team entry', auth()->user()->name));
+                ->log(sprintf('%s attempted to created team entry', $request->user()->name));
 
             return redirect(route('backend.blog.index'));
         }
@@ -133,6 +139,11 @@ class TeamController
                 Storage::disk('public')->delete($team->logo);
             }
             $team->logo = '/storage/'.$request->file('logo')->storePublicly('/images', ['disk' => 'public']);
+            new Image()
+                ->setImage($team->logo)
+                ->setAltText($team->name)
+                ->setCaption($team->name)
+                ->save();
         }
 
         if ($team->save()) {
@@ -143,7 +154,7 @@ class TeamController
                 ->causedBy(auth()->user())
                 ->withProperties(['team' => $team, 'user' => auth()->user()])
                 ->on($team)
-                ->log(sprintf('%s updated team entry', auth()->user()->name));
+                ->log(sprintf('%s updated team entry', $request->user()->name));
         } else {
             session()->flash('flash', ['message' => 'Blog post not updated.', 'type' => 'error']);
 
@@ -152,7 +163,7 @@ class TeamController
                 ->causedBy(auth()->user())
                 ->on($team)
                 ->withProperties(['team' => $team, 'user' => auth()->user()])
-                ->log(sprintf('%s attempted to update team entry', auth()->user()->name));
+                ->log(sprintf('%s attempted to update team entry', $request->user()->name));
         }
 
         return redirect()->back(303);
