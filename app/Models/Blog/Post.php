@@ -10,11 +10,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use RevisionableTrait;
 
     protected $table = 'blog_posts';
 
