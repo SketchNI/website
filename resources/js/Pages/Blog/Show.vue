@@ -5,8 +5,12 @@ import useApp from "@/Composables/useApp.js";
 import hljs from 'highlight.js/lib/common';
 import '@/../css/a11y-dark.css';
 import '@catppuccin/highlightjs/css/catppuccin-macchiato.css';
-import { nextTick } from "vue";
+import { nextTick, ref } from "vue";
 import CategoryPanel from "@/Components/CategoryPanel.vue";
+import Divider from "@/Components/divider.vue";
+import useRole from "@/Composables/useRole.js";
+import CommentItem from "@/Components/Blog/CommentItem.vue";
+import CommentBox from "@/Components/Blog/CommentBox.vue";
 
 const props = defineProps({
     post: {
@@ -16,6 +20,7 @@ const props = defineProps({
         content: String,
         excerpt: String,
         categories: Array,
+        comments: Array,
         published_at: String,
         created_at: String,
         updated_at: String,
@@ -29,6 +34,9 @@ const props = defineProps({
 })
 
 const app = useApp();
+const role = useRole();
+
+const showCommentForm = ref(false);
 
 nextTick(() => {
     hljs.highlightAll();
@@ -59,8 +67,8 @@ nextTick(() => {
                 <article class="article prose max-w-[82.5ch] prose-blue prose-invert">
                     <div class="flex flex-col space-y-2 mb-4">
                         <h1 class="text-5xl mb-2 w-full border-b border-blue/60 pb-2" v-text="post.title" />
-                        <div class="text-subtext0 space-x-1 items-center">
-                            <span>Published</span>
+                        <div class="text-subtext0 items-center">
+                            Published
                             <time v-if="moment().diff(post.published_at, 'days') <= 7"
                                   class="text-text font-semibold"
                                   :datetime="post.published_at"
@@ -73,7 +81,7 @@ nextTick(() => {
                                   class="text-text font-semibold">
                                 {{ moment(post.published_at).format('Do MMM YYYY [at] hh:mma') }}
                             </time>
-                            <span>by</span>
+                            by
                             <span class="font-semibold text-green">{{ post.author.name }}</span>
                         </div>
 
@@ -103,6 +111,61 @@ nextTick(() => {
 
                     <div v-html="post.content" class="w-full" />
                 </article>
+
+                <div>
+                    <divider class="from-red-300 to-red-300 via-blue-400 from-10% to-90% h-0.5 rounded-full" />
+
+                    <h3 class="inline-flex items-center space-x-2 text-xl my-6">
+                        <span>Comments</span>
+                        <span class="text-sm text-subtext0">({{ post.comments.length }} comments)</span>
+                    </h3>
+
+                    <div>
+                        <transition name="slide"
+                                    enter-active-class="ease-out duration-300"
+                                    enter-from-class="opacity-0 scale-y-4 sm:scale-y-0 sm:scale-95"
+                                    enter-to-class="opacity-100 scale-y-0 sm:scale-100"
+                                    leave-active-class="ease-in duration-200"
+                                    leave-from-class="opacity-100 scale-y-0 sm:scale-100"
+                                    leave-to-class="opacity-0 scale-y-4 sm:scale-y-0 sm:scale-95">
+                            <div v-if="showCommentForm">
+                                <comment-box :post="post" />
+                            </div>
+                        </transition>
+
+                        <div role="list" class="space-y-4" v-if="post.comments.length > 0">
+                            <p v-if="!showCommentForm" class="text-normal w-64 mb-4">
+                                <button
+                                    class="text-blue underline hover:text-blue-400 focus:text-white transition duration-150 ease-in"
+                                    type="button"
+                                    @click.prevent="showCommentForm = true">
+                                    Leave a comment?
+                                </button>
+                            </p>
+
+                            <divider class="h-0.5 my-6 from-red to-red from-10% to-90%" />
+
+                            <comment-item
+                                v-for="(comment, i) in post.comments" :key="i" :comment="comment" :post_id="post.id" />
+                        </div>
+                        <div class="space-y-4" v-else>
+                            <div class="py-8 text-xl text-overlay2 flex flex-col items-center justify-center w-full">
+                                <div class="inline-flex space-x-2 w-64">
+                                    <i class="fas fa-circle-exclamation" />
+                                    <p class="m-0 w-full">There are no comments.</p>
+                                </div>
+                                <p v-if="!showCommentForm" class="text-normal w-64 mt-4">
+                                    <button
+                                        class="text-blue underline hover:text-blue-400 focus:text-white transition duration-150 ease-in"
+                                        type="button"
+                                        @click.prevent="showCommentForm = true">
+                                        Leave a comment?
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <CategoryPanel :categories="categories" />

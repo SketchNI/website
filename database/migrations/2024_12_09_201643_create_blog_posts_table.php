@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('slug');
             $table->text('excerpt');
             $table->longText('content');
+            $table->string('featured_image')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->softDeletes();
             $table->timestamps();

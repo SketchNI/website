@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Blog;
 
+use App\Http\Resources\CommentResource;
 use App\Http\Resources\UserResource;
 use App\Models\Blog\Post;
 use Illuminate\Http\Request;
@@ -37,6 +38,7 @@ class PostResource extends JsonResource
             'content' => $this->content === null ? null : $this->markdownify($this->content),
             'featured_image' => null,
             'categories' => CategoryResource::collection($this->categories)->resolve(),
+            'comments' => CommentResource::collection($this->comments)->resolve(),
             'published_at' => $this->published_at?->toIso8601String(),
             'deleted_at' => $this->deleted_at?->toIso8601String(),
             'created_at' => $this->created_at->toIso8601String(),

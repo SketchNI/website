@@ -23,7 +23,10 @@ class BlogController
 
     public function show(Post $post): Response
     {
-        $post = Post::published()->isNotDeleted()->findOrFail($post->id);
+        $post = Post::published()
+            ->with(['comments' => fn ($post) => $post->orderByDesc('id')])
+            ->isNotDeleted()
+            ->findOrFail($post->id);
 
         return inertia('Blog/Show', [
             'post' => new PostResource($post)->resolve(),

@@ -2,29 +2,39 @@
 
 namespace App\Models\Blog;
 
+use App\Models\Comment;
 use App\Models\User;
+use App\Traits\Commentable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Post extends Model
 {
+    use Commentable;
     use HasFactory;
     use SoftDeletes;
     use RevisionableTrait;
 
     protected $table = 'blog_posts';
 
+    public function comments(): MorphMany
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
     protected $fillable = [
         'title',
         'slug',
         'excerpt',
         'content',
+        'featured_image',
         'published_at',
     ];
 
@@ -120,6 +130,13 @@ class Post extends Model
         return $this;
     }
 
+    public function setFeaturedImage(?string $image): Post
+    {
+        $this->featured_image = $image;
+
+        return $this;
+    }
+
     public function setPublishedAt(bool $is_published): Post
     {
         if ($is_published) {
@@ -131,4 +148,6 @@ class Post extends Model
 
         return $this;
     }
+
+
 }

@@ -8,7 +8,7 @@
     <updated>{{ $last_updated }}</updated>
     <link href="https://sketchni.uk" rel="self" />
     <image>
-        <url>/images/chibinobg.png</url>
+        <url>{{ asset('/images/chibinobg.png') }}</url>
         <title>SketchNI Avatar</title>
         <link>https://sketchni.uk</link>
     </image>

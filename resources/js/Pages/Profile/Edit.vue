@@ -27,7 +27,7 @@ const roles = useRole();
         <div class="mx-auto max-w-7xl space-y-12 sm:px-6 lg:px-8 flex flex-col items-center">
             <div v-if="app.env === 'local'">
                 <div class="pb-8">
-                    Role: {{ roles.join(', ') }}
+                    Role: {{ typeof roles === Array ? roles.join(', ') : roles }}
                 </div>
 
                 <divider class="w-[52rem]" />
