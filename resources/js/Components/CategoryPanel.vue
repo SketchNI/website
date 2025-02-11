@@ -2,7 +2,7 @@
 import CategoryItem from "@/Components/CategoryItem.vue";
 
 defineProps({
-    categories: Array,
+    categories: Object,
     selected: Array|null,
 })
 </script>

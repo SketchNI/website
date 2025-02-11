@@ -1,14 +1,12 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import moment from "moment";
-import useApp from "@/Composables/useApp.js";
 import hljs from 'highlight.js/lib/common';
 import '@/../css/a11y-dark.css';
 import '@catppuccin/highlightjs/css/catppuccin-macchiato.css';
 import { nextTick, ref } from "vue";
 import CategoryPanel from "@/Components/CategoryPanel.vue";
 import Divider from "@/Components/divider.vue";
-import useRole from "@/Composables/useRole.js";
 import CommentItem from "@/Components/Blog/CommentItem.vue";
 import CommentBox from "@/Components/Blog/CommentBox.vue";
 import useUser from "@/Composables/useUser.js";
@@ -22,6 +20,7 @@ const props = defineProps({
         excerpt: String,
         categories: Array,
         comments: Array,
+        featured_image: String|null,
         published_at: String,
         created_at: String,
         updated_at: String,
@@ -34,8 +33,6 @@ const props = defineProps({
     categories: Object,
 })
 
-const app = useApp();
-const role = useRole();
 const user = useUser();
 
 const showCommentForm = ref(false);
@@ -88,26 +85,23 @@ nextTick(() => {
                         </div>
 
                         <div v-if="post.categories?.length > 0">
-                            <span>Posted in </span>
+                            <span>Categories:</span>
                             <span v-for="(cat, i) in post.categories" :key="i">
                                 <x-link :href="route('category.show', { slug: cat.slug })" class="tag">
                                     <span>{{ cat.name }}</span>
                                 </x-link>
-                                <span v-if="i < post.categories.length && i !== post.categories.length - 1">, </span>
-                                <span v-if="i === post.categories.length - 1">.</span>
                             </span>
                         </div>
 
                         <div v-if="post.created_at !== post.updated_at"
-                             class="flex text-overlay2 mt-1 mb-3 text-sm">
-                            <span>(Last updated at </span>
+                             class="text-overlay2 mt-1 mb-3 text-sm">
+                            (Last updated at
                             <time
                                 :datetime="post.updated_at"
                                 :title="moment(post.updated_at).format('Do MMM YYYY [at] hh:mma')"
                                 class="text-text font-semibold">
                                 {{ moment(post.updated_at).format('Do MMM YYYY [at] hh:mma') }}
-                            </time>
-                            <span>)</span>
+                            </time>)
                         </div>
                     </div>
 
@@ -187,33 +181,9 @@ nextTick(() => {
     @apply px-6 pt-1 pb-8 bg-crust;
 }
 
-.category {
-    @apply font-bold font-mono text-blue w-full text-[1rem] border-b-2 border-transparent cursor-pointer inline-flex
-    items-center hover:bg-blue hover:text-base px-2 py-1.5
-    transition duration-150 ease-in;
-
-    &::before {
-        content: ">";
-        @apply pr-2;
-    }
-}
-
-.parent {
-    @apply font-bold;
-}
-
-.child {
-    @apply pl-6;
-}
-
-.cat-count {
-    @apply text-sm font-normal text-subtext0 group-hover:text-black;
-    @apply transition duration-150 ease-in;
-}
-
 .tag {
-    @apply font-bold font-mono text-blue w-full text-[1rem] border-b-2 border-transparent cursor-pointer
-    items-center hover:text-blue-400
+    @apply font-bold font-mono bg-blue-500 px-1.5 rounded-sm py-0.5 text-xs text-white no-underline text-[1rem] cursor-pointer
+    items-center hover:bg-blue-600
     transition duration-150 ease-in;
 }
 </style>
