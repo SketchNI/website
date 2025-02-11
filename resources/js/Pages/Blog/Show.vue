@@ -11,6 +11,7 @@ import Divider from "@/Components/divider.vue";
 import useRole from "@/Composables/useRole.js";
 import CommentItem from "@/Components/Blog/CommentItem.vue";
 import CommentBox from "@/Components/Blog/CommentBox.vue";
+import useUser from "@/Composables/useUser.js";
 
 const props = defineProps({
     post: {
@@ -35,6 +36,7 @@ const props = defineProps({
 
 const app = useApp();
 const role = useRole();
+const user = useUser();
 
 const showCommentForm = ref(false);
 
@@ -134,7 +136,7 @@ nextTick(() => {
                         </transition>
 
                         <div role="list" class="space-y-4" v-if="post.comments.length > 0">
-                            <p v-if="!showCommentForm" class="text-normal w-64 mb-4">
+                            <p v-if="!showCommentForm && user !== null" class="text-normal w-64 mb-4">
                                 <button
                                     class="text-blue underline hover:text-blue-400 focus:text-white transition duration-150 ease-in"
                                     type="button"
@@ -154,13 +156,20 @@ nextTick(() => {
                                     <i class="fas fa-circle-exclamation" />
                                     <p class="m-0 w-full">There are no comments.</p>
                                 </div>
-                                <p v-if="!showCommentForm" class="text-normal w-64 mt-4">
+                                <p v-if="!showCommentForm && user !== null" class="text-normal w-64 mt-4">
                                     <button
                                         class="text-blue underline hover:text-blue-400 focus:text-white transition duration-150 ease-in"
                                         type="button"
                                         @click.prevent="showCommentForm = true">
                                         Leave a comment?
                                     </button>
+                                </p>
+                                <p v-if="!showCommentForm && user === null" class="text-normal w-64 mt-4">
+                                    <x-link
+                                        :href="route('login')"
+                                        class="text-blue underline hover:text-blue-400 focus:text-white transition duration-150 ease-in">
+                                        Log in to leave a comment.
+                                    </x-link>
                                 </p>
                             </div>
                         </div>
