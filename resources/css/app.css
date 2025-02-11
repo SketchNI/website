@@ -117,3 +117,9 @@ time {
     75%  { content: '...'; }
     100% { content: ''; }
 }
+
+code:not(pre) {
+    background: #30344d;
+    padding: 0.2em;
+    border-radius: 0.6em;
+}
