@@ -86,7 +86,7 @@ window.mitt.on('theme:update', (event) => {
 
                                     <div class="h-px -mx-3 border-b border-mantle"></div>
 
-                                    <dropdown-link :href="route('logout')" method="post" as="button">
+                                    <dropdown-link element="a" :href="route('logout')" method="post" as="button">
                                         Log Out
                                     </dropdown-link>
                                 </template>

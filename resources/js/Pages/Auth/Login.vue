@@ -38,6 +38,20 @@ const submit = () => {
                 {{ status }}
             </div>
 
+            <a :href="route('auth', { driver: 'github' })">
+                <primary-button
+                    class="inline-flex space-x-2 bg-text shadow-sm shadow-blue/60 w-full justify-center items-center">
+                    <i class="fab fa-github text-xl" />
+                    <span class="text-xl">Sign In With GitHub</span>
+                </primary-button>
+            </a>
+
+            <div class="flex w-full items-center my-6">
+                <div class="h-px bg-blue w-1/2" />
+                <div class="bg-blue-400/60 px-3 py-2 text-white rounded-full text-sm">or</div>
+                <div class="h-px bg-blue w-1/2" />
+            </div>
+
             <form @submit.prevent="submit">
                 <div>
                     <InputLabel for="email" value="Email" />
