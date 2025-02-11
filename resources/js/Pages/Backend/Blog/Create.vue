@@ -11,6 +11,8 @@ import { SwitchGroup, Switch, SwitchLabel } from "@headlessui/vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
+import SecondaryButton from "@/Components/SecondaryButton.vue";
+import Divider from "@/Components/divider.vue";
 
 const props = defineProps({
     categories: Object,
@@ -200,6 +202,12 @@ const handleUpload = async (files, func) => {
                                     </SwitchLabel>
                                 </SwitchGroup>
                             </div>
+
+                            <divider class="my-6" />
+
+                            <p class="text-green">
+                                Please save the post to enable previews.
+                            </p>
                         </div>
 
                         <div class="bg-mantle shadow shadow-crust px-6 py-4">

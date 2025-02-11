@@ -262,6 +262,12 @@ const deletePost = () => {
 
                             <divider class="my-6" />
 
+                            <a :href="route('blog.preview', { id: post.id })" target="_blank">
+                                <secondary-button>Preview</secondary-button>
+                            </a>
+
+                            <divider class="my-6" />
+
                             <danger-button class="space-x-1" type="button" @click="confirmPostDeletion">
                                 <trash-icon class="size-4 shrink-0" />
                                 <span>Delete Post</span>

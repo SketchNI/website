@@ -18,7 +18,7 @@ Route::post('/set-theme', ThemeController::class)->name('set-theme');
 
 Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('index');
-    Route::get('/preview', [BlogController::class, 'preview'])->name('preview.');
+    Route::get('/preview', [BlogController::class, 'preview'])->name('preview');
     Route::get('/{post:slug}', [BlogController::class, 'show'])->name('show');
     Route::post('/{post:slug}/comment', [CommentController::class, 'store'])->name('comment.create');
     Route::delete('/{post:slug}/comment/{comment:id}', [CommentController::class, 'destroy'])->name('comment.destroy');
