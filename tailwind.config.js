@@ -46,6 +46,7 @@ export default {
                 900: '#021430',
                 950: '#010915'
             },
+            purple: colors.purple,
             red: {
                 DEFAULT: '#F38BA8',
                 50: '#FDE7ED',

@@ -28,4 +28,11 @@ class Image extends Model
 
         return $this;
     }
+
+    public function setImage(string $path): Image
+    {
+        $this->image = $path;
+
+        return $this;
+    }
 }

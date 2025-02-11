@@ -39,41 +39,78 @@ const updateImage = () => {
         })
         .finally(() => editImage.value = false);
 }
+
+const isCopied = ref(false);
+
+const copyToClipboard = (path) => {
+    isCopied.value = true;
+    navigator.clipboard.writeText(`${import.meta.env.VITE_APP_URL}${path}`).then(() => {
+        setTimeout(() => isCopied.value = false, 2500);
+    });
+}
 </script>
 
 <template>
-    <img :src="image.image" :alt="image.alt_text" class="" />
+    <div class="relative">
+        <img :alt="image.alt_text" :src="image.image" class="" />
+        <button
+            class="copy-btn"
+            type="button"
+            @click="copyToClipboard(image.image)">
+            <span v-if="isCopied" class="inline-flex items-center space-x-1.5">
+                <i class="fas fa-check" />
+                <span>Copied!</span>
+            </span>
+            <span v-else class="inline-flex items-center space-x-1.5">
+                <i class="fas fa-copy" />
+                <span>Copy</span>
+            </span>
+        </button>
+    </div>
+
     <div v-if="editImage">
         <form @submit.prevent="updateImage">
             <div>
                 <input-label for="caption" value="Caption" />
-                <text-input v-model="form.caption" id="caption" class="w-full" />
+                <text-input id="caption" v-model="form.caption" class="w-full" />
             </div>
 
             <div class="mt-2">
                 <input-label for="alt_text" value="Alt Text" />
-                <text-input v-model="form.alt_text" id="alt_text" class="w-full" />
+                <text-input id="alt_text" v-model="form.alt_text" class="w-full" />
             </div>
 
             <div class="flex justify-between mt-2">
-                <secondary-button @click.prevent="editImage = false" class="text-xs px-1 py-0.5">Cancel</secondary-button>
-                <primary-button type="submit" class="text-xs px-1 py-0.5">Save</primary-button>
+                <secondary-button class="text-xs px-1 py-0.5" @click.prevent="editImage = false">Cancel
+                </secondary-button>
+                <primary-button class="text-xs px-1 py-0.5" type="submit">Save</primary-button>
             </div>
         </form>
     </div>
-    <div v-else class="flex items-center justify-between">
+    <div v-else class="relative flex items-center justify-between">
         <p class="w-2/3" v-text="form.caption === '' ? 'No caption' : form.caption" />
-        <button class="flex items-center space-x-1 text-sm text-blue hover:text-blue-400 transition duration-150 ease-in"
-                type="button" @click="editImage = true">
+        <button
+            class="edit-btn"
+            type="button" @click="editImage = true">
             <pencil-icon class="size-4" />
             <span>Edit</span>
         </button>
     </div>
-    <p class="text-overlay1 text-sm">
+    <p class="text-overlay1 text-xs">
         Uploaded on {{ moment(image.created_at).format('Do MMM YYYY [at] hh:mma') }}
     </p>
 </template>
 
 <style scoped>
+.copy-btn {
+    @apply bg-opacity-65 text-white text-xs px-1.5 py-1 shadow-sm rounded-sm shadow-purple-700/50 absolute
+    right-0 top-0 bg-purple-500 hover:bg-purple-600 hover:shadow-purple-800/70;
+    @apply transition duration-150 ease-in;
+}
 
+.edit-btn {
+    @apply inline-flex items-center space-x-1 bg-opacity-65 text-white text-sm px-1.5 py-1 shadow-sm rounded-sm shadow-blue-700/50
+    bg-blue-500 hover:bg-blue-600 hover:shadow-blue-800/70;
+    @apply transition duration-150 ease-in;
+}
 </style>
