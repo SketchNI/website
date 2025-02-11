@@ -73,7 +73,7 @@ watch(() => activeTheme.value, (new_theme) => {
 }
 
 .label {
-    @apply bg-mantle border border-r-0 border-blue pl-3 py-1.5 pt-[.35rem] pb-[.30rem];
+    @apply bg-mantle border border-r-0 border-blue pl-3 py-1.5 pt-[.32rem] pb-[.32rem];
 }
 
 .selected {

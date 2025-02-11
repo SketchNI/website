@@ -7,7 +7,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link
-        href="https://fonts.bunny.net/css?family=nunito:300,400,500,600,700|red-hat-mono:300,400,500,600,700&display=swap"
+        href="https://fonts.bunny.net/css?family=nunito:300,400,500,600,700|space-mono:400,700&display=swap"
         crossorigin="anonymous"
         rel="stylesheet" />
     <!-- Scripts -->
