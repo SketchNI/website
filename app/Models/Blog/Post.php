@@ -74,7 +74,7 @@ class Post extends Model
     {
         return $query
             ->with(['user', 'categories'])
-            ->whereNotNull('deleted_at')
+            ->withTrashed()
             ->orderByDesc('id');
     }
 
@@ -82,7 +82,7 @@ class Post extends Model
     {
         return $query
             ->with(['user', 'categories'])
-            ->whereNull('deleted_at')
+            ->withoutTrashed()
             ->orderByDesc('id');
     }
 

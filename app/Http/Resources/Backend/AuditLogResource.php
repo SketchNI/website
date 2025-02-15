@@ -5,6 +5,7 @@ namespace App\Http\Resources\Backend;
 use App\Http\Resources\Backend;
 use App\Http\Resources\Blog\PostResource;
 use App\Models\Blog\Post;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -44,10 +45,14 @@ class AuditLogResource extends JsonResource
                 'label' => '[User] '.$user->name,
             ],
             Post::class => [
-                'url' => route('backend.blog.edit', $post = Post::find($id)),
+                'url' => route('backend.blog.edit', $post = Post::withTrashed()->find($id)),
                 'label' => '[Post] '.$post->title,
             ],
-            default => null,
+            Team::class => [
+                'url' => route('backend.teams.edit', $team = Team::find($id)),
+                'label' => '[Team] '.$team->name,
+            ],
+            default => [],
         };
     }
 }

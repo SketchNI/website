@@ -22,8 +22,6 @@ const toggleProperties = () => {
         hljs.highlightAll();
     })
 }
-
-//const hl = (data) => hljs.highlight(data, { language: "json" });
 </script>
 
 <template>
@@ -38,8 +36,9 @@ const toggleProperties = () => {
     </td>
     <td class="w-1/12 text-sm font-medium">
         <div v-if="item.subject_data.subject_id !== null">
-            <x-link :href="item.target.url" class="pr-3 block py-4 hover:bg-base text-blue pl-4 apply transition duration-150 ease-in"
+            <x-link v-if="item.target.url !== false" :href="item.target.url" class="target-url"
                     v-text="item.target.label" />
+            <span v-else v-text="item.target.label" class="target-url" />
         </div>
     </td>
     <td class="w-24 whitespace-nowrap px-3 text-sm font-medium text-text">
@@ -114,5 +113,7 @@ const toggleProperties = () => {
 </template>
 
 <style scoped>
-
+.target-url {
+    @apply pr-3 block py-4 hover:bg-base text-blue pl-4 transition duration-150 ease-in text-ellipsis truncate w-[25ch];
+}
 </style>
