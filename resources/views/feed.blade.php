@@ -1,10 +1,9 @@
 @verbatim<?xml version="1.0"?> @endverbatim
-<feed version="2.0">
+<feed xmlns="http://www.w3.org/2005/Atom">
     <title>SketchNI</title>
     <id>https://sketchni.uk</id>
     <copyright>Copyright Sketch {{ date("Y") }}</copyright>
     <description>An RSS feed of my blog posts.</description>
-    <language>en-us</language>
     <updated>{{ $last_updated }}</updated>
     <link href="https://sketchni.uk" rel="self" />
     <image>
