@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\Blog\PostResource;
 use App\Models\Blog\Post;
+use Illuminate\Http\Response;
 
 class FeedController extends Controller
 {
-    public function __invoke()
+    public function __invoke(): Response
     {
         $posts = json_decode(json_encode(PostResource::collection(Post::published()->get())->resolve()));
         $last_updated = Post::orderByDesc('id')->first()->created_at;
