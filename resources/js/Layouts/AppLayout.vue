@@ -9,6 +9,7 @@ import useUser from "@/Composables/useUser.js";
 import useRole from "@/Composables/useRole.js";
 import useApp from "@/Composables/useApp.js";
 import Theme from "@/Components/Theme.vue";
+import Divider from "@/Components/divider.vue";
 
 const user = useUser();
 const role = useRole();
@@ -156,20 +157,13 @@ window.mitt.on('theme:update', (event) => {
             <slot />
         </main>
 
-        <footer
-            :class="[app.url.includes('backend') ? 'lg:pl-[20rem] lg:pr-8' : 'max-w-6xl', 'my-6 pb-6 text-center md:flex text-subtext0 items-center justify-between lg:mx-auto space-y-3 mx-4 md:space-y-0']">
-            <div class="inline-flex space-x-3 items-center">
-                <p class="text-sm">&copy; SketchNI {{ new Date().getFullYear() }}</p>
+        <divider class="h-[2px]" />
 
-                <theme />
-            </div>
-            <p class="text-sm">
-                <span>Built with </span>
-                <a href="https://laravel.com" target="_blank" class="link">Laravel</a>,
-                <a href="https://inertiajs.com/" target="_blank" class="link">InertiaJS</a>,
-                <a href="https://vuejs.org" target="_blank" class="link">VueJS</a> and
-                <a href="https://tailwindcss.com" target="_blank" class="link">TailwindCSS</a>
-            </p>
+        <footer
+            class="max-w-6xl my-6 pb-6 text-center md:flex text-subtext0 items-center justify-between lg:mx-auto space-y-3 mx-4 md:space-y-0">
+            <p class="text-sm">&copy; SketchNI {{ new Date().getFullYear() }}</p>
+
+            <theme />
         </footer>
     </div>
 </template>
