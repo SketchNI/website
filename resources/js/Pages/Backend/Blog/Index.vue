@@ -227,7 +227,7 @@ const showViewCategoryModal = () => {
                                             </x-link>
 
                                             <x-link v-else
-                                                    :href="route('backend.blog.edit', { post })"
+                                                    :href="route('backend.blog.restore', { post })"
                                                     class="bg-red text-mantle hover:bg-base hover:text-text py-3 px-4 transition duration-150 ease-in">
                                                 Restore
                                             </x-link>
