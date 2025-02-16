@@ -21,14 +21,14 @@ class Ticket extends Model
         'id',
         'user_id',
         'ticket_status_id',
-        'title',
+        'subject',
         'content',
         'attachments',
         'closed_at',
     ];
 
     protected $casts = [
-        'title' => 'encrypted',
+        'subject' => 'encrypted',
         'content' => 'encrypted',
         'attachments' => 'encrypted:json',
         'closed_at' => 'datetime',
@@ -47,5 +47,27 @@ class Ticket extends Model
     public function replies(): HasMany
     {
         return $this->hasMany(TicketReply::class);
+    }
+
+    public function setSubject(string $subject): Ticket
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function setContent(string $content): Ticket
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function setStatus(string $status): Ticket
+    {
+        $s = TicketStatus::whereStatus($status)->first();
+        $this->subject = $s->id;
+
+        return $this;
     }
 }

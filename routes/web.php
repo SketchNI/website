@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReactController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\Support\TicketController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', IndexController::class)->name('home');
@@ -33,13 +34,24 @@ Route::prefix('category')->name('category.')->group(static function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+    Route::prefix('profile')->name('profile.')->group(static function () {
+        Route::get('/', [ProfileController::class, 'edit'])->name('edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
+    });
 
-require __DIR__.'/auth.php';
+    Route::prefix('support')->name('support.')->group(static function () {
+        Route::prefix('tickets')->name('ticket.')->group(static function () {
+            Route::get('/', [TicketController::class, 'index'])->name('index');
+            Route::post('/', [TicketController::class, 'store'])->name('store');
+            Route::get('/{ticket}', [TicketController::class, 'show'])->name('show');
+            Route::put('/{ticket}', [TicketController::class, 'update']);
+        });
+    });
 
-Route::middleware(['role:mod|admin|super-admin'])->prefix('backend')->name('backend.')->group(static function () {
-    require_once __DIR__.'/backend.php';
+    require __DIR__.'/auth.php';
+
+    Route::middleware(['role:mod|admin|super-admin'])->prefix('backend')->name('backend.')->group(static function () {
+        require_once __DIR__.'/backend.php';
+    });
 });

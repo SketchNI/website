@@ -24,7 +24,7 @@ class TicketResource extends JsonResource
             'id' => $this->id,
             'user' => new UserResource($this->user)->resolve(),
             'status' => new TicketStatusResource($this->status)->resolve(),
-            'title' => $this->title,
+            'subject' => $this->subject,
             'content' => $this->markdownify($this->content),
             'attachments' => $this->whenNotNull($this->attachments),
             'replies' => $this->whenLoaded('replies',  TicketReplyResource::collection($this->replies)->resolve(),),

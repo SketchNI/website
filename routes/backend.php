@@ -29,8 +29,8 @@ Route::prefix('pages')->name('pages.')->group(static function () {
 });
 
 Route::prefix('support')->name('support.')->group(static function () {
-    Route::get('/', Backend\IndexController::class)->name('index');
-    Route::get('/show/{id}', Backend\IndexController::class)->name('show');
+    Route::get('/', [Backend\Support\TicketController::class, 'index'])->name('index');
+    Route::get('/show/{ticket}', [Backend\Support\TicketController::class, 'show'])->name('show');
 });
 
 Route::resource('images', Backend\ImageController::class)

@@ -14,7 +14,7 @@ return new class extends Migration
             $table->ulid('id');
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(TicketStatus::class);
-            $table->string('title');
+            $table->string('subject');
             $table->longText('content');
             $table->longText('attachments')->nullable();
             $table->timestamp('closed_at')->nullable();
