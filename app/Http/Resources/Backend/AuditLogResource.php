@@ -46,7 +46,9 @@ class AuditLogResource extends JsonResource
             ],
             Post::class => [
                 'url' => route('backend.blog.edit', $post = Post::withTrashed()->find($id)),
-                'label' => '[Post] '.$post->title,
+                'label' => $post->trashed() ? '[Deleted Post] '.$post->title : '[Post] '.$post->title,
+                'doRestore' => $post->trashed(),
+                'id' => $post->id,
             ],
             Team::class => [
                 'url' => route('backend.teams.edit', $team = Team::find($id)),

@@ -13,6 +13,7 @@ Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/{post}/edit', [Backend\BlogController::class, 'edit'])->name('edit');
     Route::put('/{post}/update', [Backend\BlogController::class, 'update'])->name('update');
     Route::delete('/{post}/delete', [Backend\BlogController::class, 'destroy'])->name('destroy');
+    Route::get('/{post}/restore', [Backend\BlogController::class, 'restore'])->name('restore');
 });
 
 Route::resource('category', Backend\CategoryController::class)->only(['store', 'destroy']);

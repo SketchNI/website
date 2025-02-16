@@ -35,10 +35,16 @@ const toggleProperties = () => {
         </div>
     </td>
     <td class="w-1/12 text-sm font-medium">
-        <div v-if="item.subject_data.subject_id !== null">
+        <div v-if="item.subject_data.subject_id !== null" class="flex items-center">
             <x-link v-if="item.target.url !== false" :href="item.target.url" class="target-url"
                     v-text="item.target.label" />
             <span v-else v-text="item.target.label" class="target-url" />
+
+            <x-link v-if="item.target.doRestore"
+                    :href="route('backend.blog.restore', item.target.id)"
+                    class="underline text-blue hover:text-white">
+                Restore
+            </x-link>
         </div>
     </td>
     <td class="w-24 whitespace-nowrap px-3 text-sm font-medium text-text">

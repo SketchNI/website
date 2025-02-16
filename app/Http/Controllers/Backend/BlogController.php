@@ -225,20 +225,27 @@ class BlogController
     {
         $this->forbidden('restore blog entry');
 
-        if (!Post::withTrashed()->whereId($id)->restore()) {
+        if (!Post::withTrashed()->find($id)->restore()) {
             $this->flash('Unable to restore blog post.', 'error');
         }
 
         $this->flash('Blog post restored successfully.');
 
-        return redirect()->route('backend.blog.index');
+        activity('admin')
+            ->by(auth()->user())
+            ->causedBy(auth()->user())
+            ->on($post = Post::withTrashed()->find($id))
+            ->withProperties(['post' => $post, 'user' => auth()->user()])
+            ->log('restored blog post');
+
+        return redirect()->route('backend.blog.edit', ['post' => $id]);
     }
 
     /* Private methods */
     private function resolvePosts(?string $filter): AnonymousResourceCollection
     {
         return PostResource::collection(match ($filter) {
-            'deleted' => Post::isDeleted()->paginate(10),
+            'deleted' => Post::onlyTrashed()->with(['user', 'categories'])->paginate(10),
             'unpublished' => Post::unpublished()->paginate(10),
             default => Post::published()->isNotDeleted()->paginate(10),
         });
