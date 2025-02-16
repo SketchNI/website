@@ -2,18 +2,18 @@
 import { ref } from 'vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
+import DropdownALink from '@/Components/DropdownALink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import ResponsiveNavALink from '@/Components/ResponsiveNavALink.vue';
 import { Bars3Icon, ChevronDownIcon, XMarkIcon } from '@heroicons/vue/16/solid';
 import useUser from "@/Composables/useUser.js";
 import useRole from "@/Composables/useRole.js";
-import useApp from "@/Composables/useApp.js";
 import Theme from "@/Components/Theme.vue";
 import Divider from "@/Components/divider.vue";
 
 const user = useUser();
 const role = useRole();
-const app = useApp();
 
 const isAdmin = (['super-admin', 'admin', 'mod'].includes(role))
 
@@ -87,9 +87,9 @@ window.mitt.on('theme:update', (event) => {
 
                                     <div class="h-px -mx-3 border-b border-mantle"></div>
 
-                                    <dropdown-link element="a" :href="route('logout')" method="post" as="button">
+                                    <dropdown-a-link :href="route('logout')">
                                         Log Out
-                                    </dropdown-link>
+                                    </dropdown-a-link>
                                 </template>
                             </dropdown>
                         </div>
@@ -144,9 +144,9 @@ window.mitt.on('theme:update', (event) => {
                                              class="text-red hover:bg-red hover:text-mantle">
                             Backend
                         </responsive-nav-link>
-                        <responsive-nav-link :href="route('logout')" method="post" as="button">
+                        <responsive-nav-a-link :href="route('logout')">
                             Log Out
-                        </responsive-nav-link>
+                        </responsive-nav-a-link>
                     </div>
                 </div>
             </div>

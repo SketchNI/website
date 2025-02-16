@@ -21,7 +21,7 @@ const classes = computed(() =>
 </script>
 
 <template>
-    <x-link :href="href" :class="[common, classes]">
+    <a :href="href" :class="[common, classes]">
         <slot />
-    </x-link>
+    </a>
 </template>
