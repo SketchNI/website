@@ -20,11 +20,11 @@ class UserResource extends JsonResource
             'role' => $this->roles()->orderBy('id')->first()->display_name,
             'permissions' => $this->whenLoaded('permissions', PermissionViaRoleResource::collection($this->getPermissionsViaRoles())->resolve()),
 
-            'comments_count' => 0,
-            'votes_count' => 0,
+            'comments_count' => $this->whenLoaded('comments', $this->comments()->count()),
+            'reactions_count' => $this->whenLoaded('reactions', $this->reactions()->count()),
             'permissions_count' => $this->whenLoaded('permissions', $this->getPermissionsViaRoles()->count()),
-            'roles_count' => $this->roles()->count(),
-            'posts_count' => $this->posts()->count(),
+            'roles_count' => $this->whenLoaded('roles', $this->roles()->count()),
+            'posts_count' => $this->whenLoaded('posts', $this->posts()->withTrashed()->count()),
         ];
     }
 }

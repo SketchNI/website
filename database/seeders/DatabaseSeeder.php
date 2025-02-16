@@ -13,7 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(RolesAndPermissionsTableSeeder::class);
+        $this
+            ->call(RolesAndPermissionsTableSeeder::class)
+            ->call(SupportTicketStatusSeeder::class);
 
         User::factory()->create([
             'name' => 'Sketch',

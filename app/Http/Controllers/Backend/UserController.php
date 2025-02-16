@@ -30,7 +30,7 @@ class UserController extends Controller
     {
         $this->forbidden('view users');
 
-        $users = UserResource::collection(User::with(['roles', 'posts'])->paginate(15));
+        $users = UserResource::collection(User::paginate(15));
 
         return inertia('Backend/Users/Index', [
             'users' => Inertia::defer(fn () => $users),
@@ -53,7 +53,9 @@ class UserController extends Controller
         $roles = Role::all();
 
         return inertia('Backend/Users/Show', [
-            'user' => new UserResource(User::with(['permissions'])->find($user->id))->resolve(),
+            'user' => new UserResource(User::with(
+                ['reactions', 'comments', 'posts']
+            )->find($user->id))->resolve(),
             'roles' => $roles,
             'permissions' => PermissionViaRoleResource::collection(Permission::all())->resolve(),
         ]);

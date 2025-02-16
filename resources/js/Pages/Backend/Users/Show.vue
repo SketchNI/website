@@ -37,7 +37,7 @@ const props = defineProps({
         permissions: Array,
         permissions_count: Number,
         comments_count: Number,
-        votes_count: Number,
+        reactions_count: Number,
         roles_count: Number,
         posts_count: Number,
     },
@@ -89,7 +89,7 @@ const stats = [
     { name: 'Posts', stat: props.user.posts_count },
     { name: 'Permissions', stat: props.user.permissions_count },
     { name: 'Comments', stat: props.user.comments_count },
-    { name: 'Votes', stat: props.user.votes_count }
+    { name: 'Reactions', stat: props.user.reactions_count }
 ];
 
 const updateUser = () => {
@@ -276,7 +276,7 @@ const updateUser = () => {
 
                     <divider class="my-6" />
 
-                    <h3 class="text-text font-semibold mb-5">Last 30 days</h3>
+                    <h3 class="text-text font-semibold mb-5">Stats</h3>
 
                     <div class="w-full bg-mantle shadow shadow-crust p-4 space-y-4">
                         <div class="grid grid-cols-4">
