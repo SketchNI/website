@@ -84,10 +84,6 @@ const submit = () => {
                                 class="link text-sm">
                             Forgot your password?
                         </x-link>
-
-                        <x-link :href="route('register')" class="link text-sm">
-                            Register
-                        </x-link>
                     </div>
 
                     <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
