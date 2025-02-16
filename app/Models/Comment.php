@@ -2,23 +2,23 @@
 
 namespace App\Models;
 
-use App\Models\Blog\Post;
-use Database\Factories\CommentsFactory;
+use Database\Factories\CommentFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Comment extends Model
 {
-    /** @use HasFactory<CommentsFactory> */
+    /** @use HasFactory<CommentFactory> */
     use HasFactory;
 
     use RevisionableTrait;
 
-    public function post(): BelongsTo
+    public function post(): MorphTo
     {
-        return $this->belongsTo(Post::class);
+        return $this->morphTo('commentable');
     }
 
     public function author(): BelongsTo

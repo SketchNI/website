@@ -13,16 +13,23 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
-class Post extends Model
+class Post extends Model implements ReactableInterface
 {
     use Commentable;
     use HasFactory;
-    use SoftDeletes;
+    use Reactable;
     use RevisionableTrait;
+    use SoftDeletes;
 
     protected $table = 'blog_posts';
+
+    protected $with = [
+        'reactions',
+    ];
 
     public function comments(): MorphMany
     {
@@ -36,6 +43,10 @@ class Post extends Model
         'content',
         'featured_image',
         'published_at',
+    ];
+
+    protected $appends = [
+        'reaction_summary',
     ];
 
     protected function casts(): array
@@ -148,6 +159,4 @@ class Post extends Model
 
         return $this;
     }
-
-
 }

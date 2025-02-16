@@ -6,6 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReactController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ThemeController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,7 @@ Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('index');
     Route::get('/preview', [BlogController::class, 'preview'])->name('preview');
     Route::get('/{post:slug}', [BlogController::class, 'show'])->name('show');
+    Route::put('/{post:slug}/react', [ReactController::class, 'store'])->name('react');
     Route::post('/{post:slug}/comment', [CommentController::class, 'store'])->name('comment.create');
     Route::delete('/{post:slug}/comment/{comment:id}', [CommentController::class, 'destroy'])->name('comment.destroy');
 });

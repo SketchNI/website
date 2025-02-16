@@ -10,6 +10,8 @@ import Divider from "@/Components/divider.vue";
 import CommentItem from "@/Components/Blog/CommentItem.vue";
 import CommentBox from "@/Components/Blog/CommentBox.vue";
 import useUser from "@/Composables/useUser.js";
+import { useForm } from "@inertiajs/vue3";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 
 const props = defineProps({
     post: {
@@ -20,6 +22,8 @@ const props = defineProps({
         excerpt: String,
         categories: Array,
         comments: Array,
+        reactions: Array,
+        reactions_summary: Array,
         featured_image: String|null,
         published_at: String,
         created_at: String,
@@ -37,9 +41,56 @@ const user = useUser();
 
 const showCommentForm = ref(false);
 
+const showTab = ref('comments');
+const setTab = (tab) => {
+    if (tab !== showTab.value) {
+        showCommentForm.value = false;
+    }
+    showTab.value = tab;
+}
+
 nextTick(() => {
     hljs.highlightAll();
 });
+
+const availableReactions = [
+    { label: 'Upvote', value: '👍' },
+    { label: 'Downvote', value: '👎' },
+    { label: 'Poop', value: '💩' },
+    { label: 'Heart', value: '❤️' },
+]
+
+const form = useForm({
+    reaction: {},
+});
+
+const attachReaction = (reaction) => {
+    form.reaction = reaction.label.toLowerCase();
+    sendReaction();
+}
+
+const sendReaction = () => {
+    form.put(route('blog.react', { post: props.post }), {
+        onSuccess: (data) => {
+            console.log(data)
+        }
+    });
+}
+
+const getCount = (reaction) => {
+    console.log(reaction)
+    const reactions = props.post.reactions_summary;
+    switch (reaction) {
+        case 'upvote':
+            return reactions.upvote;
+        case 'downvote':
+            return reactions.downvote;
+        case 'poop':
+            return reactions.poop;
+        case 'heart':
+            return reactions.heart;
+    }
+}
 
 </script>
 
@@ -109,12 +160,25 @@ nextTick(() => {
                 </article>
 
                 <div>
-                    <divider class="from-red-300 to-red-300 via-blue-400 from-10% to-90% h-0.5 rounded-full" />
+                    <divider class="from-red-300 to-red-300 via-blue-400 from-10% to-90% h-px rounded-full" />
 
-                    <h3 class="inline-flex items-center space-x-2 text-xl my-6">
-                        <span>Comments</span>
-                        <span class="text-sm text-subtext0">({{ post.comments.length }} comments)</span>
-                    </h3>
+                    <div>
+                        <form @submit.prevent="sendReaction">
+                            <p class="font-medium text-subtext0 mt-4 mb-2">Leave a reaction</p>
+                            <ul class="inline-flex items-center space-x-6 mb-4">
+                                <li v-for="reaction in availableReactions" class="text-2xl" :key="reaction.label">
+                                    <button type="button" :title="reaction.label" @click.prevent="attachReaction(reaction)"
+                                            class="relative">
+                                        <span>{{ reaction.value }}</span>
+                                        <span class="sr-only">{{ reaction.label }}</span>
+                                        <span class="badge">{{ getCount(reaction.label.toLowerCase()) ?? 0}}</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+
+                    <divider class="h-px" />
 
                     <div>
                         <transition name="slide"
@@ -130,14 +194,13 @@ nextTick(() => {
                         </transition>
 
                         <div role="list" class="space-y-4" v-if="post.comments.length > 0">
-                            <p v-if="!showCommentForm && user !== null" class="text-normal w-64 mb-4">
-                                <button
-                                    class="text-blue underline hover:text-blue-400 focus:text-white transition duration-150 ease-in"
+                            <div v-if="!showCommentForm && user !== null" class="text-normal w-64 my-4">
+                                <secondary-button
                                     type="button"
                                     @click.prevent="showCommentForm = true">
                                     Leave a comment?
-                                </button>
-                            </p>
+                                </secondary-button>
+                            </div>
 
                             <divider class="h-0.5 my-6 from-red to-red from-10% to-90%" />
 
@@ -150,21 +213,21 @@ nextTick(() => {
                                     <i class="fas fa-circle-exclamation" />
                                     <p class="m-0 w-full">There are no comments.</p>
                                 </div>
-                                <p v-if="!showCommentForm && user !== null" class="text-normal w-64 mt-4">
+                                <div v-if="!showCommentForm && user !== null" class="text-normal w-64 mt-6">
                                     <button
                                         class="text-blue underline hover:text-blue-400 focus:text-white transition duration-150 ease-in"
                                         type="button"
                                         @click.prevent="showCommentForm = true">
                                         Leave a comment?
                                     </button>
-                                </p>
-                                <p v-if="!showCommentForm && user === null" class="text-normal w-64 mt-4">
+                                </div>
+                                <div v-if="!showCommentForm && user === null" class="text-normal w-64 mt-4">
                                     <x-link
                                         :href="route('login')"
                                         class="text-blue underline hover:text-blue-400 focus:text-white transition duration-150 ease-in">
                                         Log in to leave a comment.
                                     </x-link>
-                                </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -185,5 +248,10 @@ nextTick(() => {
     @apply font-bold font-mono bg-blue-500 px-1.5 rounded-sm py-0.5 text-xs text-white no-underline text-[1rem] cursor-pointer
     items-center hover:bg-blue-600
     transition duration-150 ease-in;
+}
+
+.badge {
+    @apply bg-lavender text-crust font-black font-mono group-hover:bg-surface2 rounded-full px-[5px] py-px text-xs;
+    @apply absolute bottom-0 -right-[5px];
 }
 </style>

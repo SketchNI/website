@@ -28,6 +28,13 @@ class CommentController extends Controller
             ->setMorphs($request->get('blog')['id'], $this->resolveType($request->get('type')));
 
         if ($comment->save()) {
+            activity('user')
+                ->by(auth()->user())
+                ->causedBy(auth()->user())
+                ->on(Post::find($request->get('blog')['id']))
+                ->withProperties(['comment' => $comment, 'user' => auth()->user()])
+                ->log('commented on blog post');
+
             $this->flash('Your comment has been added to the post.');
 
             return redirect()->back();
@@ -55,8 +62,18 @@ class CommentController extends Controller
             return redirect()->back();
         }
 
+        $post = $comment->post;
+        $clone = $comment;
         if ($comment->delete()) {
             $this->flash('Your comment has been deleted.');
+
+            activity('user')
+                ->by(auth()->user())
+                ->causedBy(auth()->user())
+                ->on($post)
+                ->withProperties(['comment' => $clone, 'user' => auth()->user()])
+                ->log('deleted comment on blog post');
+
             return redirect()->back();
         }
 
