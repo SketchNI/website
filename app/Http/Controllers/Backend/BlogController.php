@@ -245,7 +245,7 @@ class BlogController
     private function resolvePosts(?string $filter): AnonymousResourceCollection
     {
         return PostResource::collection(match ($filter) {
-            'deleted' => Post::onlyTrashed()->with(['user', 'categories'])->paginate(10),
+            'deleted' => Post::isDeleted()->paginate(10),
             'unpublished' => Post::unpublished()->paginate(10),
             default => Post::published()->isNotDeleted()->paginate(10),
         });
