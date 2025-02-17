@@ -1,16 +1,11 @@
 <script setup>
 import { ref } from 'vue';
 import {
-    BanknotesIcon,
-    DocumentTextIcon,
     HomeModernIcon,
-    LifebuoyIcon,
     ListBulletIcon,
     UsersIcon,
 } from "@heroicons/vue/24/outline";
 import {
-    ChartPieIcon,
-    FlagIcon,
     NumberedListIcon,
     PhotoIcon,
     SquaresPlusIcon,
