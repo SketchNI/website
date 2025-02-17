@@ -28,15 +28,6 @@ class RolesAndPermissionsTableSeeder extends Seeder
             // Votes
             'user::create vote',
             'user::delete vote',
-            // Tickets
-            'user::view ticket',
-            'user::create ticket',
-            'user::update ticket',
-            'user::close ticket',
-            // Ticket replies
-            'user::view ticket reply',
-            'user::create ticket reply',
-            'user::update ticket reply',
         ];
 
         $moderator_permissions = [

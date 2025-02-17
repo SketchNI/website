@@ -41,36 +41,8 @@ const menu = [
                 role: ['mod', 'admin', 'super-admin']
             },
             { name: "Teams", route: 'backend.teams.index', icon: UsersIcon, role: ['mod', 'admin', 'super-admin'] },
-            {
-                name: "Pages",
-                route: 'backend.pages.index',
-                icon: DocumentTextIcon,
-                role: ['mod', 'admin', 'super-admin']
-            },
-            {
-                name: "Support",
-                route: 'backend.support.index',
-                icon: LifebuoyIcon,
-                role: ['mod', 'admin', 'super-admin']
-            },
             { name: "Images", route: 'backend.images.index', icon: PhotoIcon, color: 'red', role: ['super-admin'] },
         ],
-    },
-    {
-        name: "Finance", links: [
-            {
-                name: "Invoices",
-                route: 'backend.finance.invoices.index',
-                icon: BanknotesIcon,
-                role: ['mod', 'admin', 'super-admin']
-            },
-            {
-                name: "Customers",
-                route: 'backend.finance.customers.index',
-                icon: UsersIcon,
-                role: ['mod', 'admin', 'super-admin']
-            },
-        ]
     },
     {
         name: "Misc", links: [
@@ -80,13 +52,6 @@ const menu = [
                 icon: NumberedListIcon,
                 role: ['admin', 'super-admin']
             },
-            {
-                name: "Statistics",
-                route: 'backend.misc.statistics.index',
-                icon: ChartPieIcon,
-                role: ['admin', 'super-admin']
-            },
-            { name: "Reports", route: 'backend.misc.reports.index', icon: FlagIcon, role: ['admin', 'super-admin'] },
             {
                 name: "Scheduler",
                 route: 'backend.misc.scheduler.index',

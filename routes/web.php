@@ -9,7 +9,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReactController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ThemeController;
-use App\Http\Controllers\Support\TicketController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', IndexController::class)->name('home');
@@ -38,15 +37,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [ProfileController::class, 'edit'])->name('edit');
         Route::patch('/', [ProfileController::class, 'update'])->name('update');
         Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
-    });
-
-    Route::prefix('support')->name('support.')->group(static function () {
-        Route::prefix('tickets')->name('ticket.')->group(static function () {
-            Route::get('/', [TicketController::class, 'index'])->name('index');
-            Route::post('/', [TicketController::class, 'store'])->name('store');
-            Route::get('/{ticket}', [TicketController::class, 'show'])->name('show');
-            Route::put('/{ticket}', [TicketController::class, 'update']);
-        });
     });
 
     require __DIR__.'/auth.php';
