@@ -44,7 +44,7 @@ class BlogController
             'counts' => Inertia::defer(fn () => [
                 'posts' => $post->isNotDeleted()->published()->count(),
                 'unpublished' => $post->isNotDeleted()->unpublished()->count(),
-                'deleted' => $post->isDeleted()->count(),
+                'deleted' => $post->onlyTrashed()->count(),
             ], 'posts'),
             'categories' => fn () => CategoryResource::collection(Category::with('parent')->get()),
         ]);
@@ -245,7 +245,7 @@ class BlogController
     private function resolvePosts(?string $filter): AnonymousResourceCollection
     {
         return PostResource::collection(match ($filter) {
-            'deleted' => Post::isDeleted()->paginate(10),
+            'deleted' => Post::onlyTrashed()->with(['user', 'categories'])->paginate(10),
             'unpublished' => Post::unpublished()->paginate(10),
             default => Post::published()->isNotDeleted()->paginate(10),
         });
