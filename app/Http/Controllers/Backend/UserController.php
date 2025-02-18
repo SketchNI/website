@@ -76,8 +76,7 @@ class UserController extends Controller
         $user = User::find($user->id);
         $user = $user
             ->setName($request->get('name'))
-            ->setEmail($request->get('email'))
-            ->setEmailVerified($request->get('email_verified'));
+            ->setEmail($request->get('email'));
 
         if (!auth()->user()->hasPermissionTo('update role')) {
             $this->forbidden('update role');

@@ -86,6 +86,7 @@ class CommentController extends Controller
     {
         return match ($type) {
             'post' => Post::class,
+            default => null,
         };
     }
 }

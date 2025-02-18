@@ -6,7 +6,6 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReactController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ThemeController;

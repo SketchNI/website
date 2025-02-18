@@ -40,7 +40,7 @@ class PostResource extends JsonResource
             'categories' => CategoryResource::collection($this->categories)->resolve(),
             'comments' => CommentResource::collection($this->load('comments')->comments)->resolve(),
             'reactions' => ReactionResource::collection($this->reactions()->get())->resolve(),
-            'reactions_summary' => $this->reaction_summary,
+            'reactions_summary' => $this->get('reaction_summary'),
             'published_at' => $this->published_at?->toIso8601String(),
             'deleted_at' => $this->deleted_at?->toIso8601String(),
             'created_at' => $this->created_at->toIso8601String(),

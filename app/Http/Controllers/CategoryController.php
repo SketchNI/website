@@ -13,8 +13,8 @@ class CategoryController extends Controller
     {
         $posts = $category->posts()
             ->with(['categories', 'user'])
-            ->isNotDeleted()
             ->published()
+            ->withoutTrashed()
             ->paginate(5);
 
         $posts = PostResource::collection($posts);

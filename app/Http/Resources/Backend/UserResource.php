@@ -15,9 +15,8 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'email_verified' => (bool) $this->email_verified_at,
             'created_at' => $this->created_at,
-            'role' => $this->roles()->orderBy('id')->first()->display_name,
+            'role' => $this->roles()->orderBy('id')->first(['display_name']),
             'permissions' => $this->whenLoaded('permissions', PermissionViaRoleResource::collection($this->getPermissionsViaRoles())->resolve()),
 
             'comments_count' => $this->whenLoaded('comments', $this->comments()->count()),
