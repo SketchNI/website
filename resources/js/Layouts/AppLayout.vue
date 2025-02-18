@@ -4,6 +4,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import DropdownALink from '@/Components/DropdownALink.vue';
 import NavLink from '@/Components/NavLink.vue';
+import NavALink from '@/Components/NavALink.vue'
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import ResponsiveNavALink from '@/Components/ResponsiveNavALink.vue';
 import { Bars3Icon, ChevronDownIcon, XMarkIcon } from '@heroicons/vue/16/solid';
@@ -11,9 +12,11 @@ import useUser from "@/Composables/useUser.js";
 import useRole from "@/Composables/useRole.js";
 import Theme from "@/Components/Theme.vue";
 import Divider from "@/Components/divider.vue";
+import { usePage } from "@inertiajs/vue3";
 
 const user = useUser();
 const role = useRole();
+const page = usePage();
 
 const isAdmin = (['super-admin', 'admin', 'mod'].includes(role))
 
@@ -22,7 +25,17 @@ const theme = ref(localStorage.getItem('theme'));
 
 window.mitt.on('theme:update', (event) => {
     theme.value = event;
-})
+});
+
+if (page.props.app.hasOwnProperty('flash') && page.props.app.flash !== null) {
+    const flash = page.props.app.flash;
+
+    if (flash.type === 'success') {
+        console.info(flash.message);
+    } else {
+        console.error(flash.message);
+    }
+}
 </script>
 
 <template>
@@ -52,10 +65,9 @@ window.mitt.on('theme:update', (event) => {
                                 <nav-link :href="route('teams')" :active="route().current('teams')">
                                     Teams
                                 </nav-link>
-                                <nav-link :href="route('login')" :active="route().current('login')"
-                                          v-if="user === null">
+                                <nav-a-link :href="route('auth', { driver: 'github' })" v-if="user === null">
                                     Login
-                                </nav-link>
+                                </nav-a-link>
                             </div>
                         </div>
 
@@ -75,10 +87,6 @@ window.mitt.on('theme:update', (event) => {
                                 </template>
 
                                 <template #content>
-                                    <dropdown-link :href="route('profile.edit')">
-                                        Profile
-                                    </dropdown-link>
-
                                     <dropdown-link :href="route('backend.index')"
                                                    v-if="isAdmin"
                                                    class="text-red hover:bg-red hover:text-mantle">
@@ -119,9 +127,9 @@ window.mitt.on('theme:update', (event) => {
                     <responsive-nav-link :href="route('teams')" :active="route().current('teams')">
                         Teams
                     </responsive-nav-link>
-                    <responsive-nav-link :href="route('login')" :active="route().current('login')" v-if="user === null">
+                    <responsive-nav-a-link :href="route('auth', { driver: 'github' })">
                         Login
-                    </responsive-nav-link>
+                    </responsive-nav-a-link>
                 </div>
 
                 <!-- Responsive Settings Options -->
@@ -136,9 +144,6 @@ window.mitt.on('theme:update', (event) => {
                     </div>
 
                     <div class="mt-3 space-y-1">
-                        <responsive-nav-link :href="route('profile.edit')">
-                            Profile
-                        </responsive-nav-link>
                         <responsive-nav-link :href="route('backend.index')"
                                              v-if="isAdmin"
                                              class="text-red hover:bg-red hover:text-mantle">

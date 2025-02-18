@@ -30,7 +30,6 @@ class User extends Authenticatable implements MustVerifyEmail, ReactsInterface
     protected $fillable = [
         'name',
         'email',
-        'password',
     ];
 
     /**
@@ -39,7 +38,6 @@ class User extends Authenticatable implements MustVerifyEmail, ReactsInterface
      * @var list<string>
      */
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 
@@ -47,19 +45,6 @@ class User extends Authenticatable implements MustVerifyEmail, ReactsInterface
         'roles',
         'permissions',
     ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
 
     public function reactions(): HasMany
     {
@@ -86,23 +71,6 @@ class User extends Authenticatable implements MustVerifyEmail, ReactsInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        if ($this->isDirty('email')) {
-            $this->email_verified_at = null;
-        }
-
-        return $this;
-    }
-
-    public function setEmailVerified(bool $is_verified): self
-    {
-        if ($this->email_verified_at === null && $is_verified) {
-            $this->email_verified_at = now();
-        }
-
-        if (!$is_verified) {
-            $this->email_verified_at = null;
-        }
 
         return $this;
     }
