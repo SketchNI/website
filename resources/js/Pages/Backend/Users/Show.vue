@@ -5,7 +5,6 @@ import {
     CheckIcon,
     ChevronUpDownIcon,
     HomeModernIcon,
-    XMarkIcon
 } from "@heroicons/vue/20/solid/index.js";
 import { UserCircleIcon } from '@heroicons/vue/24/outline';
 import { useForm, usePage } from "@inertiajs/vue3";

@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests\Backend\Blog;
 
-use App\Models\Blog\Category;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class CreateRequest extends FormRequest
 {

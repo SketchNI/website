@@ -9,10 +9,6 @@ import { nextTick, ref } from "vue";
 import TagPanel from "@/Components/TagPanel.vue";
 import useRole from "@/Composables/useRole.js";
 import useUser from "@/Composables/useUser.js";
-import CommentItem from "@/Components/Blog/CommentItem.vue";
-import Divider from "@/Components/divider.vue";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
-import CommentBox from "@/Components/Blog/CommentBox.vue";
 
 const props = defineProps({
     post: {

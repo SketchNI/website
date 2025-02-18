@@ -8,7 +8,7 @@ import {
 import {
     NumberedListIcon,
     PhotoIcon,
-    SquaresPlusIcon, TagIcon,
+    SquaresPlusIcon,
     UsersIcon as SolidUsersIcon
 } from '@heroicons/vue/20/solid';
 import useRole from "@/Composables/useRole.js";
