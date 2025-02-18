@@ -61,6 +61,5 @@ class HandleInertiaRequests extends Middleware
             return cache($perm_name);
         }
 
-        return null;
     }
 }

@@ -37,7 +37,7 @@ class BlogController
     {
         $this->forbidden('view blog entries');
 
-        $post = new Post;
+        $post = new Post();
 
         return inertia('Backend/Blog/Index', [
             'posts' => Inertia::defer(fn () => $this->resolvePosts($request->get('filter')), 'posts'),
@@ -79,7 +79,7 @@ class BlogController
     {
         $this->forbidden('write blog entry');
 
-        $post = new Post;
+        $post = new Post();
         $post->setAuthor(auth()->id())
             ->setTitle($request->get('title'))
             ->setExcerpt($request->get('excerpt'))

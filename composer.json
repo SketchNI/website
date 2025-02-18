@@ -30,11 +30,12 @@
         "venturecraft/revisionable": "^1.41"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.5",
         "fakerphp/faker": "^1.24.1",
         "larastan/larastan": "^3.0.4",
         "laravel/breeze": "^2.3.4",
         "laravel/pail": "^1.2.2",
-        "laravel/pint": ">=1.20",
+        "laravel/pint": "^1.21",
         "laravel/sail": "^1.41.0",
         "laravel/telescope": "^5.5.0",
         "mockery/mockery": "^1.6.12",

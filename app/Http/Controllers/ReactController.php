@@ -19,6 +19,7 @@ class ReactController extends Controller
      * @param  Post  $post
      *
      * @return RedirectResponse
+     *
      * @throws ForbiddenException
      */
     public function store(ReactRequest $request, Post $post): RedirectResponse
@@ -26,7 +27,7 @@ class ReactController extends Controller
         $this->forbidden('user::create vote');
 
         if ($post->toggleReaction($request->get('reaction'))) {
-            $this->flash(sprintf("You have %sed this post!", $request->get('reaction')));
+            $this->flash(sprintf('You have %sed this post!', $request->get('reaction')));
 
             activity('user')
                 ->by(auth()->user())

@@ -41,7 +41,7 @@ class TeamController
             app()->abort(HttpResponse::HTTP_FORBIDDEN);
         }
 
-        $team = new Team;
+        $team = new Team();
         $team->name = $request->get('name');
         $team->role = $request->get('role');
         $team->description = $request->get('description');

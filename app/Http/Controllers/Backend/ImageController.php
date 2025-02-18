@@ -49,7 +49,7 @@ class ImageController extends Controller
     {
         $this->forbidden('create image');
 
-        $image = new Image;
+        $image = new Image();
         $image->image = '/storage/'.$request->file('image')->storePublicly('/images', ['disk' => 'public']);
         if ($image->save()) {
             $image = $image->fresh();

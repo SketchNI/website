@@ -13,7 +13,7 @@ class CategoryController extends Controller
 {
     public function store(CreateRequest $request): RedirectResponse
     {
-        $category = new Category;
+        $category = new Category();
         $category->name = $request->get('name');
         $category->slug = Str::slug($request->get('name'));
         $category->parent_id = $request->get('parent_id');

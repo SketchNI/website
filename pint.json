@@ -5,8 +5,19 @@
         "no_superfluous_phpdoc_tags": false,
         "phpdoc_trim": false,
         "no_trailing_whitespace_in_comment": false,
+        "simplified_null_return": true,
+        "array_indentation": true,
+        "new_with_parentheses": {
+            "anonymous_class": true,
+            "named_class": true
+        },
         "phpdoc_separation": {
             "groups": [
+                [
+                    "property",
+                    "property-read",
+                    "method"
+                ],
                 [
                     "deprecated",
                     "link",

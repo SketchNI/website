@@ -59,6 +59,7 @@ class CommentController extends Controller
             !auth()->user()->hasAnyRole(['super-admin', 'admin', 'mod'])
         ) {
             $this->flash('You do not have permission to delete this comment.', 'error');
+
             return redirect()->back();
         }
 

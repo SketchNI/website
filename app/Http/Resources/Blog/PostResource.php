@@ -90,20 +90,20 @@ class PostResource extends JsonResource
                 'normalize' => 'flat',
             ],
             'embed' => [
-                'adapter' => new OscaroteroEmbedAdapter, // See the "Adapter" documentation below
+                'adapter' => new OscaroteroEmbedAdapter(), // See the "Adapter" documentation below
                 'allowed_domains' => ['youtube.com', 'twitter.com', 'github.com', 'x.com', 'bsky.app', 'opengraph.githubassets.com'],
                 'fallback' => 'link',
             ],
         ];
 
         $env = new Environment($config)
-            ->addExtension(new CommonMarkCoreExtension)
-            ->addExtension(new GithubFlavoredMarkdownExtension)
-            ->addExtension(new ExternalLinkExtension)
-            ->addExtension(new HeadingPermalinkExtension)
-            ->addExtension(new SmartPunctExtension)
-            ->addExtension(new TableOfContentsExtension)
-            ->addExtension(new EmbedExtension);
+            ->addExtension(new CommonMarkCoreExtension())
+            ->addExtension(new GithubFlavoredMarkdownExtension())
+            ->addExtension(new ExternalLinkExtension())
+            ->addExtension(new HeadingPermalinkExtension())
+            ->addExtension(new SmartPunctExtension())
+            ->addExtension(new TableOfContentsExtension())
+            ->addExtension(new EmbedExtension());
 
         $converter = new MarkdownConverter($env);
 
