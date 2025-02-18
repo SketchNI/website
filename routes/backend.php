@@ -20,44 +20,12 @@ Route::resource('category', Backend\CategoryController::class)->only(['store', '
 Route::resource('teams', Backend\TeamController::class)->except('show');
 Route::resource('users', Backend\UserController::class);
 
-Route::prefix('pages')->name('pages.')->group(static function () {
-    Route::get('/', Backend\IndexController::class)->name('index');
-    Route::post('/', Backend\IndexController::class);
-    Route::get('/show/{id}', Backend\IndexController::class)->name('show');
-    Route::put('/show/{id}', Backend\IndexController::class);
-    Route::delete('/show/{id}', Backend\IndexController::class);
-});
-
 Route::resource('images', Backend\ImageController::class)
     ->except(['edit', 'create']);
 
-Route::prefix('finance')->name('finance.')->group(static function () {
-    Route::prefix('invoices')->name('invoices.')->group(static function () {
-        Route::get('/', Backend\IndexController::class)->name('index');
-        Route::get('/show/{id}', Backend\IndexController::class)->name('show');
-    });
-
-    Route::prefix('customers')->name('customers.')->group(static function () {
-        Route::get('/', Backend\IndexController::class)->name('index');
-        Route::get('/show/{id}', Backend\IndexController::class)->name('show');
-    });
-});
-
 Route::prefix('misc')->name('misc.')->group(static function () {
-    Route::get('/', Backend\IndexController::class)->name('index');
-
     Route::prefix('audit-logs')->name('audit-log.')->group(static function () {
         Route::get('/', Backend\AuditLogController::class)->name('index');
-    });
-
-    Route::prefix('statistics')->name('statistics.')->group(static function () {
-        Route::get('/', Backend\IndexController::class)->name('index');
-        Route::get('/show/{id}', Backend\IndexController::class)->name('show');
-    });
-
-    Route::prefix('reports')->name('reports.')->group(static function () {
-        Route::get('/', Backend\IndexController::class)->name('index');
-        Route::get('/show/{id}', Backend\IndexController::class)->name('show');
     });
 
     Route::prefix('scheduler')->name('scheduler.')->group(static function () {
