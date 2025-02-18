@@ -6,7 +6,7 @@ import useApp from "@/Composables/useApp.js";
 import { Deferred } from "@inertiajs/vue3";
 import LoadingPane from "@/Pages/Blog/LoadingPane.vue";
 import { ExclamationTriangleIcon, RssIcon } from "@heroicons/vue/24/solid";
-import CategoryPanel from "@/Components/CategoryPanel.vue";
+import TagPanel from "@/Components/TagPanel.vue";
 
 const props = defineProps({
     posts: {
@@ -14,7 +14,7 @@ const props = defineProps({
         links: Object,
         data: Object,
     },
-    categories: Object,
+    tags: Object,
 });
 
 const app = useApp();
@@ -55,9 +55,9 @@ const app = useApp();
                         </div>
                     </div>
                     <div v-else>
-                        <div class="gap-4 w-full flex">
+                        <div class="gap-4 w-full grid grid-cols-2">
                             <x-link :href="route('blog.show', { post })"
-                                    class="w-1/2 bg-surface0 p-4 shadow shadow-crust hover:bg-mantle group transition duration-150 ease-in"
+                                    class="w-full bg-surface0 p-4 shadow shadow-crust hover:bg-mantle group transition duration-150 ease-in"
                                     v-for="post in posts.data" :key="post.id">
                                 <article class="space-y-2">
                                     <h1 class="font-semibold text-blue text-xl group-hover:underline">
@@ -99,7 +99,7 @@ const app = useApp();
                 </Deferred>
             </div>
 
-            <CategoryPanel :categories="categories" />
+            <TagPanel :tags="tags" />
         </div>
     </app-layout>
 </template>

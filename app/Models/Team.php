@@ -13,8 +13,6 @@ use Venturecraft\Revisionable\Revision;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 /**
- *
- *
  * @property int $id
  * @property string $name
  * @property string|null $description

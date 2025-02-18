@@ -3,8 +3,9 @@
 namespace App\Http\Resources\Blog;
 
 use App\Http\Resources\CommentResource;
+use App\Http\Resources\TagResource;
 use App\Http\Resources\UserResource;
-use App\Models\Blog\Post;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use League\CommonMark\Environment\Environment;
@@ -37,10 +38,10 @@ class PostResource extends JsonResource
             'raw_content' => $this->content,
             'content' => $this->content === null ? null : $this->markdownify($this->content),
             'featured_image' => null,
-            'categories' => CategoryResource::collection($this->categories)->resolve(),
+            'tags' => TagResource::collection($this->tags)->resolve(),
             'comments' => CommentResource::collection($this->load('comments')->comments)->resolve(),
             'reactions' => ReactionResource::collection($this->reactions()->get())->resolve(),
-            'reactions_summary' => $this->get('reaction_summary'),
+            'reactions_summary' => $this->reaction_summary,
             'published_at' => $this->published_at?->toIso8601String(),
             'deleted_at' => $this->deleted_at?->toIso8601String(),
             'created_at' => $this->created_at->toIso8601String(),
@@ -90,20 +91,20 @@ class PostResource extends JsonResource
                 'normalize' => 'flat',
             ],
             'embed' => [
-                'adapter' => new OscaroteroEmbedAdapter(), // See the "Adapter" documentation below
+                'adapter' => new OscaroteroEmbedAdapter, // See the "Adapter" documentation below
                 'allowed_domains' => ['youtube.com', 'twitter.com', 'github.com', 'x.com', 'bsky.app', 'opengraph.githubassets.com'],
                 'fallback' => 'link',
             ],
         ];
 
         $env = new Environment($config)
-            ->addExtension(new CommonMarkCoreExtension())
-            ->addExtension(new GithubFlavoredMarkdownExtension())
-            ->addExtension(new ExternalLinkExtension())
-            ->addExtension(new HeadingPermalinkExtension())
-            ->addExtension(new SmartPunctExtension())
-            ->addExtension(new TableOfContentsExtension())
-            ->addExtension(new EmbedExtension());
+            ->addExtension(new CommonMarkCoreExtension)
+            ->addExtension(new GithubFlavoredMarkdownExtension)
+            ->addExtension(new ExternalLinkExtension)
+            ->addExtension(new HeadingPermalinkExtension)
+            ->addExtension(new SmartPunctExtension)
+            ->addExtension(new TableOfContentsExtension)
+            ->addExtension(new EmbedExtension);
 
         $converter = new MarkdownConverter($env);
 

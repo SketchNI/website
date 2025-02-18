@@ -18,9 +18,6 @@ import {
     ListboxButton,
     ListboxOption,
     ListboxOptions,
-    Switch,
-    SwitchGroup,
-    SwitchLabel
 } from "@headlessui/vue";
 import Checkbox from "@/Components/Checkbox.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
@@ -52,7 +49,6 @@ const form = useForm({
     id: props.user.id,
     name: props.user.name,
     email: props.user.email,
-    email_verified: props.user.email_verified,
     created_at: props.user.created_at,
     role: props.user.role,
     permissions: props.user.permissions,
@@ -213,29 +209,7 @@ const updateUser = () => {
                             </div>
 
                             <div
-                                class="w-full bg-mantle shadow shadow-crust px-6 py-4 space-y-4 flex justify-between items-center">
-                                <div>
-                                    <input-label for="email" value="Email Verified" />
-                                    <SwitchGroup as="div" class="flex items-center mt-1">
-                                        <Switch v-model="form.email_verified"
-                                                :class="[form.email_verified ? 'bg-green/60' : 'bg-red/60', 'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue focus:ring-offset-mantle focus:ring-offset-2']">
-                                            <div
-                                                :class="[form.email_verified ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block size-5 transform rounded-full bg-base shadow-lg ring-0 transition duration-200 ease-in-out']"
-                                                aria-hidden="true">
-                                                <div class="flex items-center justify-center mt-1">
-                                                    <component v-if="form.email_verified" :is="CheckIcon"
-                                                               class="size-3 text-green" />
-                                                    <component v-else :is="XMarkIcon" class="size-3 text-red" />
-                                                </div>
-                                            </div>
-                                        </Switch>
-                                        <SwitchLabel as="span" class="ml-3 text select-none">
-                                            <span
-                                                :class="[form.email_verified ? 'text-green' : 'text-red', 'font-medium text-sm']"
-                                                v-text="form.email_verified ? 'Verified' : 'Unverified'" />
-                                        </SwitchLabel>
-                                    </SwitchGroup>
-                                </div>
+                                class="w-full bg-mantle shadow shadow-crust px-6 py-4 space-y-4 flex justify-end items-center">
 
                                 <primary-button type="submit">
                                     <div v-if="form.processing" class="inline-flex items-center space-x-1.5 w-[8.6rem]">

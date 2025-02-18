@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Blog\Post;
 use Database\Factories\UserFactory;
 use Eloquent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -23,8 +22,6 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- *
- *
  * @property int $id
  * @property string $name
  * @property string $email

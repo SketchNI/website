@@ -6,9 +6,13 @@ import hljs from 'highlight.js/lib/common';
 import '@/../css/a11y-dark.css';
 import '@catppuccin/highlightjs/css/catppuccin-macchiato.css';
 import { nextTick, ref } from "vue";
-import CategoryPanel from "@/Components/CategoryPanel.vue";
+import TagPanel from "@/Components/TagPanel.vue";
 import useRole from "@/Composables/useRole.js";
 import useUser from "@/Composables/useUser.js";
+import CommentItem from "@/Components/Blog/CommentItem.vue";
+import Divider from "@/Components/divider.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
+import CommentBox from "@/Components/Blog/CommentBox.vue";
 
 const props = defineProps({
     post: {
@@ -17,7 +21,7 @@ const props = defineProps({
         title: String,
         content: String,
         excerpt: String,
-        categories: Array,
+        tags: Array,
         comments: Array,
         featured_image: String|null,
         published_at: String,
@@ -29,7 +33,7 @@ const props = defineProps({
             email: String,
         }
     },
-    categories: Object,
+    tags: Object,
 })
 
 const app = useApp();
@@ -71,30 +75,23 @@ nextTick(() => {
                     <div class="flex flex-col space-y-2 mb-4">
                         <h1 class="text-5xl mb-2 w-full border-b border-blue/60 pb-2" v-text="post.title" />
                         <div class="text-subtext0 items-center">
-                            Created
-                            <time v-if="moment().diff(post.created_at, 'days') <= 7"
-                                  class="text-text font-semibold"
-                                  :datetime="post.created_at"
-                                  :title="moment(post.created_at).format('Do MMM YYYY [at] hh:mma')">
-                                {{ moment(new Date()).from(post.created_at, true) }} ago
-                            </time>
-                            <time v-else
-                                  :datetime="post.created_at"
-                                  :title="moment(post.created_at).format('Do MMM YYYY [at] hh:mma')"
-                                  class="text-text font-semibold">
-                                {{ moment(post.created_at).format('Do MMM YYYY [at] hh:mma') }}
+                            Published
+                            <time class="text-text font-semibold">
+                                <span class="text-red font-black">not yet published</span>
                             </time>
                             by
                             <span class="font-semibold text-green">{{ post.author.name }}</span>
                         </div>
 
-                        <div v-if="post.categories?.length > 0" class="text-overlay2">
-                            Categories:
-                            <span v-for="(cat, i) in post.categories" :key="i">
-                                <x-link :href="route('category.show', { slug: cat.slug })" class="tag">
-                                    <span>{{ cat.name }}</span>
-                                </x-link>
-                            </span>
+                        <div v-if="post.tags?.length > 0" class="flex items-center space-x-2">
+                            <div class="text-subtext0 text-sm">Tags:</div>
+                            <div class="inline-flex items-center space-x-2">
+                                <div v-for="(tag, i) in post.tags" :key="i" class="text-xs">
+                                    <x-link href="route('category.show', { slug: tag.slug })" class="tag !text-sm">
+                                        <span>{{ tag.name }}</span>
+                                    </x-link>
+                                </div>
+                            </div>
                         </div>
 
                         <div v-if="post.created_at !== post.updated_at"
@@ -113,7 +110,7 @@ nextTick(() => {
                 </article>
             </div>
 
-            <CategoryPanel :categories="categories" />
+            <TagPanel :tags="tags" />
         </div>
     </app-layout>
 </template>

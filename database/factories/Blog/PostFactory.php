@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Blog;
 
-use App\Models\Blog\Post;
+use App\Models\Post;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;

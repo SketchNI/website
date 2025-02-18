@@ -40,9 +40,7 @@ class UserController extends Controller
     /**
      * Render the view for a single user
      *
-     * @param  User  $user
      *
-     * @return Response
      *
      * @throws ForbiddenException
      */
@@ -62,11 +60,6 @@ class UserController extends Controller
     }
 
     /**
-     * @param  UpdateRequest  $request
-     * @param  User  $user
-     *
-     * @return RedirectResponse
-     *
      * @throws ForbiddenException
      */
     public function update(UpdateRequest $request, User $user): RedirectResponse

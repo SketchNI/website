@@ -15,10 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RolesAndPermissionsTableSeeder::class);
 
-        User::factory()->create([
-            'name' => 'Sketch',
-            'email' => 'test@example.com',
-        ])->syncRoles(['super-admin']);
         // User::factory(10)->create();
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Resources\Backend;
 
 use App\Http\Resources\Backend;
 use App\Http\Resources\Blog\PostResource;
-use App\Models\Blog\Post;
+use App\Models\Post;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;

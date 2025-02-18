@@ -5,7 +5,7 @@ import hljs from 'highlight.js/lib/common';
 import '@/../css/a11y-dark.css';
 import '@catppuccin/highlightjs/css/catppuccin-macchiato.css';
 import { nextTick, ref } from "vue";
-import CategoryPanel from "@/Components/CategoryPanel.vue";
+import TagPanel from "@/Components/TagPanel.vue";
 import Divider from "@/Components/divider.vue";
 import CommentItem from "@/Components/Blog/CommentItem.vue";
 import CommentBox from "@/Components/Blog/CommentBox.vue";
@@ -20,11 +20,11 @@ const props = defineProps({
         title: String,
         content: String,
         excerpt: String,
-        categories: Array,
+        tags: Array,
         comments: Array,
         reactions: Array,
         reactions_summary: Array,
-        featured_image: String|null,
+        featured_image: String | null,
         published_at: String,
         created_at: String,
         updated_at: String,
@@ -34,7 +34,7 @@ const props = defineProps({
             email: String,
         }
     },
-    categories: Object,
+    tags: Object,
 })
 
 const user = useUser();
@@ -70,15 +70,10 @@ const attachReaction = (reaction) => {
 }
 
 const sendReaction = () => {
-    form.put(route('blog.react', { post: props.post }), {
-        onSuccess: (data) => {
-            console.log(data)
-        }
-    });
+    form.put(route('blog.react', { post: props.post }));
 }
 
 const getCount = (reaction) => {
-    console.log(reaction)
     const reactions = props.post.reactions_summary;
     switch (reaction) {
         case 'upvote':
@@ -100,11 +95,11 @@ const getCount = (reaction) => {
         <meta :content="post.title" property="og:title" />
         <meta :content="post.excerpt" property="og:description" />
         <meta :content="post.url" property="og:url" />
-        <meta :content="post.featured_image" property="og:image" />
+        <meta v-if="post.featured_image" :content="post.featured_image" property="og:image" />
         <meta content="en_GB" property="og:locale" />
         <meta content="sketchni.uk" property="og:site_name" />
         <meta content="article" property="og:type" />
-        <meta :content="post.featured_image" name="image" />
+        <meta v-if="post.featured_image" :content="post.featured_image" name="image" />
         <meta :content="post.excerpt" name="description" />
         <meta content="Written by" name="twitter:label1" />
         <meta :content="post.author.name" name="twitter:data1" />
@@ -135,13 +130,15 @@ const getCount = (reaction) => {
                             <span class="font-semibold text-green">{{ post.author.name }}</span>
                         </div>
 
-                        <div v-if="post.categories?.length > 0">
-                            <span>Categories:</span>
-                            <span v-for="(cat, i) in post.categories" :key="i">
-                                <x-link :href="route('category.show', { slug: cat.slug })" class="tag">
-                                    <span>{{ cat.name }}</span>
-                                </x-link>
-                            </span>
+                        <div v-if="post.tags?.length > 0" class="flex items-center space-x-2">
+                            <div class="text-subtext0 text-sm">Tags:</div>
+                            <div class="inline-flex items-center space-x-2">
+                                <div v-for="(tag, i) in post.tags" :key="i" class="text-xs">
+                                    <x-link href="route('category.show', { slug: tag.slug })" class="tag !text-sm">
+                                        <span>{{ tag.name }}</span>
+                                    </x-link>
+                                </div>
+                            </div>
                         </div>
 
                         <div v-if="post.created_at !== post.updated_at"
@@ -162,20 +159,32 @@ const getCount = (reaction) => {
                 <div>
                     <divider class="from-red-300 to-red-300 via-blue-400 from-10% to-90% h-px rounded-full" />
 
-                    <div>
+                    <div v-if="user !== null">
                         <form @submit.prevent="sendReaction">
                             <p class="font-medium text-subtext0 mt-4 mb-2">Leave a reaction</p>
                             <ul class="inline-flex items-center space-x-6 mb-4">
                                 <li v-for="reaction in availableReactions" class="text-2xl" :key="reaction.label">
-                                    <button type="button" :title="reaction.label" @click.prevent="attachReaction(reaction)"
+                                    <button type="button" :title="reaction.label"
+                                            @click.prevent="attachReaction(reaction)"
                                             class="relative">
                                         <span>{{ reaction.value }}</span>
                                         <span class="sr-only">{{ reaction.label }}</span>
-                                        <span class="badge">{{ getCount(reaction.label.toLowerCase()) ?? 0}}</span>
+                                        <span class="badge">{{ getCount(reaction.label.toLowerCase()) ?? 0 }}</span>
                                     </button>
                                 </li>
                             </ul>
                         </form>
+                    </div>
+                    <div v-else>
+                        <ul class="inline-flex items-center space-x-6 mb-4 mt-6">
+                            <li v-for="reaction in availableReactions" class="text-2xl" :key="reaction.label">
+                                <p :title="reaction.label" class="relative cursor-not-allowed">
+                                    <span>{{ reaction.value }}</span>
+                                    <span class="sr-only">{{ reaction.label }}</span>
+                                    <span class="badge">{{ getCount(reaction.label.toLowerCase()) ?? 0 }}</span>
+                                </p>
+                            </li>
+                        </ul>
                     </div>
 
                     <divider class="h-px" />
@@ -223,7 +232,7 @@ const getCount = (reaction) => {
                                 </div>
                                 <div v-if="!showCommentForm && user === null" class="text-normal w-64 mt-4">
                                     <x-link
-                                        :href="route('login')"
+                                        :href="route('auth', {driver:'github'})"
                                         class="text-blue underline hover:text-blue-400 focus:text-white transition duration-150 ease-in">
                                         Log in to leave a comment.
                                     </x-link>
@@ -234,7 +243,7 @@ const getCount = (reaction) => {
                 </div>
             </div>
 
-            <CategoryPanel :categories="categories" />
+            <TagPanel :tags="tags" />
         </div>
     </app-layout>
 </template>

@@ -19,7 +19,7 @@ import SecondaryButton from "@/Components/SecondaryButton.vue";
 import { ref } from "vue";
 import { MdEditor } from "md-editor-v3";
 import 'md-editor-v3/lib/style.css';
-import CategoryPanel from "@/Components/CategoryPanel.vue";
+import TagPanel from "@/Components/TagPanel.vue";
 
 const props = defineProps({
     post: {
@@ -28,7 +28,7 @@ const props = defineProps({
         title: String,
         content: String,
         excerpt: String,
-        categories: Array,
+        tags: Array,
         published_at: String,
         created_at: String,
         updated_at: String,
@@ -38,13 +38,11 @@ const props = defineProps({
             email: String,
         }
     },
-    categories: Object,
+    tags: Object,
 })
 
 const app = useApp();
 const page = usePage();
-
-
 
 const updatePost = () => {
     form.put(route('backend.blog.update', { id: props.post.id }));
@@ -54,22 +52,22 @@ const form = useForm({
     title: props.post.title,
     slug: props.post.slug,
     excerpt: props.post.excerpt,
-    content: props.post.content,
+    content: props.post.raw_content,
     published_at: props.post.published_at,
     created_at: props.post.created_at,
     published: !!props.post.published_at,
-    categories: [],
+    tags: [],
 });
 
-const toggleSelection = (id) => {
-    if (!checkAndRemoveSelection(id)) {
-        form.categories.push(id);
+const toggleSelection = (name) => {
+    if (!checkAndRemoveSelection(name)) {
+        form.tags.push(name);
     }
 }
 
-const checkAndRemoveSelection = (id) => {
-    if (form.categories.includes(id)) {
-        form.categories = form.categories.filter(ids => ids !== id);
+const checkAndRemoveSelection = (name) => {
+    if (form.tags.includes(name)) {
+        form.tags = form.tags.filter(names => names !== name);
 
         return true;
     }
@@ -77,8 +75,8 @@ const checkAndRemoveSelection = (id) => {
     return false;
 }
 
-props.post.categories.forEach((category) => {
-    toggleSelection(category.id);
+props.post.tags.forEach((tag) => {
+    toggleSelection(tag.name);
 })
 
 const handleUpload = async (files, func) => {
@@ -173,17 +171,6 @@ const deletePost = () => {
         <div class="">
             <form class="flex items-start space-x-6" @submit.prevent="updatePost">
                 <div class="w-4/5 bg-mantle shadow shadow-crust px-6 py-4 space-y-4">
-                    <div v-if="page.props.app.hasOwnProperty('flash') && page.props.app.flash !== null" class="my-4">
-                        <div v-if="page.props.app.flash.type === 'success'"
-                             class="bg-green shadow shadow-crust text-base px-6 py-4">
-                            {{ page.props.app.flash.message }}
-                        </div>
-                        <div v-else-if="page.props.flash.type === 'error'"
-                             class="bg-red shadow shadow-crust text-base px-6 py-4">
-                            {{ page.props.app.flash.message }}
-                        </div>
-                    </div>
-
                     <div>
                         <input-label for="title" value="Title" />
                         <text-input id="title" v-model="form.title" class="mt-1 block w-full" type="text" />
@@ -219,16 +206,16 @@ const deletePost = () => {
 
                 <div class="w-1/5 space-y-4">
                     <div class="bg-mantle shadow shadow-crust px-6 py-4">
-                        <h1 class="uppercase text-sm text-subtext2 font-bold">Categories</h1>
-                        <p class="mt-2 text-red">{{ form.errors.categories }}</p>
+                        <h1 class="uppercase text-sm text-subtext2 font-bold">Tags</h1>
+                        <p class="mt-2 text-red">{{ form.errors.tags }}</p>
                         <ul class="space-y-2 text-lg">
-                            <li v-for="category in categories" :key="category.id" class="space-y-2">
-                                <label :for="`checkbox.${category.id}`" class="flex items-center space-x-2">
-                                    <checkbox @click="toggleSelection(category.id)"
-                                              :id="`checkbox.${category.id}`"
-                                              :checked="form.categories.includes(category.id)"
-                                              :value="category.id" />
-                                    <span class="font-bold text-sm text-text">{{ category.name }}</span>
+                            <li v-for="tag in tags" :key="tag.id" class="space-y-2">
+                                <label :for="`checkbox.${tag.id}`" class="flex items-center space-x-2">
+                                    <checkbox @click="toggleSelection(tag.name)"
+                                              :id="`checkbox.${tag.id}`"
+                                              :checked="form.tags.includes(tag.name)"
+                                              :value="tag.name" />
+                                    <span class="font-bold text-sm text-text">{{ tag.name }}</span>
                                 </label>
                             </li>
                         </ul>

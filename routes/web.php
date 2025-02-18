@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\IndexController;
@@ -24,10 +24,6 @@ Route::prefix('blog')->name('blog.')->group(function () {
     Route::put('/{post:slug}/react', [ReactController::class, 'store'])->name('react');
     Route::post('/{post:slug}/comment', [CommentController::class, 'store'])->name('comment.create');
     Route::delete('/{post:slug}/comment/{comment:id}', [CommentController::class, 'destroy'])->name('comment.destroy');
-});
-
-Route::prefix('category')->name('category.')->group(static function () {
-    Route::get('/{category:slug}', CategoryController::class)->name('show');
 });
 
 Route::middleware('guest')->group(function () {

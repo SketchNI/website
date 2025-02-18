@@ -27,7 +27,7 @@ class LoginController extends Controller
     {
         $this->flash('Unsupported OAuth driver.', 'error');
 
-        return redirect()->back();
+        return redirect()->intended(route('home'));
     }
 
     public function callback(string $driver): RedirectResponse

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog\Post;
+use App\Models\Post;
 use App\Models\User;
 use Inertia\Response;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;

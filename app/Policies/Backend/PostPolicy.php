@@ -2,7 +2,7 @@
 
 namespace App\Policies\Backend;
 
-use App\Models\Blog\Post;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

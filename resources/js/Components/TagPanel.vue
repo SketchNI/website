@@ -1,15 +1,15 @@
 <script setup>
-import CategoryItem from "@/Components/CategoryItem.vue";
+import TagItem from "@/Components/TagItem.vue";
 
 defineProps({
-    categories: Object,
+    tags: Object,
     selected: Array|null,
 })
 </script>
 
 <template>
     <div class="bg-mantle w-full lg:w-2/6 p-4 shadow shadow-crust">
-        <category-item :categories="categories" />
+        <TagItem :tags="tags" />
     </div>
 </template>
 

@@ -65,11 +65,6 @@ class RolesAndPermissionsTableSeeder extends Seeder
             'publish blog entry',
             'unpublish blog entry',
             'restore blog entry',
-            // Blog Categories
-            'view categories',
-            'create categories',
-            'update categories',
-            'delete categories',
             // Team
             'view team entries',
             'view team entry',

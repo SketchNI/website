@@ -5,7 +5,7 @@ import Pager from "@/Components/Pager.vue";
 import LoadingPane from "@/Pages/Blog/LoadingPane.vue";
 import { ExclamationTriangleIcon } from "@heroicons/vue/24/solid/index.js";
 import { Deferred } from "@inertiajs/vue3";
-import CategoryPanel from "@/Components/CategoryPanel.vue";
+import TagPanel from "@/Components/TagPanel.vue";
 
 const props = defineProps({
     posts: {
@@ -94,7 +94,7 @@ const props = defineProps({
                 </Deferred>
             </div>
 
-            <CategoryPanel :categories="categories" />
+            <TagPanel :categories="categories" />
         </div>
     </app-layout>
 </template>

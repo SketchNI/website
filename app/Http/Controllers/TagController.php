@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Blog\CategoryResource;
+use App\Http\Resources\Blog\TagResource;
 use App\Http\Resources\Blog\PostResource;
 use App\Models\Blog\Category;
 use Inertia\Response;
 
-class CategoryController extends Controller
+class TagController extends Controller
 {
     public function __invoke(Category $category): Response
     {
@@ -19,7 +19,7 @@ class CategoryController extends Controller
 
         $posts = PostResource::collection($posts);
 
-        $categories = CategoryResource::collection(Category::with('children')->whereNull('parent_id')->get())->resolve();
+        $categories = TagResource::collection(Category::with('children')->whereNull('parent_id')->get())->resolve();
 
         $current = $category->name;
 

@@ -1,18 +1,16 @@
 <script setup>
 defineProps({
-    categories: Array,
-    className: 'parent'
+    tags: Object,
 })
 </script>
 
 <template>
     <ul>
-        <li v-for="category in categories" :key="category.id">
-            <x-link :href="route('category.show', { category })" :class="[className, 'group category']">
-                <span v-text="category.name" />
-                <span v-if="category.posts_count !== 0" class="group cat-count" v-text="category.posts_count" />
+        <li v-for="tag in tags" :key="tag.id">
+            <x-link href="route('category.show', { tag })" class="group category tag-item">
+                <span v-text="tag.name" />
+                <span v-if="tag.attached_count !== 0" class="group cat-count" v-text="tag.attached_count ?? 0" />
             </x-link>
-            <category-item :className="className === 'child' ? 'grandchild' : 'child'" v-if="category.children" :categories="category.children" />
         </li>
     </ul>
 </template>
@@ -30,16 +28,8 @@ defineProps({
     }
 }
 
-.parent {
+.tag-item {
     @apply font-bold;
-}
-
-.child {
-    @apply pl-6;
-}
-
-.grandchild {
-    @apply pl-12;
 }
 
 .cat-count {

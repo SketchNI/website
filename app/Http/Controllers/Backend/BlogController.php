@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Exceptions\ForbiddenException;
 use App\Http\Requests\Backend\Blog\CreateRequest;
 use App\Http\Requests\Backend\Blog\UpdateRequest;
-use App\Http\Resources\Blog\CategoryResource;
 use App\Http\Resources\Blog\PostResource;
-use App\Models\Blog\Category;
-use App\Models\Blog\Post;
-use App\Models\Blog\PostHasCategory;
+use App\Http\Resources\TagResource;
+use App\Models\Post;
 use App\Traits\Flashable;
 use App\Traits\ThrowsException;
 use Illuminate\Http\RedirectResponse;
@@ -18,6 +16,8 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\Tags\Tag;
+use Throwable;
 
 class BlogController
 {
@@ -27,9 +27,7 @@ class BlogController
     /**
      * Render the blog post index page.
      *
-     * @param  Request  $request
      *
-     * @return Response
      *
      * @throws ForbiddenException
      */
@@ -37,23 +35,20 @@ class BlogController
     {
         $this->forbidden('view blog entries');
 
-        $post = new Post();
-
         return inertia('Backend/Blog/Index', [
-            'posts' => Inertia::defer(fn () => $this->resolvePosts($request->get('filter')), 'posts'),
-            'counts' => Inertia::defer(fn () => [
-                'posts' => $post->isNotDeleted()->published()->count(),
-                'unpublished' => $post->isNotDeleted()->unpublished()->count(),
-                'deleted' => $post->onlyTrashed()->count(),
+            'posts' => Inertia::defer(fn() => $this->resolvePosts($request->get('filter')), 'posts'),
+            'counts' => Inertia::defer(fn() => [
+                'posts' => Post::published()->count(),
+                'unpublished' => Post::unpublished()->count(),
+                'deleted' => Post::onlyTrashed()->count(),
             ], 'posts'),
-            'categories' => fn () => CategoryResource::collection(Category::with('parent')->get()),
+            'categories' => fn() => Tag::whereType('blog')->get(),
         ]);
     }
 
     /**
      * Render the blog post create page.
      *
-     * @return Response
      *
      * @throws ForbiddenException
      */
@@ -62,60 +57,57 @@ class BlogController
         $this->forbidden('write blog entry');
 
         return inertia('Backend/Blog/Create', [
-            'categories' => CategoryResource::collection(Category::all())->resolve(),
+            'tags' => Tag::whereType('post')->get(),
         ]);
     }
 
     /**
      * Create a new blog post.
-     *
-     * @param  CreateRequest  $request
-     *
-     * @return RedirectResponse
-     *
-     * @throws ForbiddenException
      */
     public function store(CreateRequest $request): RedirectResponse
     {
-        $this->forbidden('write blog entry');
+        $redirect = null;
+        try {
+            $this->forbidden('write blog entry');
 
-        $post = new Post();
-        $post->setAuthor(auth()->id())
-            ->setTitle($request->get('title'))
-            ->setExcerpt($request->get('excerpt'))
-            ->setContent($request->get('content'));
+            $post = new Post()
+                ->setAuthor($request->user()->id)
+                ->setTitle($request->get('title'))
+                ->setExcerpt($request->get('excerpt'))
+                ->setContent($request->get('content'))
+                ->setPublishedAt($request->get('published'));
 
-        if (auth()->user()->hasPermissionTo('publish blog entry')) {
-            $post->setPublishedAt($request->get('published'));
+            if (!$post->save()) {
+                $this->flash('Blog post not created.', 'error');
+            }
+
+            $post->attachTags($request->get('tags'));
+
+            activity('admin')
+                ->by($request->user())
+                ->causedBy($request->user())
+                ->on($post)
+                ->withProperties(['post' => $post, 'user' => $request->user()])
+                ->log('created blog post');
+
+            $this->flash('Blog post created successfully.');
+
+            return redirect()->route('backend.blog.edit', $post);
+        } catch (ForbiddenException $e) {
+            $this->flash($e->getMessage(), 'error');
+
+            return redirect()->back();
+        } catch (Throwable $e) {
+            $this->flash($e->getMessage(), 'error');
+
+            return redirect()->back();
         }
-
-        if (!$post->save()) {
-            $this->flash('Blog post not created.', 'error');
-        }
-
-        foreach ($request->get('categories') as $category) {
-            DB::table('post_has_categories')
-                ->insert(['post_id' => $post->fresh()->id, 'cat_id' => $category]);
-        }
-
-        activity('admin')
-            ->by(auth()->user())
-            ->causedBy(auth()->user())
-            ->on($post)
-            ->withProperties(['post' => $post, 'user' => auth()->user()])
-            ->log('created blog post');
-
-        $this->flash('Blog post created successfully.');
-
-        return redirect()->route('backend.blog.edit', $post);
     }
 
     /**
      * Render the edit blog post page.
      *
-     * @param  Post  $post
      *
-     * @return Response
      *
      * @throws ForbiddenException
      */
@@ -123,21 +115,18 @@ class BlogController
     {
         $this->forbidden('update blog entry', $post);
 
-        $post = Post::withTrashed()->with(['user', 'categories'])->find($post->id);
+        $post = new PostResource(Post::withTrashed()->find($post->id))->resolve();
 
         return inertia('Backend/Blog/Show', [
             'post' => $post,
-            'categories' => CategoryResource::collection(Category::all())->resolve(),
+            'tags' => TagResource::collection(Tag::whereType('post')->get())->resolve(),
         ]);
     }
 
     /**
      * Update a blog post.
      *
-     * @param  UpdateRequest  $request
-     * @param  Post  $post
      *
-     * @return RedirectResponse
      *
      * @throws ForbiddenException
      */
@@ -155,17 +144,9 @@ class BlogController
             session()->flash('flash', ['message' => 'Blog post not updated.', 'type' => 'error']);
         }
 
-        // Delete all categories.
-        PostHasCategory::wherePostId($post->id)->delete();
-        foreach ($request->get('categories') as $category) {
-            /* Imho, this is nasty and I should definitely do something
-             * like spatie does in spatie/laravel-permissions where they
-             * sync roles and permissions with a user. - Sketch, 09:23pm 21/01/2025
-             */
-            // Insert new categories.
-            DB::table('post_has_categories')
-                ->insert(['post_id' => $post->fresh()->id, 'cat_id' => $category]);
-        }
+        $post->syncTags($request->get('tags'))->save();
+
+        $post->save();
 
         activity('admin')
             ->by(auth()->user())
@@ -182,9 +163,7 @@ class BlogController
     /**
      * Delete a blog post.
      *
-     * @param  int  $id
      *
-     * @return RedirectResponse
      *
      * @throws ForbiddenException
      */
@@ -215,9 +194,7 @@ class BlogController
     /**
      * Restore a blog post.
      *
-     * @param  int  $id
      *
-     * @return RedirectResponse
      *
      * @throws ForbiddenException
      */
@@ -245,9 +222,9 @@ class BlogController
     private function resolvePosts(?string $filter): AnonymousResourceCollection
     {
         return PostResource::collection(match ($filter) {
-            'deleted' => Post::onlyTrashed()->with(['user', 'categories'])->paginate(10),
+            'deleted' => Post::onlyTrashed()->paginate(10),
             'unpublished' => Post::unpublished()->paginate(10),
-            default => Post::published()->isNotDeleted()->paginate(10),
+            default => Post::published()->paginate(10),
         });
     }
 }

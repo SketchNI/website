@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import DropdownALink from '@/Components/DropdownALink.vue';
@@ -13,6 +13,7 @@ import useRole from "@/Composables/useRole.js";
 import Theme from "@/Components/Theme.vue";
 import Divider from "@/Components/divider.vue";
 import { usePage } from "@inertiajs/vue3";
+import { toast } from "vue3-toastify";
 
 const user = useUser();
 const role = useRole();
@@ -27,15 +28,14 @@ window.mitt.on('theme:update', (event) => {
     theme.value = event;
 });
 
-if (page.props.app.hasOwnProperty('flash') && page.props.app.flash !== null) {
-    const flash = page.props.app.flash;
+const flash = computed(() => page.props.app?.flash);
 
-    if (flash.type === 'success') {
-        console.info(flash.message);
-    } else {
-        console.error(flash.message);
+// Watch for changes in the flash prop
+watch(flash, (newFlash) => {
+    if (newFlash?.message) {
+        toast(newFlash.message, { type: newFlash.type || 'default', theme: 'dark' });
     }
-}
+}, { deep: true, immediate: true });
 </script>
 
 <template>

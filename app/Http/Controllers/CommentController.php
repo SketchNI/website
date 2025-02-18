@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\ForbiddenException;
 use App\Http\Requests\Blog\Comment\CreateRequest;
-use App\Models\Blog\Post;
 use App\Models\Comment;
+use App\Models\Post;
 use App\Traits\Flashable;
 use App\Traits\ThrowsException;
 use Illuminate\Http\RedirectResponse;

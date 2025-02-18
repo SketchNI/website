@@ -16,7 +16,6 @@ Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/{post}/restore', [Backend\BlogController::class, 'restore'])->name('restore');
 });
 
-Route::resource('category', Backend\CategoryController::class)->only(['store', 'destroy']);
 Route::resource('teams', Backend\TeamController::class)->except('show');
 Route::resource('users', Backend\UserController::class);
 

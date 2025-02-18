@@ -16,8 +16,7 @@ class UpdateRequest extends FormRequest
             'content' => ['required', 'string'],
             'excerpt' => ['required', 'string'],
             'published' => ['required', 'boolean'],
-            'categories' => ['required', 'array'],
-            'categories.*' => ['required', 'int', Rule::exists(Category::class, 'id')],
+            'tags' => ['required', 'array'],
         ];
     }
 

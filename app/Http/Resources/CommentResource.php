@@ -44,9 +44,9 @@ class CommentResource extends JsonResource
         ];
 
         $env = new Environment($config)
-            ->addExtension(new SketchMark())
-            ->addExtension(new ExternalLinkExtension())
-            ->addExtension(new SmartPunctExtension());
+            ->addExtension(new SketchMark)
+            ->addExtension(new ExternalLinkExtension)
+            ->addExtension(new SmartPunctExtension);
 
         $converter = new MarkdownConverter($env);
 

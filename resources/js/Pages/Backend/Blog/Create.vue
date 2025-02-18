@@ -1,6 +1,6 @@
 <script setup>
 import { HomeModernIcon } from "@heroicons/vue/24/outline";
-import { useForm, usePage } from "@inertiajs/vue3";
+import { useForm } from "@inertiajs/vue3";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
@@ -11,14 +11,11 @@ import { SwitchGroup, Switch, SwitchLabel } from "@headlessui/vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import SecondaryButton from "@/Components/SecondaryButton.vue";
 import Divider from "@/Components/divider.vue";
 
 const props = defineProps({
-    categories: Object,
+    tags: Object,
 })
-
-const page = usePage();
 
 const createPost = () => {
     form.post(route('backend.blog.store'));
@@ -30,18 +27,18 @@ const form = useForm({
     content: '',
     published_at: '',
     published: false,
-    categories: [],
+    tags: [],
 });
 
-const toggleSelection = (id) => {
-    if (!checkAndRemoveSelection(id)) {
-        form.categories.push(id);
+const toggleSelection = (name) => {
+    if (!checkAndRemoveSelection(name)) {
+        form.tags.push(name);
     }
 }
 
-const checkAndRemoveSelection = (id) => {
-    if (form.categories.includes(id)) {
-        form.categories = form.categories.filter(ids => ids !== id);
+const checkAndRemoveSelection = (name) => {
+    if (form.tags.includes(name)) {
+        form.tags = form.tags.filter(names => names !== name);
 
         return true;
     }
@@ -125,18 +122,6 @@ const handleUpload = async (files, func) => {
             <div class="">
                 <form @submit.prevent="createPost" class="flex items-start space-x-6">
                     <div class="w-4/5 bg-mantle shadow shadow-crust px-6 py-4 space-y-4">
-                        <div v-if="page.props.app.hasOwnProperty('flash') && page.props.app.flash !== null"
-                             class="my-4">
-                            <div v-if="page.props.app.flash.type === 'success'"
-                                 class="bg-green shadow shadow-crust text-base px-6 py-4">
-                                {{ page.props.app.flash.message }}
-                            </div>
-                            <div v-else-if="page.props.flash.type === 'error'"
-                                 class="bg-red shadow shadow-crust text-base px-6 py-4">
-                                {{ page.props.app.flash.message }}
-                            </div>
-                        </div>
-
                         <div>
                             <input-label for="title" value="Title" />
                             <text-input type="text" class="mt-1 block w-full" v-model="form.title" id="title" />
@@ -172,16 +157,16 @@ const handleUpload = async (files, func) => {
 
                     <div class="w-1/5 space-y-4">
                         <div class="bg-mantle shadow shadow-crust px-6 py-4">
-                            <h1 class="uppercase text-sm text-subtext2 font-bold">Categories</h1>
-                            <p class="mt-2 text-red">{{ form.errors.categories }}</p>
+                            <h1 class="uppercase text-sm text-subtext2 font-bold">Tags</h1>
+                            <p class="mt-2 text-red">{{ form.errors.tags }}</p>
                             <ul class="space-y-2 text-lg">
-                                <li v-for="category in categories" :key="category.id" class="space-y-2">
-                                    <label :for="`checkbox.${category.id}`" class="flex items-center space-x-2">
-                                        <checkbox @click="toggleSelection(category.id)"
-                                                  :id="`checkbox.${category.id}`"
-                                                  :checked="form.categories.includes(category.id)"
-                                                  :value="category.id" />
-                                        <span class="font-bold text-sm text-text">{{ category.name }}</span>
+                                <li v-for="tag in tags" :key="tags.id" class="space-y-2">
+                                    <label :for="`checkbox.${tag.id}`" class="flex items-center space-x-2">
+                                        <checkbox @click="toggleSelection(tag.name)"
+                                                  :id="`checkbox.${tag.id}`"
+                                                  :checked="form.tags.includes(tag.name)"
+                                                  :value="tag.name" />
+                                        <span class="font-bold text-sm text-text">{{ tag.name }}</span>
                                     </label>
                                 </li>
                             </ul>

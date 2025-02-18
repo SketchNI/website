@@ -15,8 +15,6 @@ use Venturecraft\Revisionable\Revision;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 /**
- *
- *
  * @property int $id
  * @property int $user_id
  * @property string $commentable_type

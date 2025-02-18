@@ -26,6 +26,7 @@
         "spatie/laravel-permission": "^6.13.0",
         "spatie/laravel-sitemap": "^7.3.4",
         "spatie/laravel-sluggable": "^3.7.2",
+        "spatie/laravel-tags": "^4.9",
         "tightenco/ziggy": "^2.5.1",
         "venturecraft/revisionable": "^1.41"
     },

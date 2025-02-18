@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\Blog\PostResource;
-use App\Models\Blog\Post;
+use App\Models\Post;
 use Illuminate\Http\Response;
 
 class FeedController extends Controller

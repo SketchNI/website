@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import {
     HomeModernIcon,
     ListBulletIcon,
@@ -8,21 +8,33 @@ import {
 import {
     NumberedListIcon,
     PhotoIcon,
-    SquaresPlusIcon,
+    SquaresPlusIcon, TagIcon,
     UsersIcon as SolidUsersIcon
 } from '@heroicons/vue/20/solid';
 import useRole from "@/Composables/useRole.js";
 import AdminLink from "@/Components/AdminLink.vue";
 import Divider from "@/Components/divider.vue";
 import Theme from "@/Components/Theme.vue";
+import { toast } from "vue3-toastify";
+import { usePage } from "@inertiajs/vue3";
 
 const role = useRole();
+const page = usePage();
 
 const theme = ref(localStorage.getItem('theme'));
 
 window.mitt.on('theme:update', (event) => {
     theme.value = event;
 })
+
+const flash = computed(() => page.props.app?.flash);
+
+// Watch for changes in the flash prop
+watch(flash, (newFlash) => {
+    if (newFlash?.message) {
+        toast(newFlash.message, { type: newFlash.type || 'default', theme: 'dark' });
+    }
+}, { deep: true, immediate: true });
 
 const menu = [
     {

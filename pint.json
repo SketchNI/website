@@ -8,8 +8,8 @@
         "simplified_null_return": true,
         "array_indentation": true,
         "new_with_parentheses": {
-            "anonymous_class": true,
-            "named_class": true
+            "anonymous_class": false,
+            "named_class": false
         },
         "phpdoc_separation": {
             "groups": [
