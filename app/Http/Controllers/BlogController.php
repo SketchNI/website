@@ -6,11 +6,11 @@ use App\Exceptions\ForbiddenException;
 use App\Http\Resources\Blog\PostResource;
 use App\Http\Resources\TagResource;
 use App\Models\Post;
-use Spatie\Tags\Tag;
 use App\Traits\ThrowsException;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\Tags\Tag;
 
 class BlogController
 {

@@ -41,14 +41,6 @@ const user = useUser();
 
 const showCommentForm = ref(false);
 
-const showTab = ref('comments');
-const setTab = (tab) => {
-    if (tab !== showTab.value) {
-        showCommentForm.value = false;
-    }
-    showTab.value = tab;
-}
-
 nextTick(() => {
     hljs.highlightAll();
 });

@@ -16,6 +16,7 @@ Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/{post}/restore', [Backend\BlogController::class, 'restore'])->name('restore');
 });
 
+Route::resource('pages', Backend\PageController::class)->withTrashed(['show']);
 Route::resource('teams', Backend\TeamController::class)->except('show');
 Route::resource('users', Backend\UserController::class);
 

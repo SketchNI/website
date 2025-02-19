@@ -13,6 +13,8 @@ use Venturecraft\Revisionable\Revision;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 /**
+ *
+ *
  * @property int $id
  * @property string $name
  * @property string|null $description
@@ -36,14 +38,11 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|Team whereRole($value)
  * @method static Builder<static>|Team whereUpdatedAt($value)
  * @method static Builder<static>|Team whereWebsite($value)
- *
  * @mixin Eloquent
  */
 class Team extends Model
 {
-    /** @use HasFactory<TeamFactory> */
     use HasFactory;
-
     use RevisionableTrait;
 
     protected $fillable = [

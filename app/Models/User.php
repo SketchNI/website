@@ -22,6 +22,8 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
+ *
+ *
  * @property int $id
  * @property string $name
  * @property string $email
@@ -48,14 +50,11 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static Builder<static>|User whereUpdatedAt($value)
  * @method static Builder<static>|User withoutPermission($permissions)
  * @method static Builder<static>|User withoutRole($roles, $guard = null)
- *
  * @mixin Eloquent
  */
 class User extends Authenticatable implements MustVerifyEmail, ReactsInterface
 {
-    /** @use HasFactory<UserFactory> */
     use HasFactory;
-
     use HasRoles;
     use Notifiable;
     use Reacts;

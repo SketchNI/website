@@ -12,6 +12,8 @@ use Venturecraft\Revisionable\Revision;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 /**
+ * 
+ *
  * @property string $id
  * @property string $image
  * @property string $from
@@ -30,7 +32,6 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|Image whereId($value)
  * @method static Builder<static>|Image whereImage($value)
  * @method static Builder<static>|Image whereUpdatedAt($value)
- *
  * @mixin Eloquent
  */
 class Image extends Model

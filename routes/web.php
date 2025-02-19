@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\TagController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ReactController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ThemeController;
@@ -16,6 +16,11 @@ Route::get('/', IndexController::class)->name('home');
 Route::get('/teams', TeamController::class)->name('teams');
 Route::post('/set-theme', ThemeController::class)->name('set-theme');
 Route::get('feed', FeedController::class)->name('feed');
+
+Route::prefix('page')->name('page.')->group(function () {
+    Route::get('/preview', [PageController::class, 'preview'])->name('preview');
+    Route::get('/{page:slug}', [PageController::class, 'show'])->name('show');
+});
 
 Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('index');

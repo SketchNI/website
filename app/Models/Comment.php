@@ -15,6 +15,8 @@ use Venturecraft\Revisionable\Revision;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 /**
+ *
+ *
  * @property int $id
  * @property int $user_id
  * @property string $commentable_type
@@ -36,14 +38,11 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|Comment whereId($value)
  * @method static Builder<static>|Comment whereUpdatedAt($value)
  * @method static Builder<static>|Comment whereUserId($value)
- *
  * @mixin Eloquent
  */
 class Comment extends Model
 {
-    /** @use HasFactory<CommentFactory> */
     use HasFactory;
-
     use RevisionableTrait;
 
     public function post(): MorphTo

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Blog\TagResource;
 use App\Http\Resources\Blog\PostResource;
+use App\Http\Resources\Blog\TagResource;
 use App\Models\Blog\Category;
 use Inertia\Response;
 

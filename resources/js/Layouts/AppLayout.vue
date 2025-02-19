@@ -65,6 +65,9 @@ watch(flash, (newFlash) => {
                                 <nav-link :href="route('teams')" :active="route().current('teams')">
                                     Teams
                                 </nav-link>
+                                <nav-link :href="route('page.show', { slug: 'uses' })" :active="route().current('page.show')">
+                                    Uses
+                                </nav-link>
                                 <nav-a-link :href="route('auth', { driver: 'github' })" v-if="user === null">
                                     Login
                                 </nav-a-link>

@@ -9,6 +9,7 @@ import {
     NumberedListIcon,
     PhotoIcon,
     SquaresPlusIcon,
+    DocumentIcon,
     UsersIcon as SolidUsersIcon
 } from '@heroicons/vue/20/solid';
 import useRole from "@/Composables/useRole.js";
@@ -41,6 +42,7 @@ const menu = [
         name: "General", links: [
             { name: "Home", route: 'backend.index', icon: HomeModernIcon, role: ['mod', 'admin', 'super-admin'] },
             { name: "Blog", route: 'backend.blog.index', icon: ListBulletIcon, role: ['mod', 'admin', 'super-admin'] },
+            { name: "Pages", route: 'backend.pages.index', icon: DocumentIcon, role: ['mod', 'admin', 'super-admin'] },
             {
                 name: "Users",
                 route: 'backend.users.index',
