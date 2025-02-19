@@ -89,6 +89,7 @@ class Post extends Model implements ReactableInterface
 
     protected $with = [
         'tags',
+        'user',
         'comments',
         'reactions',
     ];
