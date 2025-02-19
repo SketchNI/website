@@ -52,15 +52,6 @@ class ImageController extends Controller
         $image = new Image;
         $image->image = '/storage/'.$request->file('image')->storePublicly('/images', ['disk' => 'public']);
         if ($image->save()) {
-            $image = $image->fresh();
-
-            activity('admin')
-                ->by(auth()->user())
-                ->causedBy(auth()->user())
-                ->on($image)
-                ->withProperties(['image' => $image, 'user' => auth()->user()])
-                ->log('created image.');
-
             return response()->json([
                 'image' => $image->image,
                 'caption' => $image->caption,
@@ -85,14 +76,6 @@ class ImageController extends Controller
             ->setAltText($request->get('alt_text'));
 
         if ($image->save()) {
-            $image = $image->fresh();
-
-            activity('admin')
-                ->by(auth()->user())
-                ->causedBy(auth()->user())
-                ->withProperties(['image' => $image, 'user' => auth()->user()])
-                ->log('updated an image.');
-
             return response()->json([
                 'message' => 'Image has been updated.',
                 'type' => 'success',
@@ -119,12 +102,6 @@ class ImageController extends Controller
 
             return redirect()->back();
         }
-
-        activity('admin')
-            ->by(auth()->user())
-            ->causedBy(auth()->user())
-            ->withProperties(['user' => auth()->user()])
-            ->log('deleted an image.');
 
         Storage::disk('public')->delete($image->image);
 
