@@ -1,20 +1,12 @@
 <script setup>
 import AdminLayout from "@/Layouts/AdminLayout.vue";
-import moment from "moment";
-import Divider from "@/Components/divider.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import { Switch, SwitchGroup, SwitchLabel } from "@headlessui/vue";
-import Modal from "@/Components/Modal.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { HomeModernIcon } from "@heroicons/vue/24/outline/index.js";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
-import DangerButton from "@/Components/DangerButton.vue";
 import TextInput from "@/Components/TextInput.vue";
-import { TrashIcon } from "@heroicons/vue/16/solid/index.js";
 import InputError from "@/Components/InputError.vue";
-import useApp from "@/Composables/useApp.js";
 import { useForm } from "@inertiajs/vue3";
-import { ref } from "vue";
 import { MdEditor } from "md-editor-v3";
 import 'md-editor-v3/lib/style.css';
 
@@ -37,8 +29,6 @@ const props = defineProps({
         updated_at: Date,
     }
 });
-
-const app = useApp();
 
 const createPage = () => {
     form.post(route('backend.pages.store'));
