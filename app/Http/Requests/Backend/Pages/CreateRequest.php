@@ -3,17 +3,17 @@
 namespace App\Http\Requests\Backend\Pages;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'user_id' => 'required|integer|exists:users,id',
-            'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:pages,slug',
-            'content' => 'required|string',
-            'published_at' => 'nullable|bool',
+            'title' => ['required', 'string', 'max:255'],
+            'slug' => ['required', 'string', 'max:255', Rule::unique('pages')],
+            'content' => ['required', 'string'],
+            'published_at' => ['nullable', 'bool'],
         ];
     }
 

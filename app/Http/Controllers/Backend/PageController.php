@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\Pages\CreateRequest;
 use App\Http\Requests\Backend\Pages\UpdateRequest;
 use App\Http\Resources\PageResource;
 use App\Models\Page;
@@ -23,6 +24,37 @@ class PageController extends Controller
         $page = new PageResource($page)->resolve();
 
         return inertia('Backend/Pages/Edit', compact('page'));
+    }
+
+    public function create(): Response
+    {
+        return inertia('Backend/Pages/Create');
+    }
+    public function store(CreateRequest $request): RedirectResponse
+    {
+        $page = new Page()
+            ->setUserId(auth()->id())
+            ->setSlug($request->get('slug'))
+            ->setTitle($request->get('title'), !$request->has('slug') || strlen($request->get('slug')) === 0)
+            ->setContent($request->get('content'))
+            ->setPublishedAt($request->get('is_published') ? now() : null);
+
+        if ($page->save()) {
+            activity('admin')
+                ->by(auth()->user())
+                ->causedBy(auth()->user())
+                ->on($page)
+                ->withProperties(['page' => $page, 'user' => auth()->user()])
+                ->log("created page {$page->title}");
+
+            session()->flash('flash', ['message' => 'Page created successfully.', 'type' => 'success']);
+
+            return redirect()->route('backend.pages.edit', $page->fresh());
+        }
+
+        session()->flash('flash', ['message' => 'Page not created.', 'type' => 'error']);
+
+        return redirect()->back();
     }
 
     public function update(UpdateRequest $request, Page $page): RedirectResponse
