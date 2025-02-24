@@ -7,6 +7,7 @@ use App\Http\Controllers\FeedController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ReactController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ThemeController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,10 @@ Route::prefix('blog')->name('blog.')->group(function () {
     Route::put('/{post:slug}/react', [ReactController::class, 'store'])->name('react');
     Route::post('/{post:slug}/comment', [CommentController::class, 'store'])->name('comment.create');
     Route::delete('/{post:slug}/comment/{comment:id}', [CommentController::class, 'destroy'])->name('comment.destroy');
+});
+
+Route::prefix('tag')->name('category.')->group(function () {
+    Route::get('/{slug}/{type}', TagController::class)->name('show');
 });
 
 Route::middleware('guest')->group(function () {

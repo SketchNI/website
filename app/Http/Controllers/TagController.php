@@ -2,27 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Spatie\Tags\Tag;
 use App\Http\Resources\Blog\PostResource;
 use App\Http\Resources\TagResource;
+use App\Models\Post;
+use App\Types\TagType;
 use Inertia\Response;
+use Spatie\Tags\Tag;
 
 class TagController extends Controller
 {
-    public function __invoke(Tag $tag): Response
+    public function __invoke(string $tag, TagType $type): Response
     {
-        $posts = $tag->posts()
-            ->with(['categories', 'user'])
-            ->published()
-            ->withoutTrashed()
-            ->paginate(5);
+        $posts = PostResource::collection(Post::withAnyTags($tag)->paginate(15));
 
-        $posts = PostResource::collection($posts);
+        $current = Tag::where('slug->en', $tag)->first()->name;
 
-        $categories = TagResource::collection(Category::with('children')->whereNull('parent_id')->get())->resolve();
+        $tags = TagResource::collection(Tag::withType('post')->get())->resolve();
 
-        $current = $tag->name;
-
-        return inertia('Category/Show', compact('posts', 'categories', 'current'));
+        return inertia('Tag/Show', compact('posts', 'tags', 'current'));
     }
 }

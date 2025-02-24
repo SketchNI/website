@@ -13,7 +13,7 @@ const props = defineProps({
         meta: Object,
         links: Object,
     },
-    categories: Object,
+    tags: Object,
     current: String,
 })
 </script>
@@ -94,7 +94,7 @@ const props = defineProps({
                 </Deferred>
             </div>
 
-            <TagPanel :categories="categories" />
+            <TagPanel :tags="tags" type="post" />
         </div>
     </app-layout>
 </template>

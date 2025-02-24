@@ -1,15 +1,16 @@
 <script setup>
 defineProps({
     tags: Object,
+    type: String,
 })
 </script>
 
 <template>
     <ul>
         <li v-for="tag in tags" :key="tag.id">
-            <x-link href="route('category.show', { tag })" class="group category tag-item">
+            <x-link :href="route('category.show', { slug: tag.slug, type: type })" class="group category tag-item">
                 <span v-text="tag.name" />
-                <span v-if="tag.attached_count !== 0" class="group cat-count" v-text="tag.attached_count ?? 0" />
+                <span v-if="type === 'post' && tag.attached_count !== 0" class="group cat-count" v-text="tag.attached_count ?? 0" />
             </x-link>
         </li>
     </ul>

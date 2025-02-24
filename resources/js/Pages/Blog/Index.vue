@@ -81,7 +81,7 @@ const app = useApp();
                                         <span class="font-semibold font-mono">{{ post.author.name }}</span>
                                         <span v-if="post.categories?.length > 0">
                                             in
-                                            <span v-for="(cat, i) in post.categories" :key="i">
+                                            <span v-for="(cat, i) in post.tags" :key="i">
                                                 <x-link :href="route('category.show', { slug: cat.slug })" class="tag">
                                                     {{ cat.name }}
                                                 </x-link>
@@ -99,7 +99,7 @@ const app = useApp();
                 </Deferred>
             </div>
 
-            <TagPanel :tags="tags" />
+            <TagPanel :tags="tags" type="post" />
         </div>
     </app-layout>
 </template>
