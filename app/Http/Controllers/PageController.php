@@ -15,7 +15,7 @@ class PageController
 
     public function show(Page $page): Response
     {
-        $page = Page::published()->withoutTrashed()->findOrFail($page->id);
+        $page = Page::withoutTrashed()->findOrFail($page->id);
 
         $page = new PageResource($page)->resolve();
 
