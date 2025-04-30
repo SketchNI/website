@@ -235,7 +235,7 @@ const getCount = (reaction) => {
                 </div>
             </div>
 
-            <TagPanel :tags="tags" />
+            <TagPanel :tags="tags" type="post" />
         </div>
     </app-layout>
 </template>
