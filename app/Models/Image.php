@@ -12,7 +12,7 @@ use Venturecraft\Revisionable\Revision;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $image
@@ -41,6 +41,7 @@ class Image extends Model
 
     protected $fillable = [
         'image',
+        'from',
         'caption',
         'alt_text',
     ];

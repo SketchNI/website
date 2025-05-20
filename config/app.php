@@ -105,6 +105,8 @@ return [
         ),
     ],
 
+    'upload_key' => env('APP_UPLOAD_KEY'),
+
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver
