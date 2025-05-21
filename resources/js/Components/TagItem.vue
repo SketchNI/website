@@ -18,13 +18,13 @@ defineProps({
 
 <style scoped>
 .category {
-    @apply font-bold font-mono text-blue w-full cursor-pointer inline-flex items-center px-2 py-1 space-x-2
-    text-sm hover:bg-surface1 hover:text-text
+    @apply font-bold font-mono text-primary w-full cursor-pointer inline-flex items-center px-2 py-1 space-x-2
+    text-sm hover:bg-primary/50 hover:text-white
     transition duration-150 ease-in;
 
     &::before {
-        content: "/";
-        @apply pr-2 text-red-400 font-black hover:text-red-600 text-xs;
+        content: "/tag/";
+        @apply text-secondary font-black hover:text-secondary text-xs;
         @apply transition duration-150 ease-in;
     }
 }
@@ -34,8 +34,8 @@ defineProps({
 }
 
 .cat-count {
-    @apply bg-blue-400 font-black font-mono text-black rounded-full px-1.5 py-[.0075rem] text-sm
-    group-hover:text-white group-hover:bg-blue-600;
+    @apply bg-primary font-black font-mono text-black rounded-full px-1.5 py-[.0075rem] text-sm
+    group-hover:text-white group-hover:bg-primary;
     @apply transition duration-150 ease-in;
 }
 </style>

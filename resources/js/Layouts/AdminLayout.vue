@@ -15,18 +15,11 @@ import {
 import useRole from "@/Composables/useRole.js";
 import AdminLink from "@/Components/AdminLink.vue";
 import Divider from "@/Components/divider.vue";
-import Theme from "@/Components/Theme.vue";
 import { toast } from "vue3-toastify";
 import { usePage } from "@inertiajs/vue3";
 
 const role = useRole();
 const page = usePage();
-
-const theme = ref(localStorage.getItem('theme'));
-
-window.mitt.on('theme:update', (event) => {
-    theme.value = event;
-})
 
 const flash = computed(() => page.props.app?.flash);
 
@@ -73,10 +66,10 @@ const menu = [
 </script>
 
 <template>
-    <div :class="[theme, 'bg-base min-h-full']">
+    <div class="bg-gray-900 min-h-full">
         <div class="lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-            <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-crust bg-mantle">
-                <div class="flex h-16 shrink-0 items-center sticky top-0 bg-mantle border-b-2 border-surface0">
+            <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-primary/50 bg-black">
+                <div class="flex h-16 shrink-0 items-center sticky top-0 bg-black border-b-2 border-primary/50">
                     <x-link :href="route('home')" class="logo space-x-0">
                         <img src="/images/WebLogo.png" alt="SketchNI Logo" class="h-14" />
                     </x-link>
@@ -103,7 +96,7 @@ const menu = [
                                     </ul>
                                     <ul class="py-2">
                                         <li>
-                                            <divider class="from-mantle to-mantle via-blue/60 h-px" />
+                                            <divider class="from-black to-black h-px" />
                                         </li>
                                     </ul>
                                 </li>
@@ -124,8 +117,7 @@ const menu = [
         <footer
             class="lg:pl-[20rem] lg:pr-8 my-6 pb-6 text-center md:flex text-subtext0 items-center justify-between mx-auto">
             <p class="text-sm">&copy; SketchNI {{ new Date().getFullYear() }}</p>
-
-            <theme />
+            <p class="text-sm">Made with 💝 by Sketch</p>
         </footer>
     </div>
 </template>

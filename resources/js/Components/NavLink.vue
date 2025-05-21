@@ -15,14 +15,14 @@ const common = 'flex items-center px-4 text-lg font-medium space-x-0.5 leading-5
 
 const classes = computed(() =>
     props.active
-        ? 'text-text bg-surface0 focus:outline-none'
-        : 'text-blue hover:text-text hover:bg-surface0',
+        ? 'text-white bg-primary/60 focus:outline-none'
+        : 'text-primary hover:text-white hover:bg-primary/60',
 );
 </script>
 
 <template>
     <x-link :class="[common, classes]" :href="href">
-        <span class="text-red">/</span>
+        <span class="text-secondary">/</span>
         <span>
             <slot />
         </span>

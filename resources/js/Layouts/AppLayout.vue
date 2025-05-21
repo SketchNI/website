@@ -10,7 +10,6 @@ import ResponsiveNavALink from '@/Components/ResponsiveNavALink.vue';
 import { Bars3Icon, ChevronDownIcon, XMarkIcon } from '@heroicons/vue/16/solid';
 import useUser from "@/Composables/useUser.js";
 import useRole from "@/Composables/useRole.js";
-import Theme from "@/Components/Theme.vue";
 import Divider from "@/Components/divider.vue";
 import { usePage } from "@inertiajs/vue3";
 import { toast } from "vue3-toastify";
@@ -22,11 +21,6 @@ const page = usePage();
 const isAdmin = (['super-admin', 'admin', 'mod'].includes(role))
 
 const showingNavigationDropdown = ref(false);
-const theme = ref(localStorage.getItem('theme'));
-
-window.mitt.on('theme:update', (event) => {
-    theme.value = event;
-});
 
 const flash = computed(() => page.props.app?.flash);
 
@@ -36,11 +30,21 @@ watch(flash, (newFlash) => {
         toast(newFlash.message, { type: newFlash.type || 'default', theme: 'dark' });
     }
 }, { deep: true, immediate: true });
+
+const wiggle = ref('💝');
+
+const mouseOver = () => {
+    wiggle.value = '💖';
+}
+
+const mouseOut = () => {
+    wiggle.value = '💝';
+}
 </script>
 
 <template>
-    <div :class="[theme, 'bg-base min-h-full transition duration-150 ease-in']">
-        <nav class="bg-mantle font-mono">
+    <div class="bg-gray-900 min-h-full transition duration-150 ease-in">
+        <nav class="bg-gray-950 font-mono">
             <!-- Primary Navigation Menu -->
             <div class="max-w-6xl lg:mx-auto">
                 <div class="w-full">
@@ -79,9 +83,9 @@ watch(flash, (newFlash) => {
                             <dropdown align="right" width="48">
                                 <template #trigger>
                                     <button type="button"
-                                            class="inline-flex -mt-px items-center px-4 py-[1.30rem] font-medium text-blue hover:bg-surface0 hover:text-text focus:bg-surface0 focus:outline-none transition ease-in-out duration-150">
+                                            class="inline-flex -mt-px items-center px-4 py-[1.30rem] font-medium text-primary hover:bg-primary/60 hover:text-white focus:bg-primary/60 focus:outline-none transition ease-in-out duration-150">
                                         <span class="inline-flex items-center space-x-1.5">
-                                            <span class="text-red">$ ./</span>
+                                            <span class="text-secondary">$ ./</span>
                                             <span>{{ user.name }}</span>
                                         </span>
 
@@ -92,11 +96,11 @@ watch(flash, (newFlash) => {
                                 <template #content>
                                     <dropdown-link :href="route('backend.index')"
                                                    v-if="isAdmin"
-                                                   class="text-red hover:bg-red hover:text-mantle">
+                                                   class="text-red hover:bg-secondary hover:text-white">
                                         Backend
                                     </dropdown-link>
 
-                                    <div class="h-px -mx-3 border-b border-mantle"></div>
+                                    <div class="h-px border-b border-primary/50"></div>
 
                                     <dropdown-a-link :href="route('logout')">
                                         Log Out
@@ -165,13 +169,32 @@ watch(flash, (newFlash) => {
             <slot />
         </main>
 
-        <divider class="h-[2px]" />
+        <divider class="h-[2px] mx-48" />
 
         <footer
-            class="max-w-6xl my-6 pb-6 text-center md:flex text-subtext0 items-center justify-between lg:mx-auto space-y-3 mx-4 md:space-y-0">
+            class="select-none max-w-6xl my-6 pb-6 text-center md:flex text-gray-400 items-center justify-between lg:mx-auto space-y-3 mx-4 md:space-y-0">
             <p class="text-sm">&copy; SketchNI {{ new Date().getFullYear() }}</p>
-
-            <theme />
+            <div class="text-sm">Made with <p class="wiggle" @mouseover="mouseOver" @mouseout="mouseOut">{{ wiggle }}</p> by Sketch</div>
         </footer>
     </div>
 </template>
+
+<style scoped>
+.wiggle {
+    transform-origin: center center;
+    display: inline-block;
+}
+
+.wiggle:hover {
+    animation: wiggle-scale 1s ease-in-out;
+}
+
+@keyframes wiggle-scale {
+    0%   { transform: scale(1) rotate(0deg); }
+    25%  { transform: scale(2.5) rotate(-10deg); }
+    40%  { transform: scale(2.5) rotate(10deg); }
+    60%  { transform: scale(2.5) rotate(-10deg); }
+    75%  { transform: scale(2.5) rotate(10deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+</style>

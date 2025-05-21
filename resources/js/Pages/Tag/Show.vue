@@ -22,15 +22,15 @@ const props = defineProps({
     <x-head title="Blog Posts" />
 
     <app-layout>
-        <div class="flex bg-surface0 p-4 shadow shadow-crust mb-6 text-subtext1 items-center justify-between">
+        <div class="flex bg-zinc-800 p-4 shadow shadow-black mb-6 text-white items-center justify-between">
             <div class="flex items-center space-x-1">
                 <span>Category:</span>
-                <span class="text-blue font-bold">{{ current }}</span>
+                <span class="text-primary font-bold">{{ current }}</span>
                 <span class="group cat-count" v-text="` (${posts.data.length} posts)`" />
             </div>
 
             <div>
-                <x-link :href="route('blog.index')" class="text-red px-2 py-2 hover:bg-red hover:text-black">Clear
+                <x-link :href="route('blog.index')" class="text-secondary px-2 py-2 hover:bg-secondary hover:text-black">Clear
                     filter
                 </x-link>
             </div>
@@ -45,18 +45,18 @@ const props = defineProps({
 
                     <div v-if="posts.data.length === 0" class="w-full">
                         <div
-                            class="flex h-32 w-full bg-crust/60 shadow shadow-surface0 text-yellow justify-center text-center items-center text-3xl space-x-2">
+                            class="flex h-32 w-full bg-zinc-800 shadow shadow-black text-secondary justify-center text-center items-center text-3xl space-x-2">
                             <exclamation-triangle-icon class="size-6 animate-pulse" />
                             <span>There are no posts to display. <span class="font-mono">:(</span></span>
                         </div>
                     </div>
                     <div v-else>
-                        <div class="space-y-4 w-full">
+                        <div class="gap-4 w-full grid grid-cols-2">
                             <x-link :href="route('blog.show', { post })"
-                                    class="block bg-surface0 p-4 shadow shadow-crust hover:bg-mantle group transition duration-150 ease-in"
+                                    class="w-full bg-gray-800 p-4 shadow shadow-black hover:bg-primary/60 group transition duration-150 ease-in"
                                     v-for="post in posts.data" :key="post.id">
                                 <article class="space-y-2">
-                                    <h1 class="font-semibold text-blue text-xl group-hover:underline">
+                                    <h1 class="font-semibold text-primary text-xl group-hover:underline">
                                         {{ post.title }}
                                     </h1>
                                     <p class="text-subtext0">
@@ -87,11 +87,13 @@ const props = defineProps({
                                     <p class="text-subtext1">{{ post.excerpt }}</p>
                                 </article>
                             </x-link>
-
-                            <Pager :pagination="posts.meta" />
                         </div>
                     </div>
                 </Deferred>
+
+                <div class="mt-6">
+                    <Pager :pagination="posts.meta" />
+                </div>
             </div>
 
             <TagPanel :tags="tags" type="post" />
@@ -101,8 +103,8 @@ const props = defineProps({
 
 <style scoped>
 .category {
-    @apply font-bold text-blue border-b-2 border-transparent cursor-pointer inline-flex items-center
-    hover:bg-blue hover:text-base px-2 py-1.5
+    @apply font-bold text-primary border-b-2 border-transparent cursor-pointer inline-flex items-center
+    hover:bg-primary hover:text-base px-2 py-1.5
     transition duration-150 ease-in;
 }
 
@@ -112,7 +114,7 @@ const props = defineProps({
 }
 
 .tag {
-    @apply text-xs font-semibold text-base bg-blue px-2 py-1 shadow-sm shadow-overlay0 mx-1
+    @apply text-xs font-semibold text-base bg-primary px-2 py-1 shadow-sm shadow-overlay0 mx-1
     hover:bg-overlay0 hover:text-text hover:shadow-none uppercase tracking-wide;
     @apply transition duration-150 ease-in;
 }

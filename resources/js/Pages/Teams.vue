@@ -2,7 +2,9 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 
 defineProps({
-    teams: Object,
+    teams: {
+        data: Object,
+    },
 })
 </script>
 
@@ -15,8 +17,8 @@ defineProps({
                 <div v-for="(team, i) in teams.data" :key="i" class="card group space-y-4">
                     <div class="flex justify-center items-center space-x-4">
                         <img :alt="`${team.name}'s Logo`" :src="team.logo"
-                             class="bg-crust p-2 border-2 border-blue w-24 h-24" />
-                        <h1 class="text-xl text-blue-400" v-text="team.name" />
+                             class="bg-black p-2 border-2 border-primary w-24 h-24" />
+                        <h1 class="text-xl text-primary" v-text="team.name" />
                     </div>
                     <div class="flex flex-row justify-center items-center space-x-4 text-green">
                         <a :href="`https://github.com/${team.github}`" class="card-link" target="_blank">
@@ -28,8 +30,8 @@ defineProps({
                             <span class="sr-only">Website</span>
                         </a>
                     </div>
-                    <p class="text-red" v-text="team.description" />
-                    <p class="text-green" v-text="team.role" />
+                    <p class="text-secondary" v-text="team.description" />
+                    <p class="text-accent" v-text="team.role" />
                 </div>
             </div>
         </div>

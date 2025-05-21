@@ -32,5 +32,5 @@ createInertiaApp({
         color: '#89b4fa',
     },
 }).then(() => {
-    console.debug('App loaded')
+    console.debug('[npm] sketchni.uk ready')
 });

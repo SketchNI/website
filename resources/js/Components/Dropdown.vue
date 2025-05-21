@@ -12,7 +12,7 @@ const props = defineProps({
     },
     contentClasses: {
         type: String,
-        default: 'bg-surface0 shadow-md shadow-crust border-t border-mantle',
+        default: 'bg-gray-800 shadow-md shadow-black border-t border-gray-600',
     },
 });
 
@@ -69,7 +69,7 @@ const open = ref(false);
                  class="absolute z-50 shadow-md" style="display: none" @click="open = false">
                 <div
                     :class="contentClasses"
-                    class="border-l border-mantle">
+                    class="border-l border-gray-900">
                     <slot name="content" />
                 </div>
             </div>

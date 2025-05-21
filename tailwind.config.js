@@ -20,31 +20,33 @@ export default {
 
     theme: {
         colors: {
-            primary: '#89b4fa',
+            primary: '#448fd9',
             secondary: '#fb7185',
             accent: '#a6e3a1',
-            'primary-dark': '#527dc2',
+            'primary-dark': '#448fd9',
             'secondary-dark': '#c25472',
             'accent-dark': '#5ead57',
-            black: '#11111b',
+            black: '#000000',
             white: '#f0eded',
             inherit: 'inherit',
             current: 'currentColor',
             transparent: 'transparent',
             orange: colors.orange[400],
+            gray: colors.neutral,
+            zinc: colors.zinc,
             blue: {
-                DEFAULT: '#89B4FA',
-                50: '#EBF2FE',
-                100: '#D7E6FD',
-                200: '#B0CDFC',
-                300: '#89B4FA',
-                400: '#5392F8',
-                500: '#1D70F5',
-                600: '#0955D2',
-                700: '#073F9C',
-                800: '#042A66',
-                900: '#021430',
-                950: '#010915'
+                DEFAULT: '#448fd9',
+                '50': '#f1f8fd',
+                '100': '#dff0fa',
+                '200': '#c5e6f8',
+                '300': '#9ed6f2',
+                '400': '#70beea',
+                '500': '#4ea3e3',
+                '600': '#448fd9',
+                '700': '#3073c5',
+                '800': '#2d5ea0',
+                '900': '#294f7f',
+                '950': '#1d314e',
             },
             purple: colors.purple,
             red: {
@@ -63,8 +65,8 @@ export default {
             }
         },
         fontFamily: {
-            sans: ['Nunito', ...defaultTheme.fontFamily.sans],
-            mono: ['Space Mono', ...defaultTheme.fontFamily.mono]
+            sans: ['Playpen Sans', ...defaultTheme.fontFamily.sans],
+            mono: ['Kode Mono', ...defaultTheme.fontFamily.mono]
         },
         fontSize: {
             xs: ['0.75rem', { lineHeight: '1rem' }],

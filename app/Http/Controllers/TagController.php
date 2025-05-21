@@ -13,7 +13,7 @@ class TagController extends Controller
 {
     public function __invoke(string $tag, TagType $type): Response
     {
-        $posts = PostResource::collection(Post::withAnyTags($tag)->paginate(15));
+        $posts = PostResource::collection(Post::withAnyTags($tag)->whereNotNull('published_at')->paginate(15));
 
         $current = Tag::where('slug->en', $tag)->first()->name;
 

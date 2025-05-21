@@ -5,11 +5,10 @@ import moment from "moment/moment";
 
 const socials = [
     { name: 'Blue Sky', href: 'https://bsky.app/profile/sketchni.uk', logo: 'bluesky' },
-    { name: 'Twitter', href: 'https://x.com/SketchNI', logo: 'twitter' },
+    { name: 'Fediverse', href: 'https://mb.sketchni.uk/@sketch', logo: 'mastodon' },
     { name: 'Twitch', href: 'https://twitch.tv/SketchNI', logo: 'twitch' },
     { name: 'Discord', href: 'https://discord.com/invite/GQbXUVCneJ', logo: 'discord' },
     { name: 'Steam', href: 'https://steamcommunity.com/id/sketchni/', logo: 'steam' },
-    { name: 'Instagram', href: 'https://www.instagram.com/sketchni.uk/', logo: 'instagram' }
 ]
 
 </script>
@@ -26,7 +25,7 @@ const socials = [
             <div class="lg:w-[40ch] mt-6 lg:mt-0 space-y-6">
                 <div>
                     Hello! I'm Sketch 🐍 (aka Denver). I'm a
-                    <span class="text-green">{{ moment().subtract(1991, 'years').format("YY ") }}year old</span> web
+                    <span class="text-accent">{{ moment().subtract(1991, 'years').format("YY ") }}year old</span> web
                     developer
                     and linux tinkerer with over <span class="text-blue font-black">0</span> years experience!
                 </div>
@@ -35,35 +34,35 @@ const socials = [
 
                 <p class="font-black">
                     I dev mainly with
-                    <span class="text-red">Laravel</span> and
-                    <span class="text-green">VueJS</span>.
+                    <span class="text-secondary">Laravel</span> and
+                    <span class="text-accent">VueJS</span>.
                     I daily drive
-                    <span class="text-blue">Windows 11</span> and
-                    <span class="text-green">Linux Mint</span>.
+                    <span class="text-blue">Windows 11 Pro</span> and
+                    <span class="text-accent">Arch Linux</span>.
                 </p>
 
                 <divider class="lg:hidden" />
 
                 <div class="max-lg:text-center max-lg:w-full">
                     <p>
-                        <span class="text-red">HTML: </span>
-                        <span class="text-green">{{ moment().subtract(2007, 'years').format("YY ") }}</span> years
+                        <span class="text-secondary">HTML: </span>
+                        <span class="text-accent">{{ moment().subtract(2007, 'years').format("YY ") }}</span> years
                     </p>
                     <p>
-                        <span class="text-red">PHP: </span>
-                        <span class="text-green">{{ moment().subtract(2010, 'years').format("YY ") }}</span> years
+                        <span class="text-secondary">PHP: </span>
+                        <span class="text-accent">{{ moment().subtract(2010, 'years').format("YY ") }}</span> years
                     </p>
                     <p>
-                        <span class="text-red">CSS: </span>
-                        <span class="text-green">{{ moment().subtract(2010, 'years').format("YY ") }}</span> years
+                        <span class="text-secondary">CSS: </span>
+                        <span class="text-accent">{{ moment().subtract(2010, 'years').format("YY ") }}</span> years
                     </p>
                     <p>
-                        <span class="text-red">Linux: </span>
-                        <span class="text-green">{{ moment().subtract(2009, 'years').format("YY ") }}</span> years
+                        <span class="text-secondary">Linux: </span>
+                        <span class="text-accent">{{ moment().subtract(2009, 'years').format("YY ") }}</span> years
                     </p>
                     <p>
-                        <span class="text-red">Javascript: </span>
-                        <span class="text-green">{{ moment().subtract(2017, 'years').format("YY ") }}</span> years
+                        <span class="text-secondary">Javascript: </span>
+                        <span class="text-accent">{{ moment().subtract(2017, 'years').format("YY ") }}</span> years
                     </p>
                 </div>
 

@@ -25,23 +25,23 @@
     }
 
     .homepage-sketch {
-        @apply bg-crust p-2 border-2 border-blue w-64 h-64;
+        @apply bg-black border-2 border-primary w-64 h-64;
     }
 
     .social-link {
         @apply text-2xl lg:text-4xl px-3 py-2 size-16 inline-flex items-center justify-center
-        hover:bg-surface0 hover:shadow-md hover:shadow-crust hover:text-text
+        hover:bg-primary/60 hover:shadow-md hover:shadow-black hover:text-text
         transition duration-150 ease-in;
     }
 
     .card {
         @apply border-2 border-primary-dark p-6 select-none cursor-pointer lg:w-1/2
-        hover:bg-crust hover:shadow-md hover:shadow-surface0
+        hover:bg-gray-800 hover:shadow-md hover:shadow-black
         transition duration-150 ease-in;
     }
 
     .card-link {
-        @apply p-2 inline-flex text-white hover:shadow-sm hover:shadow-overlay0 hover:bg-base
+        @apply p-2 inline-flex text-white hover:shadow-sm hover:shadow-black hover:bg-primary/60
         transition duration-150 ease-in;
 
         & > svg {
@@ -50,8 +50,8 @@
     }
 
     .link {
-        @apply font-bold text-blue border-b-2 border-transparent cursor-pointer
-        hover:border-blue hover:text-text
+        @apply font-bold text-primary border-b-2 border-transparent cursor-pointer
+        hover:border-blue hover:text-white
         transition duration-150 ease-in;
     }
 
