@@ -80,8 +80,8 @@
             "@php artisan optimize:clear",
             "composer install",
             "@php artisan package:discover --ansi",
-            "pnpm install",
-            "pnpm run build",
+            "npm install",
+            "npm run build",
             "@php artisan optimize",
             "@php artisan route:clear",
             "@php artisan up"
