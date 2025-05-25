@@ -23,7 +23,7 @@ const eightyeights = [
 
     <app-layout>
         <div
-            class="lg:space-x-6 text-xl mx-6 text-text lg:mx-auto lg:flex lg:flex-row lg:items-center lg:justify-center">
+            class="font-display lg:space-x-6 text-xl mx-6 text-text lg:mx-auto lg:flex lg:flex-row lg:items-center lg:justify-center">
             <div class="flex justify-center lg:justify-normal">
                 <img alt="SketchNI Avatar" class="homepage-sketch" src="/images/chibinobg.png" />
             </div>

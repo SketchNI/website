@@ -166,7 +166,7 @@ const handleUpload = async (files, func) => {
                                                   :id="`checkbox.${tag.id}`"
                                                   :checked="form.tags.includes(tag.name)"
                                                   :value="tag.name" />
-                                        <span class="font-bold text-sm text-text">{{ tag.name }}</span>
+                                        <span class="font-bold text-sm text-text">{{ tag.name.en }}</span>
                                     </label>
                                 </li>
                             </ul>

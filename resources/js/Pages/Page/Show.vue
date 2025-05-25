@@ -1,5 +1,6 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
+import moment from "moment/moment.js";
 
 const props = defineProps({
     page: {
@@ -41,6 +42,17 @@ const props = defineProps({
         <article class="article prose max-w-[82.5ch] prose-blue prose-invert">
             <div class="flex flex-col space-y-2 mb-4">
                 <h1 class="text-5xl mb-2 w-full border-b border-blue/60 pb-2" v-text="page.title" />
+            </div>
+
+            <div v-if="page.created_at !== page.updated_at"
+                 class="text-gray-400 mt-1 mb-3 text-sm">
+                (Last updated at
+                <time
+                    :datetime="page.updated_at"
+                    :title="moment(page.updated_at).format('Do MMM YYYY [at] hh:mma')"
+                    class="text-gray-300 font-semibold">
+                    {{ moment(page.updated_at).format('Do MMM YYYY [at] hh:mma') }}
+                </time>)
             </div>
 
             <div v-html="page.content" class="w-full" />

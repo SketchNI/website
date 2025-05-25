@@ -42,7 +42,7 @@ class BlogController
                 'unpublished' => Post::unpublished()->count(),
                 'deleted' => Post::onlyTrashed()->count(),
             ], 'posts'),
-            'categories' => fn() => Tag::whereType('blog')->get(),
+            'tags' => fn() => TagResource::collection(Tag::whereType('post')->get()),
         ]);
     }
 
@@ -81,7 +81,7 @@ class BlogController
                 $this->flash('Blog post not created.', 'error');
             }
 
-            $post->attachTags($request->get('tags'));
+            $post->syncTags($request->get('tags'));
 
             activity('admin')
                 ->by($request->user())
