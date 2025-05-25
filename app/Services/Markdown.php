@@ -41,7 +41,7 @@ class Markdown
                 'min_heading_level' => 1,
                 'max_heading_level' => 6,
                 'title' => 'Permalink',
-                'symbol' => '#',
+                'symbol' => '/#/',
                 'aria_hidden' => true,
             ],
             'smartpunct' => [
@@ -59,7 +59,7 @@ class Markdown
             ],
             'embed' => [
                 'adapter' => new OscaroteroEmbedAdapter, // See the "Adapter" documentation below
-                'allowed_domains' => ['youtube.com', 'twitter.com', 'github.com', 'x.com', 'bsky.app', 'opengraph.githubassets.com'],
+                'allowed_domains' => ['youtube.com', 'github.com', 'x.com', 'opengraph.githubassets.com'],
                 'fallback' => 'link',
             ],
         ];

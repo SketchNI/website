@@ -53,18 +53,18 @@ const props = defineProps({
                     <div v-else>
                         <div class="gap-4 w-full grid grid-cols-2">
                             <x-link :href="route('blog.show', { post })"
-                                    class="w-full bg-gray-800 p-4 shadow shadow-black hover:bg-primary/60 group transition duration-150 ease-in"
+                                    class="w-full bg-gray-800 p-4 shadow shadow-black hover:bg-primary/50 group transition duration-150 ease-in"
                                     v-for="post in posts.data" :key="post.id">
                                 <article class="space-y-2">
                                     <h1 class="font-semibold text-primary text-xl group-hover:underline">
                                         {{ post.title }}
                                     </h1>
-                                    <p class="text-subtext0">
+                                    <p class="text-gray-400">
                                         Published
                                         <time v-if="moment().diff(post.published_at, 'days') <= 7"
                                               :datetime="post.published_at"
                                               :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')"
-                                              class="font-semibold text-text">
+                                              class="font-semibold text-gray-200">
                                             {{ moment(new Date()).from(post.published_at, true) }} ago
                                         </time>
                                         <time v-else
@@ -74,17 +74,17 @@ const props = defineProps({
                                             {{ moment(post.published_at).format('Do MMM YYYY [at] hh:mma') }}
                                         </time>
                                         by
-                                        <span class="font-semibold font-mono">{{ post.author.name }}</span>
+                                        <span class="font-semibold font-mono text-primary">{{ post.author.name }}</span>
                                         <span v-if="post.categories?.length > 0">
                                             in
-                                            <span v-for="(cat, i) in post.categories" :key="i">
+                                            <span v-for="(cat, i) in post.tags" :key="i">
                                                 <x-link :href="route('category.show', { slug: cat.slug })" class="tag">
                                                     {{ cat.name }}
                                                 </x-link>
                                             </span>
                                         </span>
                                     </p>
-                                    <p class="text-subtext1">{{ post.excerpt }}</p>
+                                    <p class="text-gray-200">{{ post.excerpt }}</p>
                                 </article>
                             </x-link>
                         </div>

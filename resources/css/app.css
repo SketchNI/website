@@ -70,25 +70,31 @@
 }
 
 .table-of-contents {
-    @apply list-none space-y-1 mb-6 bg-mantle shadow shadow-crust p-6;
+    @apply list-none space-y-1 mb-6 bg-gray-800 shadow shadow-black p-6;
 }
 
 .table-of-contents li {
-    @apply text-text;
+    @apply text-primary font-display;
 }
 
 .table-of-contents li:first-of-type::before {
     content: 'Contents';
-    @apply font-semibold uppercase block text-sm mb-2;
+    @apply font-semibold font-display uppercase block text-sm text-white mb-2;
 }
 
 .table-of-contents li a::before {
-    content: '# ';
-    @apply text-subtext0 text-lg;
+    content: '/#/';
+    @apply text-red text-lg;
 }
 
 .heading-permalink {
-    @apply text-text no-underline mr-2;
+    @apply no-underline font-display text-secondary;
+}
+
+.article {
+    h1:not(:first-child), h2, h3, h4, h5, h6 {
+        @apply !text-primary font-display;
+    }
 }
 
 .prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
@@ -109,20 +115,30 @@ time {
 
 .loading::after {
     display: inline-block;
-    animation: dotty steps(1,end) 1500ms infinite;
+    animation: dotty steps(1, end) 1500ms infinite;
     content: '';
 }
 
 @keyframes dotty {
-    0%   { content: ''; }
-    25%  { content: '.'; }
-    50%  { content: '..'; }
-    75%  { content: '...'; }
-    100% { content: ''; }
+    0% {
+        content: '';
+    }
+    25% {
+        content: '.';
+    }
+    50% {
+        content: '..';
+    }
+    75% {
+        content: '...';
+    }
+    100% {
+        content: '';
+    }
 }
 
 code:not(pre) {
-    background: #30344d;
+    @apply bg-primary/40;
     padding: 0.2em;
     border-radius: 0.6em;
 }

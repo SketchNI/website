@@ -65,7 +65,9 @@ export default {
             }
         },
         fontFamily: {
-            sans: ['Playpen Sans', ...defaultTheme.fontFamily.sans],
+            sans: ['Sen', ...defaultTheme.fontFamily.sans],
+            display: ['Playpen Sans', ...defaultTheme.fontFamily.sans],
+            serif: [...defaultTheme.fontFamily.serif],
             mono: ['Kode Mono', ...defaultTheme.fontFamily.mono]
         },
         fontSize: {

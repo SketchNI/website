@@ -103,11 +103,11 @@ const getCount = (reaction) => {
             <div class="space-y-4 w-full">
                 <article class="article prose max-w-[82.5ch] prose-blue prose-invert">
                     <div class="flex flex-col space-y-2 mb-4">
-                        <h1 class="text-5xl mb-2 w-full border-b border-blue/60 pb-2" v-text="post.title" />
-                        <div class="text-subtext0 items-center">
+                        <h1 class="text-5xl mb-2 w-full border-b border-primary/60 pb-2" v-text="post.title" />
+                        <div class="text-gray-400 items-center">
                             Published
                             <time v-if="moment().diff(post.published_at, 'days') <= 7"
-                                  class="text-text font-semibold"
+                                  class="text-gray-100 font-semibold"
                                   :datetime="post.published_at"
                                   :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')">
                                 {{ moment(new Date()).from(post.published_at, true) }} ago
@@ -115,15 +115,15 @@ const getCount = (reaction) => {
                             <time v-else
                                   :datetime="post.published_at"
                                   :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')"
-                                  class="text-text font-semibold">
+                                  class="text-gray-100 font-semibold">
                                 {{ moment(post.published_at).format('Do MMM YYYY [at] hh:mma') }}
                             </time>
                             by
-                            <span class="font-semibold text-green">{{ post.author.name }}</span>
+                            <span class="font-semibold text-accent">{{ post.author.name }}</span>
                         </div>
 
                         <div v-if="post.tags?.length > 0" class="flex items-center space-x-2">
-                            <div class="text-subtext0 text-sm">Tags:</div>
+                            <div class="text-gray-400 text-sm">Tags:</div>
                             <div class="inline-flex items-center space-x-2">
                                 <div v-for="(tag, i) in post.tags" :key="i" class="text-xs">
                                     <x-link href="route('category.show', { slug: tag.slug })" class="tag !text-sm">
@@ -134,26 +134,26 @@ const getCount = (reaction) => {
                         </div>
 
                         <div v-if="post.created_at !== post.updated_at"
-                             class="text-overlay2 mt-1 mb-3 text-sm">
+                             class="text-gray-400 mt-1 mb-3 text-sm">
                             (Last updated at
                             <time
                                 :datetime="post.updated_at"
                                 :title="moment(post.updated_at).format('Do MMM YYYY [at] hh:mma')"
-                                class="text-text font-semibold">
+                                class="text-gray-300 font-semibold">
                                 {{ moment(post.updated_at).format('Do MMM YYYY [at] hh:mma') }}
                             </time>)
                         </div>
                     </div>
 
-                    <div v-html="post.content" class="w-full" />
+                    <div v-html="post.content" class="article w-full" />
                 </article>
 
                 <div>
-                    <divider class="from-red-300 to-red-300 via-blue-400 from-10% to-90% h-px rounded-full" />
+                    <divider class="from-secondary to-secondary via-primary from-10% to-90% h-px rounded-full" />
 
                     <div v-if="user !== null">
                         <form @submit.prevent="sendReaction">
-                            <p class="font-medium text-subtext0 mt-4 mb-2">Leave a reaction</p>
+                            <p class="font-medium text-gray-400 mt-4 mb-2">Leave a reaction</p>
                             <ul class="inline-flex items-center space-x-6 mb-4">
                                 <li v-for="reaction in availableReactions" class="text-2xl" :key="reaction.label">
                                     <button type="button" :title="reaction.label"
@@ -179,7 +179,7 @@ const getCount = (reaction) => {
                         </ul>
                     </div>
 
-                    <divider class="h-px" />
+                    <divider class="h-px mb-4" />
 
                     <div>
                         <transition name="slide"
@@ -210,11 +210,11 @@ const getCount = (reaction) => {
                         </div>
                         <div class="space-y-4" v-else>
                             <div class="py-8 text-xl text-overlay2 flex flex-col items-center justify-center w-full">
-                                <div class="inline-flex space-x-2 w-64">
+                                <div class="inline-flex space-x-2 w-72 justify-center">
                                     <i class="fas fa-circle-exclamation" />
                                     <p class="m-0 w-full">There are no comments.</p>
                                 </div>
-                                <div v-if="!showCommentForm && user !== null" class="text-normal w-64 mt-6">
+                                <div v-if="!showCommentForm && user !== null" class="text-normal w-72 justify-center mt-6">
                                     <button
                                         class="text-blue underline hover:text-blue-400 focus:text-white transition duration-150 ease-in"
                                         type="button"
@@ -242,17 +242,17 @@ const getCount = (reaction) => {
 
 <style lang="postcss" scoped>
 .prose :where(blockquote) {
-    @apply px-6 pt-1 pb-8 bg-crust;
+    @apply px-6 pt-1 pb-8 bg-primary/40;
 }
 
 .tag {
-    @apply font-bold font-mono bg-blue-500 px-1.5 rounded-sm py-0.5 text-xs text-white no-underline text-[1rem] cursor-pointer
+    @apply font-bold font-mono bg-primary px-1.5 rounded-sm py-0.5 text-xs text-white no-underline text-[1rem] cursor-pointer
     items-center hover:bg-blue-600
     transition duration-150 ease-in;
 }
 
 .badge {
-    @apply bg-lavender text-crust font-black font-mono group-hover:bg-surface2 rounded-full px-[5px] py-px text-xs;
+    @apply bg-primary text-white font-black font-mono group-hover:bg-primary rounded-full px-[5px] py-px text-xs;
     @apply absolute bottom-0 -right-[5px];
 }
 </style>
