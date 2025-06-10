@@ -81,7 +81,7 @@ class BlogController
                 $this->flash('Blog post not created.', 'error');
             }
 
-            $post->syncTags($request->get('tags'));
+            $post->attachTags($request->get('tags'), 'post');
 
             activity('admin')
                 ->by($request->user())
@@ -144,7 +144,7 @@ class BlogController
             session()->flash('flash', ['message' => 'Blog post not updated.', 'type' => 'error']);
         }
 
-        $post->syncTags($request->get('tags'))->save();
+        $post->attachTags($request->get('tags'), 'post')->save();
 
         $post->save();
 

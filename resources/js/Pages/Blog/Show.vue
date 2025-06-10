@@ -126,7 +126,7 @@ const getCount = (reaction) => {
                             <div class="text-gray-400 text-sm">Tags:</div>
                             <div class="inline-flex items-center space-x-2">
                                 <div v-for="(tag, i) in post.tags" :key="i" class="text-xs">
-                                    <x-link href="route('category.show', { slug: tag.slug })" class="tag !text-sm">
+                                    <x-link :href="route('category.show', { slug: tag.slug, type: tag.type })" class="tag !text-sm">
                                         <span>{{ tag.name }}</span>
                                     </x-link>
                                 </div>

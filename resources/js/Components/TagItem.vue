@@ -13,18 +13,35 @@ defineProps({
                 <span v-if="type === 'post' && tag.attached_count !== 0" class="group cat-count" v-text="tag.attached_count ?? 0" />
             </x-link>
         </li>
+        <li>
+            <a href="/feed" class="group feed tag-item">
+                <span>feed</span>
+            </a>
+        </li>
     </ul>
 </template>
 
 <style scoped>
 .category {
-    @apply font-bold font-mono text-primary w-full cursor-pointer inline-flex items-center px-2 py-1 space-x-2
+    @apply font-bold font-mono text-blue-400 w-full cursor-pointer inline-flex items-center px-2 py-1 space-x-2
     text-sm hover:bg-primary/50 hover:text-white
     transition duration-150 ease-in;
 
     &::before {
         content: "/tag/";
         @apply text-secondary font-black hover:text-secondary text-xs;
+        @apply transition duration-150 ease-in;
+    }
+}
+
+.feed {
+    @apply mt-4 font-bold font-mono text-blue-400 w-full cursor-pointer inline-flex items-center px-2 py-1 space-x-2
+    text-sm hover:bg-primary/50 hover:text-white
+    transition duration-150 ease-in;
+
+    &::before {
+        content: "/rss/";
+        @apply text-orange font-black hover:text-orange text-xs;
         @apply transition duration-150 ease-in;
     }
 }

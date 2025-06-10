@@ -13,9 +13,9 @@ class TagController extends Controller
 {
     public function __invoke(string $tag, TagType $type): Response
     {
-        $posts = PostResource::collection(Post::withAnyTags($tag)->whereNotNull('published_at')->paginate(15));
+        $posts = PostResource::collection(Post::withAnyTags($tag, 'post')->whereNotNull('published_at')->orderByDesc('published_at')->paginate(12));
 
-        $current = Tag::where('slug->en', $tag)->first()->name;
+        $current = Tag::query()->where('slug->en', $tag)->where('type', 'post')->first()->name;
 
         $tags = TagResource::collection(Tag::withType('post')->get())->resolve();
 

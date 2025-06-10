@@ -20,7 +20,7 @@ class BlogController
     {
         return inertia('Blog/Index', [
             'posts' => Inertia::defer(fn () => PostResource::collection(
-                Post::published()->withoutTrashed()->paginate(6)
+                Post::published()->withoutTrashed()->orderByDesc('published_at')->paginate(12)
             )),
             'tags' => TagResource::collection(Tag::withType('post')->get())->resolve(),
         ]);

@@ -14,7 +14,7 @@ class TagResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'attached_count' => Post::withAnyTags($this->name)->whereNotNull('published_at')->count(),
+            'attached_count' => Post::query()->withAnyTags($this->name, 'post')->whereNotNull('published_at')->count(),
             'name' => $this->name,
             'slug' => $this->slug,
             'type' => $this->type,
