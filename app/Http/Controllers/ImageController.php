@@ -25,13 +25,13 @@ class ImageController extends Controller
         $caption = 'Image uploaded at '.Carbon::now()->toDayDateTimeString();
 
         $image = Image::create([
-            'image' => $request->file('image')->storePublicly('images', ['disk' => 'public']),
+            'image' => '/storage/'.$request->file('image')->storePublicly('images', ['disk' => 'public']),
             'from' => $request->get('from', 'ShareX'),
             'alt_text' => $caption,
             'caption' => $caption,
         ]);
 
-        return url('/storage/'.$image->image);
+        return url($image->image);
     }
 
     public function show(Image $image): string
