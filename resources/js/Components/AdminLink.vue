@@ -14,8 +14,8 @@ const props = defineProps({
     }
 });
 
-const colors = props.color === 'red' ? 'hover:bg-red/40 hover:border-red' : 'hover:bg-surface1';
-const active_colors = props.color === 'red' ? 'border-red text-text bg-red/20' : 'bg-surface0 border-blue text-text';
+const colors = props.color === 'red' ? 'hover:bg-secondary/40 hover:border-secondary' : 'hover:bg-primary/40';
+const active_colors = props.color === 'red' ? 'border-red text-white bg-red/20' : 'bg-primary/40 border-primary text-white';
 
 </script>
 

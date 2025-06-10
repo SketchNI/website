@@ -53,7 +53,7 @@ window.mitt.on('image:update', e => {
                                     <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
                                 </svg>
                                 <x-link :href="route('backend.images.index')"
-                                        class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">Images
+                                        class="ml-4 text-sm font-medium text-white hover:text-gray-400">Images
                                 </x-link>
                             </div>
                         </li>
@@ -74,8 +74,8 @@ window.mitt.on('image:update', e => {
         </div>
 
         <div class="grid grid-cols-5 gap-4">
-            <div class="col-span-5 md:col-span-3 lg:col-span-1 p-4 shadow-sm shadow-overlay0 space-y-3"
-                 :class="[image.from === 'sharex' ? 'bg-red-700/40' : 'bg-crust']"
+            <div class="col-span-5 md:col-span-3 lg:col-span-1 p-4 shadow shadow-black space-y-3"
+                 :class="[image.from.toLowerCase().includes('sharex') ? 'bg-blue-800/40' : 'bg-gray-800']"
                  v-for="image in images" :key="image.id">
                 <image-tile :image="image" />
             </div>

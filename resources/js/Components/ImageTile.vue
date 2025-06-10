@@ -7,6 +7,7 @@ import TextInput from "@/Components/TextInput.vue";
 import { PencilIcon } from "@heroicons/vue/16/solid";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import moment from "moment/moment";
+import { toast } from "vue3-toastify";
 
 const props = defineProps({
     image: {
@@ -43,6 +44,10 @@ const updateImage = () => {
 const isCopied = ref(false);
 
 const copyToClipboard = (path) => {
+    if(!navigator.clipboard) {
+        toast.error('You must be connected over HTTPS to use `navigator.clipboard`.', { theme: 'dark' });
+        return;
+    }
     isCopied.value = true;
     navigator.clipboard.writeText(`${import.meta.env.VITE_APP_URL}${path}`).then(() => {
         setTimeout(() => isCopied.value = false, 2500);
@@ -52,7 +57,7 @@ const copyToClipboard = (path) => {
 
 <template>
     <div class="relative">
-        <img :alt="image.alt_text" :src="image.image" class="" />
+        <img :alt="image.alt_text" :src="image.image" class="w-44" />
         <button
             class="copy-btn"
             type="button"
@@ -97,7 +102,7 @@ const copyToClipboard = (path) => {
         </button>
     </div>
     <p class="text-overlay1 text-xs">
-        Uploaded on {{ moment(image.created_at).format('Do MMM YYYY [at] hh:mma') }}
+        Uploaded on {{ moment(image.created_at).format('Do MMM YYYY [at] hh:mma') }} from {{ image.from }}
     </p>
 </template>
 

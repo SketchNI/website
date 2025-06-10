@@ -20,7 +20,7 @@
 
     .logo {
         @apply px-3 py-1.5 cursor-pointer
-        hover:bg-surface0
+        hover:bg-primary
         transition duration-150 ease-in;
     }
 

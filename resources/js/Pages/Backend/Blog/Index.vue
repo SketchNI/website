@@ -346,12 +346,12 @@ const showViewCategoryModal = () => {
 
 <style scoped>
 .filter-link {
-    @apply flex items-center space-x-2 px-2 py-1 text-overlay2 hover:text-text hover:bg-surface2/50
-    hover:shadow-sm hover:shadow-crust transition duration-150 ease-in;
+    @apply flex items-center space-x-2 px-2 py-2 text-gray-300 hover:text-white hover:bg-gray-600/50
+    hover:shadow hover:shadow-black transition duration-150 ease-in;
 }
 
 .filter-counter {
-    @apply bg-surface0 font-black font-mono group-hover:bg-surface2 rounded-full px-2 py-0.5 text-sm;
+    @apply bg-primary/50 font-black font-mono group-hover:bg-primary/60 rounded-full px-2 py-0.5 text-sm;
     @apply transition duration-150 ease-in;
 }
 </style>

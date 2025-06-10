@@ -3,13 +3,13 @@ import { computed, ref, watch } from 'vue';
 import {
     HomeModernIcon,
     ListBulletIcon,
+    DocumentIcon,
     UsersIcon,
 } from "@heroicons/vue/24/outline";
 import {
     NumberedListIcon,
     PhotoIcon,
     SquaresPlusIcon,
-    DocumentIcon,
     UsersIcon as SolidUsersIcon
 } from '@heroicons/vue/20/solid';
 import useRole from "@/Composables/useRole.js";
@@ -29,6 +29,16 @@ watch(flash, (newFlash) => {
         toast(newFlash.message, { type: newFlash.type || 'default', theme: 'dark' });
     }
 }, { deep: true, immediate: true });
+
+const wiggle = ref('💝');
+
+const mouseOver = () => {
+    wiggle.value = '💖';
+}
+
+const mouseOut = () => {
+    wiggle.value = '💝';
+}
 
 const menu = [
     {
@@ -80,7 +90,7 @@ const menu = [
                             <ul class="space-y-1 overflow-y-auto min-h-full" role="list">
                                 <li v-for="(cat, i) in menu" :key="i">
                                     <ul>
-                                        <li class="px-6 py-1 tracking-widest text-subtext0 font-bold text-xs/6 uppercase">
+                                        <li class="px-6 py-1 tracking-widest text-gray-400 font-bold text-xs/6 uppercase">
                                             {{ cat.name }}
                                         </li>
 
@@ -115,9 +125,29 @@ const menu = [
         </main>
 
         <footer
-            class="lg:pl-[20rem] lg:pr-8 my-6 pb-6 text-center md:flex text-subtext0 items-center justify-between mx-auto">
+            class="lg:pl-[20rem] lg:pr-8 my-6 pb-6 text-center md:flex text-gray-400 items-center justify-between lg:mx-auto space-y-3 mx-4 md:space-y-0">
             <p class="text-sm">&copy; SketchNI {{ new Date().getFullYear() }}</p>
-            <p class="text-sm">Made with 💝 by Sketch</p>
+            <div class="text-sm">Made with <p class="wiggle" @mouseover="mouseOver" @mouseout="mouseOut">{{ wiggle }}</p> by Sketch</div>
         </footer>
     </div>
 </template>
+
+<style scoped>
+.wiggle {
+    transform-origin: center center;
+    display: inline-block;
+}
+
+.wiggle:hover {
+    animation: wiggle-scale 1s ease-in-out;
+}
+
+@keyframes wiggle-scale {
+    0%   { transform: scale(1) rotate(0deg); }
+    25%  { transform: scale(2.5) rotate(-10deg); }
+    40%  { transform: scale(2.5) rotate(10deg); }
+    60%  { transform: scale(2.5) rotate(-10deg); }
+    75%  { transform: scale(2.5) rotate(10deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+</style>
