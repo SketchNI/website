@@ -102,7 +102,7 @@ const copyToClipboard = (path) => {
         </button>
     </div>
     <p class="text-overlay1 text-xs">
-        Uploaded on {{ moment(image.created_at).format('Do MMM YYYY [at] hh:mma') }} from {{ image.from }}
+        Uploaded on {{ moment(image.created_at).format('Do MMM YYYY [at] hh:mma') }}<span v-if="image.from !== null"> from {{ image.from }}</span>.
     </p>
 </template>
 
