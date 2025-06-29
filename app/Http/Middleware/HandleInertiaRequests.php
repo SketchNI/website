@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Hook;
 use App\Http\Resources\Backend\PermissionViaRoleResource;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -39,14 +41,14 @@ class HandleInertiaRequests extends Middleware
             ],
             'app' => [
                 'env' => config('app.env'),
-                'theme' => session('theme', 'mocha'),
                 'url' => request()->fullUrl(),
-                'flash' => fn () => $request->session()->get('flash'),
+                'sidebar' => $this->generateHooks(),
+                'flash' => fn() => $request->session()->get('flash'),
             ],
         ];
     }
 
-    private function getPermissions($request)
+    private function getPermissions($request): mixed
     {
         if (auth()->check()) {
             $perm_name = sprintf('permissions.%s', auth()->id());
@@ -61,5 +63,14 @@ class HandleInertiaRequests extends Middleware
             return cache($perm_name);
         }
 
+        return [];
+    }
+
+    private function generateHooks(): array
+    {
+        $entries = [];
+
+        Hook::trigger('sidebar', $entries);
+        return $entries;
     }
 }

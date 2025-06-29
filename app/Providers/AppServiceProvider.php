@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\View\Composers\SidebarComposer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use SocialiteProviders\GitHub;
@@ -35,6 +37,5 @@ class AppServiceProvider extends ServiceProvider
         Event::listen(function (SocialiteWasCalled $event) {
             $event->extendSocialite('github', GitHub\Provider::class);
         });
-
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\LastFmController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ReactController;
 use App\Http\Controllers\TagController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', IndexController::class)->name('home');
+Route::get('/lastfm', LastFmController::class)->name('lastfm');
 
 Route::get('/teams', TeamController::class)->name('teams');
 Route::get('feed', FeedController::class)->name('feed');

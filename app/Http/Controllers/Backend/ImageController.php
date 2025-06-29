@@ -29,14 +29,23 @@ class ImageController extends Controller
     {
         $this->forbidden('view images');
 
-        if (auth()->user()->hasRole('super-admin')) {
-            return inertia('Backend/Images/Index', [
-                'images' => Image::orderByDesc('created_at')->get(),
-            ]);
+        $breadcrumbs = [
+            [
+                'route' => route('backend.images.index'),
+                'name' => 'Images',
+                'active' => request()->routeIs('backend.images.index'),
+            ],
+        ];
+
+        $images = Image::orderByDesc('created_at');
+
+        if (!auth()->user()->hasRole('super-admin')) {
+            $images->whereFrom('web');
         }
 
         return inertia('Backend/Images/Index', [
-            'images' => Image::orderByDesc('created_at')->whereFrom('web')->get(),
+            'images' => $images->get(),
+            'breadcrumbs' => $breadcrumbs,
         ]);
     }
 

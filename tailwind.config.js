@@ -23,7 +23,7 @@ export default {
             primary: '#448fd9',
             secondary: '#fb7185',
             accent: '#a6e3a1',
-            'primary-dark': '#448fd9',
+            'primary-dark': '#2d5ea0',
             'secondary-dark': '#c25472',
             'accent-dark': '#5ead57',
             black: '#000000',
@@ -49,6 +49,7 @@ export default {
                 '950': '#1d314e',
             },
             purple: colors.purple,
+            green: colors.emerald,
             red: {
                 DEFAULT: '#F38BA8',
                 50: '#FDE7ED',

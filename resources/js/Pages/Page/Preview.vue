@@ -1,6 +1,4 @@
 <script setup>
-import AppLayout from "@/Layouts/AppLayout.vue";
-
 const props = defineProps({
     page: {
         id: String,
@@ -16,9 +14,9 @@ const props = defineProps({
         stripped_content: String,
         content: String,
         is_published: Boolean,
-        published_at: Date|null,
+        published_at: Date | null,
         is_deleted: Boolean,
-        deleted_at: Date|null,
+        deleted_at: Date | null,
         created_at: Date,
         updated_at: Date,
     }
@@ -39,19 +37,18 @@ const props = defineProps({
         <meta :content="page.author.name" name="twitter:data1" />
         <link :href="page.url" rel="canonical" />
     </x-head>
-    <app-layout>
-        <article class="article prose max-w-[82.5ch] prose-blue prose-invert">
-            <div class="bg-red-400/40 font-black text-white text-xl px-6 py-3 mb-6">
-                This is a preview of an unpublished page!
-            </div>
 
-            <div class="flex flex-col space-y-2 mb-4">
-                <h1 class="text-5xl mb-2 w-full border-b border-blue/60 pb-2" v-text="page.title" />
-            </div>
+    <article class="article prose max-w-[82.5ch] prose-blue prose-invert">
+        <div class="bg-red-400/40 font-black text-white text-xl px-6 py-3 mb-6">
+            This is a preview of an unpublished page!
+        </div>
 
-            <div v-html="page.content" class="w-full" />
-        </article>
-    </app-layout>
+        <div class="flex flex-col space-y-2 mb-4">
+            <h1 class="text-5xl mb-2 w-full border-b border-blue/60 pb-2" v-text="page.title" />
+        </div>
+
+        <div v-html="page.content" class="w-full" />
+    </article>
 </template>
 
 <style scoped>

@@ -13,7 +13,6 @@ use App\Traits\ThrowsException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\Tags\Tag;
@@ -35,6 +34,14 @@ class BlogController
     {
         $this->forbidden('view blog entries');
 
+        $breadcrumbs = [
+            [
+                'route' => route('backend.blog.index'),
+                'name' => 'Blog',
+                'active' => request()->routeIs('backend.blog.index'),
+            ],
+        ];
+
         return inertia('Backend/Blog/Index', [
             'posts' => Inertia::defer(fn() => $this->resolvePosts($request->get('filter')), 'posts'),
             'counts' => Inertia::defer(fn() => [
@@ -43,21 +50,36 @@ class BlogController
                 'deleted' => Post::onlyTrashed()->count(),
             ], 'posts'),
             'tags' => fn() => TagResource::collection(Tag::whereType('post')->get()),
+            'breadcrumbs' => $breadcrumbs,
         ]);
     }
 
     /**
-     * Render the blog post create page.
+     * Render the blog post creation page.
      *
      *
      * @throws ForbiddenException
      */
     public function create(): Response
     {
+        $breadcrumbs = [
+            [
+                'route' => route('backend.blog.index'),
+                'name' => 'Blog',
+                'active' => request()->routeIs('backend.blog.index'),
+            ],
+            [
+                'route' => route('backend.blog.create'),
+                'name' => 'Create Post',
+                'active' => request()->routeIs('backend.blog.create'),
+            ],
+        ];
+
         $this->forbidden('write blog entry');
 
         return inertia('Backend/Blog/Create', [
             'tags' => Tag::whereType('post')->get(),
+            'breadcrumbs' => $breadcrumbs,
         ]);
     }
 
@@ -66,7 +88,6 @@ class BlogController
      */
     public function store(CreateRequest $request): RedirectResponse
     {
-        $redirect = null;
         try {
             $this->forbidden('write blog entry');
 
@@ -115,11 +136,25 @@ class BlogController
     {
         $this->forbidden('update blog entry', $post);
 
+        $breadcrumbs = [
+            [
+                'route' => route('backend.blog.index'),
+                'name' => 'Blog',
+                'active' => request()->routeIs('backend.blog.index'),
+            ],
+            [
+                'route' => route('backend.blog.create', $post),
+                'name' => $post->title,
+                'active' => request()->routeIs('backend.blog.edit', ['post' => $post->id]),
+            ],
+        ];
+
         $post = new PostResource(Post::withTrashed()->find($post->id))->resolve();
 
         return inertia('Backend/Blog/Show', [
             'post' => $post,
             'tags' => TagResource::collection(Tag::whereType('post')->get())->resolve(),
+            'breadcrumbs' => $breadcrumbs,
         ]);
     }
 

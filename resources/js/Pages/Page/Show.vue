@@ -1,6 +1,5 @@
 <script setup>
-import AppLayout from "@/Layouts/AppLayout.vue";
-import moment from "moment/moment.js";
+import moment from "moment/moment";
 
 const props = defineProps({
     page: {
@@ -15,9 +14,9 @@ const props = defineProps({
         url: String,
         content: String,
         is_published: Boolean,
-        published_at: Date|null,
+        published_at: Date | null,
         is_deleted: Boolean,
-        deleted_at: Date|null,
+        deleted_at: Date | null,
         created_at: Date,
         updated_at: Date,
     }
@@ -38,26 +37,26 @@ const props = defineProps({
         <meta :content="page.author.name" name="twitter:data1" />
         <link :href="page.url" rel="canonical" />
     </x-head>
-    <app-layout>
-        <article class="article prose max-w-[82.5ch] prose-blue prose-invert">
-            <div class="flex flex-col space-y-2 mb-4">
-                <h1 class="text-5xl mb-2 w-full border-b border-blue/60 pb-2" v-text="page.title" />
-            </div>
 
-            <div v-if="page.created_at !== page.updated_at"
-                 class="text-gray-400 mt-1 mb-3 text-sm">
-                (Last updated at
-                <time
-                    :datetime="page.updated_at"
-                    :title="moment(page.updated_at).format('Do MMM YYYY [at] hh:mma')"
-                    class="text-gray-300 font-semibold">
-                    {{ moment(page.updated_at).format('Do MMM YYYY [at] hh:mma') }}
-                </time>)
-            </div>
+    <article class="article prose max-w-[82.5ch] prose-blue prose-invert">
+        <div class="flex flex-col space-y-2 mb-4">
+            <h1 class="text-5xl mb-2 w-full border-b border-blue/60 pb-2" v-text="page.title" />
+        </div>
 
-            <div v-html="page.content" class="w-full" />
-        </article>
-    </app-layout>
+        <div v-if="page.created_at !== page.updated_at"
+             class="text-gray-400 mt-1 mb-3 text-sm">
+            (Last updated at
+            <time
+                :datetime="page.updated_at"
+                :title="moment(page.updated_at).format('Do MMM YYYY [at] hh:mma')"
+                class="text-gray-300 font-semibold">
+                {{ moment(page.updated_at).format('Do MMM YYYY [at] hh:mma') }}
+            </time>
+            )
+        </div>
+
+        <div v-html="page.content" class="w-full" />
+    </article>
 </template>
 
 <style scoped>

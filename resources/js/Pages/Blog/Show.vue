@@ -1,5 +1,4 @@
 <script setup>
-import AppLayout from "@/Layouts/AppLayout.vue";
 import moment from "moment";
 import hljs from 'highlight.js/lib/common';
 import '@/../css/a11y-dark.css';
@@ -78,7 +77,6 @@ const getCount = (reaction) => {
             return reactions.heart;
     }
 }
-
 </script>
 
 <template>
@@ -98,146 +96,146 @@ const getCount = (reaction) => {
         <link :href="post.url" rel="canonical" />
     </x-head>
 
-    <app-layout>
-        <div class="flex max-lg:flex-col gap-6 items-start max-lg:px-4">
-            <div class="space-y-4 w-full">
-                <article class="article prose max-w-[82.5ch] prose-blue prose-invert">
-                    <div class="flex flex-col space-y-2 mb-4">
-                        <h1 class="text-5xl mb-2 w-full border-b border-primary/60 pb-2" v-text="post.title" />
-                        <div class="text-gray-400 items-center">
-                            Published
-                            <time v-if="moment().diff(post.published_at, 'days') <= 7"
-                                  class="text-gray-100 font-semibold"
-                                  :datetime="post.published_at"
-                                  :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')">
-                                {{ moment(new Date()).from(post.published_at, true) }} ago
-                            </time>
-                            <time v-else
-                                  :datetime="post.published_at"
-                                  :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')"
-                                  class="text-gray-100 font-semibold">
-                                {{ moment(post.published_at).format('Do MMM YYYY [at] hh:mma') }}
-                            </time>
-                            by
-                            <span class="font-semibold text-accent">{{ post.author.name }}</span>
-                        </div>
+    <div class="flex max-lg:flex-col gap-6 items-start max-lg:px-4">
+        <div class="space-y-4 w-full">
+            <article class="article prose max-w-[82.5ch] prose-blue prose-invert">
+                <div class="flex flex-col space-y-2 mb-4">
+                    <h1 class="text-5xl mb-2 w-full border-b border-primary/60 pb-2" v-text="post.title" />
+                    <div class="text-gray-400 items-center">
+                        Published
+                        <time v-if="moment().diff(post.published_at, 'days') <= 7"
+                              class="text-gray-100 font-semibold"
+                              :datetime="post.published_at"
+                              :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')">
+                            {{ moment(new Date()).from(post.published_at, true) }} ago
+                        </time>
+                        <time v-else
+                              :datetime="post.published_at"
+                              :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')"
+                              class="text-gray-100 font-semibold">
+                            {{ moment(post.published_at).format('Do MMM YYYY [at] hh:mma') }}
+                        </time>
+                        by
+                        <span class="font-semibold text-accent">{{ post.author.name }}</span>
+                    </div>
 
-                        <div v-if="post.tags?.length > 0" class="flex items-center space-x-2">
-                            <div class="text-gray-400 text-sm">Tags:</div>
-                            <div class="inline-flex items-center space-x-2">
-                                <div v-for="(tag, i) in post.tags" :key="i" class="text-xs">
-                                    <x-link :href="route('category.show', { slug: tag.slug, type: tag.type })" class="tag !text-sm">
-                                        <span>{{ tag.name }}</span>
-                                    </x-link>
-                                </div>
+                    <div v-if="post.tags?.length > 0" class="flex items-center space-x-2">
+                        <div class="text-gray-400 text-sm">Tags:</div>
+                        <div class="inline-flex items-center space-x-2">
+                            <div v-for="(tag, i) in post.tags" :key="i" class="text-xs">
+                                <x-link :href="route('category.show', { slug: tag.slug, type: tag.type })"
+                                        class="tag !text-sm">
+                                    <span>{{ tag.name }}</span>
+                                </x-link>
                             </div>
                         </div>
-
-                        <div v-if="post.created_at !== post.updated_at"
-                             class="text-gray-400 mt-1 mb-3 text-sm">
-                            (Last updated at
-                            <time
-                                :datetime="post.updated_at"
-                                :title="moment(post.updated_at).format('Do MMM YYYY [at] hh:mma')"
-                                class="text-gray-300 font-semibold">
-                                {{ moment(post.updated_at).format('Do MMM YYYY [at] hh:mma') }}
-                            </time>)
-                        </div>
                     </div>
 
-                    <div v-html="post.content" class="article w-full" />
-                </article>
-
-                <div>
-                    <divider class="from-secondary to-secondary via-primary from-10% to-90% h-px rounded-full" />
-
-                    <div v-if="user !== null">
-                        <form @submit.prevent="sendReaction">
-                            <p class="font-medium text-gray-400 mt-4 mb-2">Leave a reaction</p>
-                            <ul class="inline-flex items-center space-x-6 mb-4">
-                                <li v-for="reaction in availableReactions" class="text-2xl" :key="reaction.label">
-                                    <button type="button" :title="reaction.label"
-                                            @click.prevent="attachReaction(reaction)"
-                                            class="relative">
-                                        <span>{{ reaction.value }}</span>
-                                        <span class="sr-only">{{ reaction.label }}</span>
-                                        <span class="badge">{{ getCount(reaction.label.toLowerCase()) ?? 0 }}</span>
-                                    </button>
-                                </li>
-                            </ul>
-                        </form>
+                    <div v-if="post.created_at !== post.updated_at"
+                         class="text-gray-400 mt-1 mb-3 text-sm">
+                        (Last updated at
+                        <time
+                            :datetime="post.updated_at"
+                            :title="moment(post.updated_at).format('Do MMM YYYY [at] hh:mma')"
+                            class="text-gray-300 font-semibold">
+                            {{ moment(post.updated_at).format('Do MMM YYYY [at] hh:mma') }}
+                        </time>
+                        )
                     </div>
-                    <div v-else>
-                        <ul class="inline-flex items-center space-x-6 mb-4 mt-6">
+                </div>
+
+                <div v-html="post.content" class="article w-full" />
+            </article>
+
+            <div>
+                <divider class="from-secondary to-secondary via-primary from-10% to-90% h-px rounded-full" />
+
+                <div v-if="user !== null">
+                    <form @submit.prevent="sendReaction">
+                        <p class="font-medium text-gray-400 mt-4 mb-2">Leave a reaction</p>
+                        <ul class="inline-flex items-center space-x-6 mb-4">
                             <li v-for="reaction in availableReactions" class="text-2xl" :key="reaction.label">
-                                <p :title="reaction.label" class="relative cursor-not-allowed">
+                                <button type="button" :title="reaction.label"
+                                        @click.prevent="attachReaction(reaction)"
+                                        class="relative">
                                     <span>{{ reaction.value }}</span>
                                     <span class="sr-only">{{ reaction.label }}</span>
                                     <span class="badge">{{ getCount(reaction.label.toLowerCase()) ?? 0 }}</span>
-                                </p>
+                                </button>
                             </li>
                         </ul>
+                    </form>
+                </div>
+                <div v-else>
+                    <ul class="inline-flex items-center space-x-6 mb-4 mt-6">
+                        <li v-for="reaction in availableReactions" class="text-2xl" :key="reaction.label">
+                            <p :title="reaction.label" class="relative cursor-not-allowed">
+                                <span>{{ reaction.value }}</span>
+                                <span class="sr-only">{{ reaction.label }}</span>
+                                <span class="badge">{{ getCount(reaction.label.toLowerCase()) ?? 0 }}</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+                <divider class="h-px mb-4" />
+
+                <div>
+                    <transition name="slide"
+                                enter-active-class="ease-out duration-300"
+                                enter-from-class="opacity-0 scale-y-4 sm:scale-y-0 sm:scale-95"
+                                enter-to-class="opacity-100 scale-y-0 sm:scale-100"
+                                leave-active-class="ease-in duration-200"
+                                leave-from-class="opacity-100 scale-y-0 sm:scale-100"
+                                leave-to-class="opacity-0 scale-y-4 sm:scale-y-0 sm:scale-95">
+                        <div v-if="showCommentForm">
+                            <comment-box :post="post" />
+                        </div>
+                    </transition>
+
+                    <div role="list" class="space-y-4" v-if="post.comments.length > 0">
+                        <div v-if="!showCommentForm && user !== null" class="text-normal w-64 my-4">
+                            <secondary-button
+                                type="button"
+                                @click.prevent="showCommentForm = true">
+                                Leave a comment?
+                            </secondary-button>
+                        </div>
+
+                        <divider class="h-0.5 my-6 from-red to-red from-10% to-90%" />
+
+                        <comment-item
+                            v-for="(comment, i) in post.comments" :key="i" :comment="comment" :post_id="post.id" />
                     </div>
-
-                    <divider class="h-px mb-4" />
-
-                    <div>
-                        <transition name="slide"
-                                    enter-active-class="ease-out duration-300"
-                                    enter-from-class="opacity-0 scale-y-4 sm:scale-y-0 sm:scale-95"
-                                    enter-to-class="opacity-100 scale-y-0 sm:scale-100"
-                                    leave-active-class="ease-in duration-200"
-                                    leave-from-class="opacity-100 scale-y-0 sm:scale-100"
-                                    leave-to-class="opacity-0 scale-y-4 sm:scale-y-0 sm:scale-95">
-                            <div v-if="showCommentForm">
-                                <comment-box :post="post" />
+                    <div class="space-y-4" v-else>
+                        <div class="py-8 text-xl text-overlay2 flex flex-col items-center justify-center w-full">
+                            <div class="inline-flex space-x-2 w-72 justify-center">
+                                <i class="fas fa-circle-exclamation" />
+                                <p class="m-0 w-full">There are no comments.</p>
                             </div>
-                        </transition>
-
-                        <div role="list" class="space-y-4" v-if="post.comments.length > 0">
-                            <div v-if="!showCommentForm && user !== null" class="text-normal w-64 my-4">
-                                <secondary-button
+                            <div v-if="!showCommentForm && user !== null" class="text-normal w-72 justify-center mt-6">
+                                <button
+                                    class="text-blue underline hover:text-blue-400 focus:text-white transition duration-150 ease-in"
                                     type="button"
                                     @click.prevent="showCommentForm = true">
                                     Leave a comment?
-                                </secondary-button>
+                                </button>
                             </div>
-
-                            <divider class="h-0.5 my-6 from-red to-red from-10% to-90%" />
-
-                            <comment-item
-                                v-for="(comment, i) in post.comments" :key="i" :comment="comment" :post_id="post.id" />
-                        </div>
-                        <div class="space-y-4" v-else>
-                            <div class="py-8 text-xl text-overlay2 flex flex-col items-center justify-center w-full">
-                                <div class="inline-flex space-x-2 w-72 justify-center">
-                                    <i class="fas fa-circle-exclamation" />
-                                    <p class="m-0 w-full">There are no comments.</p>
-                                </div>
-                                <div v-if="!showCommentForm && user !== null" class="text-normal w-72 justify-center mt-6">
-                                    <button
-                                        class="text-blue underline hover:text-blue-400 focus:text-white transition duration-150 ease-in"
-                                        type="button"
-                                        @click.prevent="showCommentForm = true">
-                                        Leave a comment?
-                                    </button>
-                                </div>
-                                <div v-if="!showCommentForm && user === null" class="text-normal w-64 mt-4">
-                                    <x-link
-                                        :href="route('auth', {driver:'github'})"
-                                        class="text-blue underline hover:text-blue-400 focus:text-white transition duration-150 ease-in">
-                                        Log in to leave a comment.
-                                    </x-link>
-                                </div>
+                            <div v-if="!showCommentForm && user === null" class="text-normal w-64 mt-4">
+                                <x-link
+                                    :href="route('auth', {driver:'github'})"
+                                    class="text-blue underline hover:text-blue-400 focus:text-white transition duration-150 ease-in">
+                                    Log in to leave a comment.
+                                </x-link>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <TagPanel :tags="tags" type="post" />
         </div>
-    </app-layout>
+
+        <TagPanel :tags="tags" type="post" />
+    </div>
 </template>
 
 <style lang="postcss" scoped>

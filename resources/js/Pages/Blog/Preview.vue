@@ -1,5 +1,4 @@
 <script setup>
-import AppLayout from "@/Layouts/AppLayout.vue";
 import moment from "moment";
 import useApp from "@/Composables/useApp.js";
 import hljs from 'highlight.js/lib/common';
@@ -19,7 +18,7 @@ const props = defineProps({
         excerpt: String,
         tags: Array,
         comments: Array,
-        featured_image: String|null,
+        featured_image: String | null,
         published_at: String,
         created_at: String,
         updated_at: String,
@@ -61,54 +60,53 @@ nextTick(() => {
         <link :href="post.url" rel="canonical" />
     </x-head>
 
-    <app-layout>
-        <div class="flex max-lg:flex-col gap-6 items-start max-lg:px-4">
-            <div class="space-y-4 w-full">
-                <div class="bg-red-400/40 font-black text-white text-xl px-6 py-3">
-                    This is a preview of an unpublished post!
-                </div>
-                <article class="article prose max-w-[82.5ch] prose-blue prose-invert">
-                    <div class="flex flex-col space-y-2 mb-4">
-                        <h1 class="text-5xl mb-2 w-full border-b border-blue/60 pb-2" v-text="post.title" />
-                        <div class="text-subtext0 items-center">
-                            Published
-                            <time class="text-text font-semibold">
-                                <span class="text-red font-black">not yet published</span>
-                            </time>
-                            by
-                            <span class="font-semibold text-green">{{ post.author.name }}</span>
-                        </div>
+    <div class="flex max-lg:flex-col gap-6 items-start max-lg:px-4">
+        <div class="space-y-4 w-full">
+            <div class="bg-red-400/40 font-black text-white text-xl px-6 py-3">
+                This is a preview of an unpublished post!
+            </div>
+            <article class="article prose max-w-[82.5ch] prose-blue prose-invert">
+                <div class="flex flex-col space-y-2 mb-4">
+                    <h1 class="text-5xl mb-2 w-full border-b border-blue/60 pb-2" v-text="post.title" />
+                    <div class="text-subtext0 items-center">
+                        Published
+                        <time class="text-text font-semibold">
+                            <span class="text-red font-black">not yet published</span>
+                        </time>
+                        by
+                        <span class="font-semibold text-green">{{ post.author.name }}</span>
+                    </div>
 
-                        <div v-if="post.tags?.length > 0" class="flex items-center space-x-2">
-                            <div class="text-subtext0 text-sm">Tags:</div>
-                            <div class="inline-flex items-center space-x-2">
-                                <div v-for="(tag, i) in post.tags" :key="i" class="text-xs">
-                                    <x-link href="route('category.show', { slug: tag.slug })" class="tag !text-sm">
-                                        <span>{{ tag.name }}</span>
-                                    </x-link>
-                                </div>
+                    <div v-if="post.tags?.length > 0" class="flex items-center space-x-2">
+                        <div class="text-subtext0 text-sm">Tags:</div>
+                        <div class="inline-flex items-center space-x-2">
+                            <div v-for="(tag, i) in post.tags" :key="i" class="text-xs">
+                                <x-link href="route('category.show', { slug: tag.slug })" class="tag !text-sm">
+                                    <span>{{ tag.name }}</span>
+                                </x-link>
                             </div>
-                        </div>
-
-                        <div v-if="post.created_at !== post.updated_at"
-                             class="text-overlay2 mt-1 mb-3 text-sm">
-                            (Last updated at
-                            <time
-                                :datetime="post.updated_at"
-                                :title="moment(post.updated_at).format('Do MMM YYYY [at] hh:mma')"
-                                class="text-text font-semibold">
-                                {{ moment(post.updated_at).format('Do MMM YYYY [at] hh:mma') }}
-                            </time>)
                         </div>
                     </div>
 
-                    <div v-html="post.content" class="w-full" />
-                </article>
-            </div>
+                    <div v-if="post.created_at !== post.updated_at"
+                         class="text-overlay2 mt-1 mb-3 text-sm">
+                        (Last updated at
+                        <time
+                            :datetime="post.updated_at"
+                            :title="moment(post.updated_at).format('Do MMM YYYY [at] hh:mma')"
+                            class="text-text font-semibold">
+                            {{ moment(post.updated_at).format('Do MMM YYYY [at] hh:mma') }}
+                        </time>
+                        )
+                    </div>
+                </div>
 
-            <TagPanel :tags="tags" />
+                <div v-html="post.content" class="w-full" />
+            </article>
         </div>
-    </app-layout>
+
+        <TagPanel :tags="tags" />
+    </div>
 </template>
 
 <style lang="postcss" scoped>

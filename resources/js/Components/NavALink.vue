@@ -11,18 +11,18 @@ const props = defineProps({
     },
 });
 
-const common = 'flex items-center px-4 text-lg font-medium space-x-0.5 leading-5 focus:outline-none transition duration-150 ease-in-out';
+const common = 'border-l-4 border-transparent px-2 py-3 text-lg font-medium tracking-wide leading-5 hover:border-primary/60 focus:outline-none transition duration-150 ease-in-out';
 
 const classes = computed(() =>
     props.active
-        ? 'text-text bg-surface0 focus:outline-none'
-        : 'text-blue hover:text-text hover:bg-surface0',
+        ? 'text-white px-4 border-l-primary focus:outline-none'
+        : 'text-primary hover:text-white ',
 );
 </script>
 
 <template>
     <a :class="[common, classes]" :href="href">
-        <span class="text-red">/</span>
+        <span class="text-secondary">/</span>
         <span>
             <slot />
         </span>

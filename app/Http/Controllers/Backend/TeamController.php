@@ -21,8 +21,17 @@ class TeamController
             app()->abort(HttpResponse::HTTP_FORBIDDEN);
         }
 
+        $breadcrumbs = [
+            [
+                'route' => route('backend.teams.index'),
+                'name' => 'Teams',
+                'active' => request()->routeIs('backend.teams.index'),
+            ],
+        ];
+
         return inertia('Backend/Teams/Index', [
-            'teams' => Inertia::defer(fn () => TeamResource::collection(Team::all())),
+            'teams' => Inertia::defer(fn() => TeamResource::collection(Team::all())),
+            'breadcrumbs' => $breadcrumbs,
         ]);
     }
 
@@ -32,7 +41,20 @@ class TeamController
             app()->abort(HttpResponse::HTTP_FORBIDDEN);
         }
 
-        return inertia('Backend/Teams/Create');
+        $breadcrumbs = [
+            [
+                'route' => route('backend.teams.index'),
+                'name' => 'Teams',
+                'active' => request()->routeIs('backend.teams.index'),
+            ],
+            [
+                'route' => route('backend.teams.create'),
+                'name' => 'Create Team',
+                'active' => request()->routeIs('backend.teams.create'),
+            ],
+        ];
+
+        return inertia('Backend/Teams/Create', compact('breadcrumbs'));
     }
 
     public function store(CreateRequest $request): RedirectResponse
@@ -91,10 +113,22 @@ class TeamController
             app()->abort(HttpResponse::HTTP_FORBIDDEN);
         }
 
-        $team = Team::find($team->id);
+        $breadcrumbs = [
+            [
+                'route' => route('backend.teams.index'),
+                'name' => 'Teams',
+                'active' => request()->routeIs('backend.teams.index'),
+            ],
+            [
+                'route' => route('backend.teams.edit', ['team' => $team]),
+                'name' => $team->name,
+                'active' => request()->routeIs('backend.teams.edit', ['team' => $team]),
+            ],
+        ];
 
         return inertia('Backend/Teams/Show', [
             'team' => new TeamResource($team)->resolve(),
+            'breadcrumbs' => $breadcrumbs,
         ]);
     }
 
