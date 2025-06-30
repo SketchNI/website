@@ -30,10 +30,19 @@ class UserController extends Controller
     {
         $this->forbidden('view users');
 
+        $breadcrumbs = [
+            [
+                'route' => route('backend.users.index'),
+                'name' => 'Users',
+                'active' => request()->routeIs('backend.users.index'),
+            ],
+        ];
+
         $users = UserResource::collection(User::paginate(15));
 
         return inertia('Backend/Users/Index', [
             'users' => Inertia::defer(fn () => $users),
+            'breadcrumbs' => $breadcrumbs
         ]);
     }
 
@@ -48,6 +57,19 @@ class UserController extends Controller
     {
         $this->forbidden('view user');
 
+        $breadcrumbs = [
+            [
+                'route' => route('backend.users.index'),
+                'name' => 'Users',
+                'active' => request()->routeIs('backend.users.index'),
+            ],
+            [
+                'route' => route('backend.users.edit', $user),
+                'name' => sprintf('Edit "%s"', $user->name),
+                'active' => request()->routeIs('backend.users.edit', $user),
+            ],
+        ];
+
         $roles = Role::all();
 
         return inertia('Backend/Users/Show', [
@@ -56,6 +78,7 @@ class UserController extends Controller
             )->find($user->id))->resolve(),
             'roles' => $roles,
             'permissions' => PermissionViaRoleResource::collection(Permission::all())->resolve(),
+            'breadcrumbs' => $breadcrumbs,
         ]);
     }
 
