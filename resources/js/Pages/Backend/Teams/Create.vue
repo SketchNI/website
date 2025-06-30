@@ -64,26 +64,15 @@ const clearLogoInput = () => {
     <x-head :title="`Create New Team // Team Manager`" />
 
     <div class="mb-6 inline-flex space-x-2 items-end">
-        <h1 class="font-semibold text-text text-xl">Create Team</h1>
-        <p class="text-subtext0">View and edit your teams.</p>
+        <h1 class="font-semibold text-white text-xl">Create Team</h1>
+        <p class="text-gray-400">View and edit your teams.</p>
     </div>
 
     <breadcrumb :breadcrumbs="breadcrumbs" />
 
     <div class="mt-6">
         <form class="flex items-start space-x-6" @submit.prevent="updateTeam">
-            <div class="w-4/5 bg-mantle shadow shadow-crust px-6 py-4 space-y-4">
-                <div v-if="page.props.app.hasOwnProperty('flash') && page.props.app.flash !== null" class="my-4">
-                    <div v-if="page.props.app.flash.type === 'success'"
-                         class="bg-green shadow shadow-crust text-base px-6 py-4">
-                        {{ page.props.app.flash.message }}
-                    </div>
-                    <div v-else-if="page.props.flash.type === 'error'"
-                         class="bg-red shadow shadow-crust text-base px-6 py-4">
-                        {{ page.props.app.flash.message }}
-                    </div>
-                </div>
-
+            <div class="w-4/5 bg-gray-800 px-6 py-4 space-y-4">
                 <div>
                     <input-label for="logo" value="Logo" />
 
@@ -125,7 +114,7 @@ const clearLogoInput = () => {
                     <input-label for="github" value="GitHub" />
                     <div class="inline-flex items-center w-full">
                         <text-input-prefix value="https://github.com/" />
-                        <text-input id="github" v-model="form.github" class="mt-1 flex grow" type="text" />
+                        <text-input id="github" v-model="form.github" class="z-40 mt-1 flex grow" type="text" />
                     </div>
                     <input-error :message="form.errors.github" class="mt-2" />
                 </div>
@@ -138,11 +127,11 @@ const clearLogoInput = () => {
             </div>
 
             <div class="w-1/5 space-y-4">
-                <div class="bg-mantle shadow shadow-crust px-6 py-4">
+                <div class="bg-gray-800 px-6 py-4">
                     <primary-button :aria-disabled="form.processing"
-                                    :class="[form.processing ? 'bg-blue/60 cursor-not-allowed disabled:bg-blue/60 disabled:text-mantle' : '']"
+                                    :class="[form.processing ? 'bg-primary/60 cursor-not-allowed disabled:bg-primary-dark/60 disabled:text-white' : '']"
                                     :disabled="form.processing"
-                                    class="w-full text-xl text-center justify-center space-x-1"
+                                    class="w-full text-xl flex text-center justify-center space-x-1"
                                     type="submit">
                         <span v-if="!form.processing" class="space-x-1.5">
                             <i class="fas fa-save size-5 shrink-0" />

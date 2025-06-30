@@ -1,5 +1,5 @@
 <script setup>
-import { Deferred, useForm, usePage } from "@inertiajs/vue3";
+import { useForm, usePage } from "@inertiajs/vue3";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
@@ -94,15 +94,15 @@ const clearLogoInput = () => {
     <x-head :title="`Editing ${team.name} // Team Manager`" />
 
     <div class="mb-6 inline-flex space-x-2 items-end">
-        <h1 class="font-semibold text-text text-xl"><span class="text-subtext0">Editing</span> {{ form.title }}</h1>
-        <p class="text-subtext0">View and edit your teams.</p>
+        <h1 class="font-semibold text-white text-xl"><span class="text-gray-300">Editing</span> {{ team.name }}</h1>
+        <p class="text-gray-400">View and edit your teams.</p>
     </div>
 
     <breadcrumb :breadcrumbs="breadcrumbs" />
 
     <div class="mt-6">
         <form class="flex items-start space-x-6" @submit.prevent="updateTeam">
-            <div class="w-4/5 bg-mantle shadow shadow-crust px-6 py-4 space-y-4">
+            <div class="w-4/5 bg-gray-800 px-6 py-4 space-y-4">
                 <div>
                     <input-label for="logo" value="Logo" />
 
@@ -112,11 +112,11 @@ const clearLogoInput = () => {
                     <div v-if="team.logo !== null" class="p-4">
                         <img v-if="!logoPreview" :alt="`Logo for ${team.name}`"
                              :src="team.logo"
-                             class="size-32 border-2 border-blue rounded-sm" />
+                             class="size-32 border-2 border-primary rounded-sm" />
 
                         <span v-else
                               :style="'background-image: url(\'' + logoPreview + '\');'"
-                              class="block rounded-sm border-2 border-blue size-32 bg-cover bg-no-repeat bg-center"
+                              class="block rounded-sm border-2 border-primary size-32 bg-cover bg-no-repeat bg-center"
                         />
 
                         <div class="mt-4">
@@ -138,7 +138,7 @@ const clearLogoInput = () => {
                     <div v-else class="mt-4">
                         <span v-if="logoPreview"
                               :style="'background-image: url(\'' + logoPreview + '\');'"
-                              class="block rounded-sm border-2 border-blue size-32 bg-cover bg-no-repeat bg-center"
+                              class="block rounded-sm border-2 border-primary size-32 bg-cover bg-no-repeat bg-center"
                         />
 
                         <primary-button class="text-xs space-x-1 mt-4" type="button" @click.prevent="selectLogo">
@@ -183,8 +183,8 @@ const clearLogoInput = () => {
             </div>
 
             <div class="w-1/5 space-y-4">
-                <div class="bg-mantle shadow shadow-crust px-6 py-4">
-                    <h1 class="uppercase text-sm text-subtext2 font-bold">Manage</h1>
+                <div class="bg-gray-800 px-6 py-4">
+                    <h1 class="uppercase text-sm text-gray-300 font-bold">Manage</h1>
 
                     <div class="my-4">
                         <danger-button class="space-x-1" type="button" @click="confirmTeamDeletion">
@@ -194,11 +194,11 @@ const clearLogoInput = () => {
 
                         <modal :show="confirmingTeamDeletion" @close="closeModal">
                             <div class="p-6">
-                                <h2 class="text-lg font-medium text-gray-900">
+                                <h2 class="text-lg font-medium text-gray-100">
                                     Are you sure you want to delete this team?
                                 </h2>
 
-                                <p class="mt-1 text-sm text-gray-600">
+                                <p class="mt-1 text-sm text-gray-300">
                                     Once this team is deleted, there is no way to restore it.
                                 </p>
 
@@ -219,9 +219,9 @@ const clearLogoInput = () => {
                     </div>
                 </div>
 
-                <div class="bg-mantle shadow shadow-crust px-6 py-4">
+                <div class="bg-gray-800 px-6 py-4">
                     <primary-button :aria-disabled="form.processing"
-                                    :class="[form.processing ? 'bg-blue/60 cursor-not-allowed disabled:bg-blue/60 disabled:text-mantle' : '']"
+                                    :class="[form.processing ? 'bg-primary/60 cursor-not-allowed disabled:bg-primary/60 disabled:text-mantle' : '']"
                                     :disabled="form.processing"
                                     class="w-full text-xl text-center justify-center space-x-1"
                                     type="submit">

@@ -4,7 +4,6 @@ import useApp from "@/Composables/useApp.js";
 import { Deferred, usePage } from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import useUser from "@/Composables/useUser.js";
-import AdminLayout from "@/Layouts/AdminLayout.vue";
 import Breadcrumb from "@/Components/Breadcrumb.vue";
 
 defineProps({
@@ -21,10 +20,8 @@ const user = useUser();
     <x-head title="Team Manager" />
 
     <div class="mb-6 inline-flex space-x-2 items-end">
-        <h1 :class="['font-semibold', app.theme === 'latte' ? 'text-black' : 'text-white']">
-            Teams
-        </h1>
-        <p class="text-sm text-subtext0">View and edit your teams.</p>
+        <h1 class="font-semibold text-white text-xl">Teams</h1>
+        <p class="text-sm text-gray-400">View and edit your teams.</p>
     </div>
 
     <div class="flex items-center justify-between space-x-6 mb-6">
@@ -44,21 +41,21 @@ const user = useUser();
         <div class="flow-root">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                    <div class="overflow-hidden shadow shadow-mantle ring-1 ring-mantle/5">
-                        <table class="min-w-full divide-y divide-overlay0">
-                            <thead class="bg-surface0">
+                    <div class="overflow-hidden">
+                        <table class="min-w-full divide-y divide-gray-600 text-white">
+                            <thead class="bg-gray-800">
                             <tr>
-                                <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-text sm:pl-6"
+                                <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-6"
                                     scope="col">
                                     Name
                                 </th>
-                                <th class="px-3 py-3.5 text-left text-sm font-semibold text-text" scope="col">
+                                <th class="px-3 py-3.5 text-left text-sm font-semibold text-white" scope="col">
                                     Description
                                 </th>
-                                <th class="px-3 py-3.5 text-left text-sm font-semibold text-text" scope="col">
+                                <th class="px-3 py-3.5 text-left text-sm font-semibold text-white" scope="col">
                                     GitHub
                                 </th>
-                                <th class="px-3 py-3.5 text-left text-sm font-semibold text-text" scope="col">
+                                <th class="px-3 py-3.5 text-left text-sm font-semibold text-white" scope="col">
                                     Website
                                 </th>
                                 <th class="relative py-3.5 pl-3 pr-4 sm:pr-6" scope="col">
@@ -66,19 +63,19 @@ const user = useUser();
                                 </th>
                             </tr>
                             </thead>
-                            <tbody class="divide-y divide-surface0 bg-surface2">
+                            <tbody class="divide-y divide-gray-600">
                             <Deferred data="teams">
-                                <tr v-if="teams.data.length === 0" class="bg-mantle">
-                                    <td colspan="5">
-                                        <div class="text-3xl text-blue flex justify-center items-center h-32">
+                                <tr v-if="teams.data.length === 0" class="bg-gray-600">
+                                    <td colspan="4">
+                                        <div class="text-3xl text-primary flex justify-center items-center h-32">
                                             No data to show
                                         </div>
                                     </td>
                                 </tr>
                                 <tr v-else v-for="(team, i) in teams.data" :key="i"
-                                    :class="[i % 2 === 0 ? 'bg-surface0' : 'bg-surface1', 'hover:bg-surface2 select-none cursor-default']">
+                                    :class="[i % 2 === 0 ? 'bg-gray-700' : 'bg-gray-800', 'hover:bg-gray-900 select-none cursor-default transition duration-150 ease-in']">
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 font-medium">
-                                        <p class="text-text" v-text="team.name" />
+                                        <p class="text-white" v-text="team.name" />
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm">
                                         <p class="truncate w-[35ch]">{{ team.description }}</p>
@@ -97,9 +94,8 @@ const user = useUser();
                                         </x-link>
                                     </td>
                                     <td class="relative whitespace-nowrap text-right text-sm font-medium pr-4">
-                                        <x-link
-                                            :href="route('backend.teams.edit', { id: team.id})"
-                                            class="bg-blue text-mantle hover:bg-base hover:text-text py-3 px-4 transition duration-150 ease-in">
+                                        <x-link :href="route('backend.teams.edit', { id: team.id})"
+                                                class="bg-primary text-white hover:bg-primary-dark py-3 px-4 transition duration-150 ease-in">
                                             Edit
                                         </x-link>
                                     </td>
@@ -127,7 +123,7 @@ const user = useUser();
     @apply inline-flex space-x-1 items-start;
 
     & > span {
-        @apply text-blue;
+        @apply text-primary;
     }
 
     & > .svg-inline--fa {

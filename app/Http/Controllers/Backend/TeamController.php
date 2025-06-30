@@ -121,7 +121,7 @@ class TeamController
             ],
             [
                 'route' => route('backend.teams.edit', ['team' => $team]),
-                'name' => $team->name,
+                'name' => sprintf('Editing "%s"', $team->name),
                 'active' => request()->routeIs('backend.teams.edit', ['team' => $team]),
             ],
         ];

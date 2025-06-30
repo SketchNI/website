@@ -59,7 +59,7 @@
     }
 
     input:disabled {
-        @apply bg-surface0 cursor-not-allowed;
+        @apply bg-gray-700/70 cursor-not-allowed;
     }
 
     a.external::after {
@@ -68,7 +68,7 @@
     }
 
     code {
-        @apply !overflow-x-scroll max-w-[100ch];
+        @apply overflow-x-scroll max-w-[100ch] !px-3 !py-2;
     }
 
     .breadcrumb {

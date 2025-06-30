@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Backend\AuditLogResource;
+use Illuminate\Http\Request;
 use Inertia\Response;
 use Spatie\Activitylog\Models\Activity;
 
 class AuditLogController extends Controller
 {
-    public function __invoke(): Response
+    public function __invoke(Request $request): Response
     {
         $breadcrumbs = [
             [

@@ -1,8 +1,7 @@
 <script setup>
 import moment from "moment";
 import hljs from 'highlight.js/lib/common';
-import '@/../css/a11y-dark.css';
-import '@catppuccin/highlightjs/css/catppuccin-macchiato.css';
+import '@/../css/felipec.css';
 import { nextTick, ref } from "vue";
 import TagPanel from "@/Components/TagPanel.vue";
 import Divider from "@/Components/divider.vue";

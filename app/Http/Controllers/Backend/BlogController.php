@@ -144,7 +144,7 @@ class BlogController
             ],
             [
                 'route' => route('backend.blog.create', $post),
-                'name' => $post->title,
+                'name' => sprintf('Editing "%s"', $post->title),
                 'active' => request()->routeIs('backend.blog.edit', ['post' => $post->id]),
             ],
         ];

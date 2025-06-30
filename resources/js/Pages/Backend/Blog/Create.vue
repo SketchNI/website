@@ -1,5 +1,4 @@
 <script setup>
-import { HomeModernIcon } from "@heroicons/vue/24/outline";
 import { useForm } from "@inertiajs/vue3";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
@@ -74,15 +73,15 @@ const handleUpload = async (files, func) => {
 
     <div class="h-full">
         <div class="mb-6 inline-flex space-x-2 items-end">
-            <h1 class="font-semibold text-text text-xl">Create New Post</h1>
-            <p class="text-subtext0">View and edit your blog post.</p>
+            <h1 class="font-semibold text-white text-xl">Create New Post</h1>
+            <p class="text-gray-300">View and edit your blog post.</p>
         </div>
 
         <breadcrumb :breadcrumbs="breadcrumbs" />
 
         <div class="mt-6">
             <form @submit.prevent="createPost" class="flex items-start space-x-6">
-                <div class="w-4/5 bg-mantle shadow shadow-crust px-6 py-4 space-y-4">
+                <div class="w-4/5 bg-gray-800 px-6 py-4 space-y-4">
                     <div>
                         <input-label for="title" value="Title" />
                         <text-input type="text" class="mt-1 block w-full" v-model="form.title" id="title" />
@@ -92,7 +91,7 @@ const handleUpload = async (files, func) => {
                     <div>
                         <input-label for="excerpt" value="Summary" />
                         <text-area-input class="mt-1 block w-full" v-model="form.excerpt" id="excerpt" />
-                        <input-error :message="form.errors.excerpt" class="mt-2 text-red" />
+                        <input-error :message="form.errors.excerpt" class="mt-2 text-secondary" />
                     </div>
 
                     <div>
@@ -112,14 +111,14 @@ const handleUpload = async (files, func) => {
                             :on-upload-img="handleUpload"
                         />
 
-                        <input-error :message="form.errors.content" class="text-red mt-2" />
+                        <input-error :message="form.errors.content" class="text-secondary mt-2" />
                     </div>
                 </div>
 
                 <div class="w-1/5 space-y-4">
-                    <div class="bg-mantle shadow shadow-crust px-6 py-4">
-                        <h1 class="uppercase text-sm text-subtext2 font-bold">Tags</h1>
-                        <p class="mt-2 text-red">{{ form.errors.tags }}</p>
+                    <div class="bg-gray-800  px-6 py-4">
+                        <h1 class="uppercase text-sm text-gray-300 font-bold">Tags</h1>
+                        <p class="mt-2 text-secondary">{{ form.errors.tags }}</p>
                         <ul class="space-y-2 text-lg">
                             <li v-for="tag in tags" :key="tags.id" class="space-y-2">
                                 <label :for="`checkbox.${tag.id}`" class="flex items-center space-x-2">
@@ -127,38 +126,38 @@ const handleUpload = async (files, func) => {
                                               :id="`checkbox.${tag.id}`"
                                               :checked="form.tags.includes(tag.name)"
                                               :value="tag.name" />
-                                    <span class="font-bold text-sm text-text">{{ tag.name.en }}</span>
+                                    <span class="font-bold text-sm text-white">{{ tag.name.en }}</span>
                                 </label>
                             </li>
                         </ul>
                     </div>
 
-                    <div class="bg-mantle shadow shadow-crust px-6 py-4">
-                        <h1 class="uppercase text-sm text-subtext2 font-bold">Manage</h1>
+                    <div class="bg-gray-800  px-6 py-4">
+                        <h1 class="uppercase text-sm text-gray-300 font-bold">Manage</h1>
 
                         <div class="my-4">
                             <SwitchGroup as="div" class="flex items-center">
                                 <Switch v-model="form.published"
-                                        :class="[form.published ? 'bg-blue/60' : 'bg-surface1', 'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue focus:ring-offset-mantle focus:ring-offset-2']">
+                                        :class="[form.published ? 'bg-primary' : 'bg-gray-700', 'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-gray-800 focus:ring-offset-2']">
                                     <span aria-hidden="true"
-                                          :class="[form.published ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block size-5 transform rounded-full bg-base shadow-lg ring-0 transition duration-200 ease-in-out']" />
+                                          :class="[form.published ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block size-5 transform rounded-full bg-gray-900 ring-0 transition duration-200 ease-in-out']" />
                                 </Switch>
                                 <SwitchLabel as="span" class="ml-3 text select-none">
-                                    <span class="font-medium text-subtext2">Publish</span>
+                                    <span class="font-medium text-gray-300">Publish</span>
                                 </SwitchLabel>
                             </SwitchGroup>
                         </div>
 
-                        <divider class="my-6" />
+                        <divider class="my-6 h-[2px] from-gray-800 to-gray-800" />
 
-                        <p class="text-green">
+                        <p class="text-accent">
                             Please save the post to enable previews.
                         </p>
                     </div>
 
-                    <div class="bg-mantle shadow shadow-crust px-6 py-4">
+                    <div class="bg-gray-800  px-6 py-4">
                         <primary-button type="submit" class="w-full text-xl text-center justify-center space-x-1"
-                                        :class="[form.processing ? 'bg-blue/60 cursor-not-allowed disabled:bg-blue/60 disabled:text-mantle' : '']"
+                                        :class="[form.processing ? 'bg-primary/60 cursor-not-allowed disabled:bg-primary-dark/60 disabled:text-white' : '']"
                                         :aria-disabled="form.processing"
                                         :disabled="form.processing">
                             <span v-if="!form.processing" class="space-x-1.5">

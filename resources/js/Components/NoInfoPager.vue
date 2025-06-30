@@ -5,21 +5,21 @@ defineProps({
 </script>
 
 <template>
-    <nav class="flex justify-end bg-mantle px-4 py-2 shadow shadow-crust">
+    <nav class="flex justify-end bg-gray-900 px-4 py-2">
         <div class="isolate inline-flex -space-x-px" v-if="pagination.total > pagination.per_page">
             <span v-for="link in pagination.links" :key="link.label">
                 <x-link
                     v-if="link.url !== null && link.active === false"
                     preserve-scroll
-                    :href="link.url.replace('http:', 'https:')"
+                    :href="link.url"
                     v-html="link.label"
                     class="pager"
-                    :class="{ '!bg-crust !text-text': link.active, '!text-text': !link.url }"
+                    :class="{ '!bg-primary-dark !text-white': link.active, '!text-white': !link.url }"
                 />
 
                 <span v-else
                       v-html="link.label"
-                      :class="{ '!bg-crust !text-subtext0 !font-black': link.active }"
+                      :class="{ '!bg-primary-dark !text-white !font-black': link.active }"
                       class="inactive-pager" />
             </span>
         </div>
@@ -28,13 +28,13 @@ defineProps({
 
 <style scoped>
 .pager {
-    @apply flex items-center justify-center bg-base px-4 py-2 font-mono text-sm text-blue
-    border-y border-blue/60 first-of-type:border-l border-r hover:bg-base;
+    @apply flex items-center justify-center bg-gray-800 px-4 py-2 font-mono text-sm text-gray-300
+    border-y border-primary/60 first-of-type:border-l border-r hover:bg-primary-dark hover:text-white;
     @apply transition duration-150 ease-in;
 }
 
 .inactive-pager {
-    @apply flex font-mono items-center justify-center text-sm bg-base px-4 py-2 text-subtext0 cursor-not-allowed
-    border-y border-blue/40 first:border-l last:border-r;
+    @apply flex font-mono items-center justify-center text-sm bg-gray-800/50 px-4 py-2 text-gray-400 cursor-not-allowed
+    border-y border-primary/40 first:border-l last:border-r;
 }
 </style>

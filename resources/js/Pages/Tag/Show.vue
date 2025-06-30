@@ -91,7 +91,7 @@ const props = defineProps({
             </Deferred>
 
             <div class="mt-6">
-                <Pager :pagination="posts.meta" />
+                <Pager :pagination="posts.meta" v-if="posts.meta.total > posts.meta.per_page"  />
             </div>
         </div>
 

@@ -4,6 +4,7 @@ namespace App\Http\Resources\Backend;
 
 use App\Http\Resources\Backend;
 use App\Http\Resources\Blog\PostResource;
+use App\Models\Page;
 use App\Models\Post;
 use App\Models\Team;
 use App\Models\User;
@@ -49,6 +50,12 @@ class AuditLogResource extends JsonResource
                 'label' => $post->trashed() ? '[Deleted Post] '.$post->title : '[Post] '.$post->title,
                 'doRestore' => $post->trashed(),
                 'id' => $post->id,
+            ],
+            Page::class => [
+                'url' => route('backend.pages.edit', $page = Page::withTrashed()->find($id)),
+                'label' => $page->trashed() ? '[Deleted Page] '.$page->title : '[Page] '.$page->title,
+                'doRestore' => $page->trashed(),
+                'id' => $page->id,
             ],
             Team::class => [
                 'url' => route('backend.teams.edit', $team = Team::find($id)),

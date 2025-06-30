@@ -76,7 +76,7 @@ const showViewCategoryModal = () => {
     <x-head title="Blog Posts Manager" />
 
     <div class="mb-6 inline-flex space-x-2 items-end">
-        <h1 class="font-semibold text-white">
+        <h1 class="font-semibold text-xl text-white">
             Blog Posts
         </h1>
         <p class="text-sm text-gray-400">View and edit your blog posts.</p>
@@ -153,11 +153,11 @@ const showViewCategoryModal = () => {
                                 </th>
                             </tr>
                             </thead>
-                            <tbody class="divide-y divide-surface0 bg-surface2">
+                            <tbody class="divide-y divide-gray-600">
                             <Deferred data="posts">
-                                <tr v-if="posts.data.length === 0" class="bg-mantle">
+                                <tr v-if="posts.data.length === 0" class="bg-gray-600">
                                     <td colspan="4">
-                                        <div class="text-3xl text-blue flex justify-center items-center h-32">
+                                        <div class="text-3xl text-primary flex justify-center items-center h-32">
                                             No data to show
                                         </div>
                                     </td>
@@ -182,7 +182,7 @@ const showViewCategoryModal = () => {
                                     <td class="relative whitespace-nowrap text-right text-sm font-medium pr-4">
                                         <x-link v-if="post.deleted_at === null"
                                                 :href="route('backend.blog.edit', { post })"
-                                                class="bg-primary text-black hover:bg-primary/60 hover:text-white py-3 px-4 transition duration-150 ease-in">
+                                                class="bg-primary text-white hover:bg-primary-dark py-3 px-4 transition duration-150 ease-in">
                                             Edit
                                         </x-link>
 
@@ -224,7 +224,7 @@ const showViewCategoryModal = () => {
                     <h2 class="text-lg font-medium text-white">
                         Viewing Categories
                     </h2>
-                    <primary-button class="shadow-sm shadow-crust space-x-1.5 text-sm"
+                    <primary-button class="shadow-sm shadow-black space-x-1.5 text-sm"
                                     @click.prevent="showCategoryModal">
                         <plus-circle-icon class="size-5 shrink-0" />
                         <span class="text-sm normal-case">New Category</span>
@@ -232,14 +232,14 @@ const showViewCategoryModal = () => {
                 </div>
 
                 <div class="my-6">
-                    <table class="min-w-full divide-y divide-overlay0">
-                        <thead class="bg-surface0">
+                    <table class="min-w-full divide-y divide-gray-600">
+                        <thead class="bg-gray-800">
                         <tr>
-                            <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-text sm:pl-6 md:w-3/5"
+                            <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-6 md:w-3/5"
                                 scope="col">
                                 Name
                             </th>
-                            <th class="px-3 py-3.5 text-left text-sm font-semibold text-text"
+                            <th class="px-3 py-3.5 text-left text-sm font-semibold text-white"
                                 scope="col">
                                 Posts
                             </th>
@@ -248,15 +248,15 @@ const showViewCategoryModal = () => {
                             </th>
                         </tr>
                         </thead>
-                        <tbody class="divide-y divide-surface0 bg-surface2">
+                        <tbody class="divide-y divide-gray-600 bg-gray-700">
                         <Deferred data="posts">
                             <tr v-for="(category, i) in tags.data" :key="i"
-                                :class="[i % 2 === 0 ? 'bg-surface0' : 'bg-surface1', 'hover:bg-surface2 select-none cursor-default']">
+                                :class="[i % 2 === 0 ? 'bg-gray-700' : 'bg-gray-800', 'hover:bg-primary/60 select-none cursor-default']">
                                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium md:w-3/5">
-                                    <p class="text-text" v-text="category.name" />
+                                    <p class="text-white" v-text="category.name" />
                                 </td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-text">
-                                    <p class="text-text">{{ category.posts_count }}</p>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-white">
+                                    <p class="text-white">{{ category.attached_count }}</p>
                                 </td>
                                 <td class="relative whitespace-nowrap text-right text-sm font-medium pr-4">
                                     <danger-button @click.prevent="deleteCategory(category)"
