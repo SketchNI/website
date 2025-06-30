@@ -21,7 +21,7 @@ const eightyeights = [
     <x-head title="Home" />
 
     <div
-        class="font-display lg:space-x-6 text-xl text-text lg:flex lg:flex-row lg:justify-center">
+        class="font-display lg:space-x-6 text-xl text-gray-200 lg:flex lg:flex-row lg:justify-center">
         <div class="flex justify-center lg:justify-normal">
             <img alt="SketchNI Avatar" class="homepage-sketch size-60" src="/images/chibinobg.png" />
         </div>
@@ -30,7 +30,7 @@ const eightyeights = [
                 Hello! I'm Sketch 🐍 (aka Denver). I'm a
                 <span class="text-accent">{{ moment().subtract(1991, 'years').format("YY ") }}year old</span> web
                 developer
-                and linux tinkerer with over <span class="text-blue font-black">0</span> years experience!
+                and linux tinkerer with over <span class="text-primary font-black">0</span> years experience!
             </div>
 
             <divider class="lg:hidden" />
@@ -48,23 +48,23 @@ const eightyeights = [
 
             <div class="max-lg:text-center max-lg:w-full">
                 <p>
-                    <span class="text-secondary">HTML: </span>
+                    <span class="text-primary">HTML: </span>
                     <span class="text-accent">{{ moment().subtract(2007, 'years').format("YY ") }}</span> years
                 </p>
                 <p>
-                    <span class="text-secondary">PHP: </span>
+                    <span class="text-primary">PHP: </span>
                     <span class="text-accent">{{ moment().subtract(2010, 'years').format("YY ") }}</span> years
                 </p>
                 <p>
-                    <span class="text-secondary">CSS: </span>
+                    <span class="text-primary">CSS: </span>
                     <span class="text-accent">{{ moment().subtract(2010, 'years').format("YY ") }}</span> years
                 </p>
                 <p>
-                    <span class="text-secondary">Linux: </span>
+                    <span class="text-primary">Linux: </span>
                     <span class="text-accent">{{ moment().subtract(2009, 'years').format("YY ") }}</span> years
                 </p>
                 <p>
-                    <span class="text-secondary">Javascript: </span>
+                    <span class="text-primary">Javascript: </span>
                     <span class="text-accent">{{ moment().subtract(2017, 'years').format("YY ") }}</span> years
                 </p>
             </div>
