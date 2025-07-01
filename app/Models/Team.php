@@ -38,6 +38,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|Team whereRole($value)
  * @method static Builder<static>|Team whereUpdatedAt($value)
  * @method static Builder<static>|Team whereWebsite($value)
+ *
  * @mixin Eloquent
  */
 class Team extends Model

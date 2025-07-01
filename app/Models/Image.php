@@ -32,6 +32,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|Image whereId($value)
  * @method static Builder<static>|Image whereImage($value)
  * @method static Builder<static>|Image whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 class Image extends Model

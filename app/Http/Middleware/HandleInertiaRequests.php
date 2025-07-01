@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use App\Hook;
 use App\Http\Resources\Backend\PermissionViaRoleResource;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -42,8 +41,8 @@ class HandleInertiaRequests extends Middleware
             'app' => [
                 'env' => config('app.env'),
                 'url' => request()->fullUrl(),
-                'sidebar' => $this->generateHooks(),
-                'flash' => fn() => $request->session()->get('flash'),
+                'hooks' => $this->generateHooks(),
+                'flash' => fn () => $request->session()->get('flash'),
             ],
         ];
     }
@@ -71,6 +70,17 @@ class HandleInertiaRequests extends Middleware
         $entries = [];
 
         Hook::trigger('sidebar', $entries);
+        Hook::trigger('footer', $entries);
+        Hook::trigger('pre-content', $entries);
+        Hook::trigger('post-content', $entries);
+
+        if (auth()->user()->hasAnyRole(['mod', 'admin', 'super-admin'])) {
+            Hook::trigger('admin::sidebar', $entries);
+            Hook::trigger('admin::footer', $entries);
+            Hook::trigger('admin::pre-content', $entries);
+            Hook::trigger('admin::post-content', $entries);
+        }
+
         return $entries;
     }
 }

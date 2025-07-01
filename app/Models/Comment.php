@@ -38,6 +38,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|Comment whereId($value)
  * @method static Builder<static>|Comment whereUpdatedAt($value)
  * @method static Builder<static>|Comment whereUserId($value)
+ *
  * @mixin Eloquent
  */
 class Comment extends Model

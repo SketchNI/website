@@ -1,17 +1,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue';
-import {
-    HomeModernIcon,
-    ListBulletIcon,
-    DocumentIcon,
-    UsersIcon,
-} from "@heroicons/vue/24/outline";
-import {
-    NumberedListIcon,
-    PhotoIcon,
-    SquaresPlusIcon,
-    UsersIcon as SolidUsersIcon
-} from '@heroicons/vue/20/solid';
+import { DocumentIcon, HomeModernIcon, ListBulletIcon, UsersIcon, } from "@heroicons/vue/24/outline";
+import { NumberedListIcon, PhotoIcon, SquaresPlusIcon, UsersIcon as SolidUsersIcon } from '@heroicons/vue/20/solid';
 import useRole from "@/Composables/useRole.js";
 import AdminLink from "@/Components/AdminLink.vue";
 import Divider from "@/Components/divider.vue";
@@ -40,39 +30,44 @@ const mouseOut = () => {
     wiggle.value = '💝';
 }
 
-const menu = [
-    {
-        name: "General", links: [
-            { name: "Home", route: 'backend.index', icon: HomeModernIcon, role: ['mod', 'admin', 'super-admin'] },
-            { name: "Blog", route: 'backend.blog.index', icon: ListBulletIcon, role: ['mod', 'admin', 'super-admin'] },
-            { name: "Pages", route: 'backend.pages.index', icon: DocumentIcon, role: ['mod', 'admin', 'super-admin'] },
-            {
-                name: "Users",
-                route: 'backend.users.index',
-                icon: SolidUsersIcon,
-                role: ['mod', 'admin', 'super-admin']
-            },
-            { name: "Teams", route: 'backend.teams.index', icon: UsersIcon, role: ['mod', 'admin', 'super-admin'] },
-            { name: "Images", route: 'backend.images.index', icon: PhotoIcon, color: 'red', role: ['super-admin'] },
-        ],
-    },
-    {
-        name: "Misc", links: [
-            {
-                name: "Audit Logs",
-                route: 'backend.misc.audit-log.index',
-                icon: NumberedListIcon,
-                role: ['admin', 'super-admin']
-            },
-            {
-                name: "Scheduler",
-                route: 'backend.misc.scheduler.index',
-                icon: SquaresPlusIcon,
-                role: ['mod', 'admin', 'super-admin']
-            },
-        ]
+// Map string icon names to actual icon components
+const iconMap = {
+    HomeModernIcon,
+    ListBulletIcon,
+    DocumentIcon,
+    UsersIcon,
+    NumberedListIcon,
+    PhotoIcon,
+    SquaresPlusIcon,
+    SolidUsersIcon
+};
+
+// Get the sidebar items from the hooks
+const sidebarItems = page.props.app.hooks['admin::sidebar'] || [];
+
+// Group the sidebar items by section and map string icon names to components
+const menu = sidebarItems.reduce((acc, item) => {
+    const section = item.section || 'Other';
+
+    // Map the string icon name to the actual component
+    const mappedItem = {
+        ...item,
+        icon: iconMap[item.icon] || null
+    };
+
+    // Find the section in the accumulator or create a new one
+    const sectionObj = acc.find(s => s.name === section);
+    if (sectionObj) {
+        sectionObj.links.push(mappedItem);
+    } else {
+        acc.push({
+            name: section,
+            links: [mappedItem]
+        });
     }
-]
+
+    return acc;
+}, []);
 </script>
 
 <template>
@@ -96,9 +91,9 @@ const menu = [
 
                                         <li v-for="(item, i) in cat.links" :key="i">
                                             <admin-link v-if="item.role.includes(role)"
-                                                        :active="route().current() === item.route"
+                                                        :active="route().current(item.route.split('?')[0])"
                                                         :color="item.color ?? 'blue'"
-                                                        :href="route(item.route)"
+                                                        :href="item.route"
                                                         :icon="item.icon">
                                                 {{ item.name }}
                                             </admin-link>

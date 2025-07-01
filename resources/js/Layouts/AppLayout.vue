@@ -36,7 +36,7 @@ const mouseOut = () => {
         <!-- Content -->
         <main class="max-w-7xl lg:flex items-start space-x-4">
             <div class="w-full lg:w-1/5">
-                <sidebar :links="page.props.app.sidebar" />
+                <sidebar :links="page.props.app.hooks.sidebar" />
             </div>
 
             <!-- Main Body -->

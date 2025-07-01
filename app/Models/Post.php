@@ -72,6 +72,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|Post withTrashed()
  * @method static Builder<static>|Post withoutTags(\ArrayAccess|Tag|array|string $tags, ?string $type = null)
  * @method static Builder<static>|Post withoutTrashed()
+ *
  * @mixin Eloquent
  */
 class Post extends Model implements ReactableInterface
@@ -79,11 +80,11 @@ class Post extends Model implements ReactableInterface
     use Commentable;
     use HasFactory;
     use HasTags;
+    use Publishable;
     use Reactable;
     use RevisionableTrait;
     use SoftDeletes;
     use ThrowsException;
-    use Publishable;
 
     protected $table = 'blog_posts';
 

@@ -50,6 +50,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static Builder<static>|User whereUpdatedAt($value)
  * @method static Builder<static>|User withoutPermission($permissions)
  * @method static Builder<static>|User withoutRole($roles, $guard = null)
+ *
  * @mixin Eloquent
  */
 class User extends Authenticatable implements MustVerifyEmail, ReactsInterface

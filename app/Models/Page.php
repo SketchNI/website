@@ -46,14 +46,15 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|Page withTrashed()
  * @method static Builder<static>|Page withoutTrashed()
  * @property-read User|null $user
+ *
  * @mixin Eloquent
  */
 class Page extends Model
 {
     use HasFactory;
+    use Publishable;
     use RevisionableTrait;
     use SoftDeletes;
-    use Publishable;
 
     protected $casts = [
         'published_at' => 'datetime',

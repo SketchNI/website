@@ -42,7 +42,7 @@ class UserController extends Controller
 
         return inertia('Backend/Users/Index', [
             'users' => Inertia::defer(fn () => $users),
-            'breadcrumbs' => $breadcrumbs
+            'breadcrumbs' => $breadcrumbs,
         ]);
     }
 

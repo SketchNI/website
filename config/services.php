@@ -12,5 +12,5 @@ return [
         'api_key' => env('LASTFM_API_KEY'),
         'secret' => env('LASTFM_SECRET'),
         'username' => env('LASTFM_USERNAME'),
-    ]
+    ],
 ];

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Image;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\UnauthorizedException;
 
 class ImageController extends Controller
