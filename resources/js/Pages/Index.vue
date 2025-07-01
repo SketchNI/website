@@ -6,7 +6,7 @@ const socials = [
     { name: 'Blue Sky', href: 'https://bsky.app/profile/sketchni.uk', logo: 'bluesky' },
     { name: 'Fediverse', href: 'https://mb.sketchni.uk/@sketch', logo: 'mastodon' },
     { name: 'Twitch', href: 'https://twitch.tv/SketchNI', logo: 'twitch' },
-    { name: 'Discord', href: 'https://discord.com/invite/GQbXUVCneJ', logo: 'discord' },
+    { name: 'Discord', href: 'https://discord.com/invite/8RVhHeJH3x', logo: 'discord' },
     { name: 'Steam', href: 'https://steamcommunity.com/id/sketchni/', logo: 'steam' },
 ]
 
