@@ -44,7 +44,7 @@ class ImageController extends Controller
         }
 
         return inertia('Backend/Images/Index', [
-            'images' => $images->get(),
+            'images' => $images->paginate(perPage: 25),
             'breadcrumbs' => $breadcrumbs,
         ]);
     }
