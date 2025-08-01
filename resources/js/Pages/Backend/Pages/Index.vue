@@ -24,7 +24,7 @@ defineProps({
         <h1 class="font-semibold text-white">
             Pages
         </h1>
-        <p class="text-sm text-subtext0">View and edit your pages.</p>
+        <p class="text-sm text-gray-300">View and edit your pages.</p>
     </div>
 
     <div class="flex items-center justify-between mb-6">
@@ -39,7 +39,7 @@ defineProps({
                         <span class="filter-counter text-green">{{ counts.pages }}</span>
                     </x-link>
 
-                    <div class="h-8 border-r mx-3 border-surface2"></div>
+                    <div class="h-8 border-r mx-3 border-gray-600"></div>
 
                     <x-link :href="route('backend.pages.index', { filter: 'unpublished' })"
                             class="group filter-link">
@@ -47,7 +47,7 @@ defineProps({
                         <span class="filter-counter text-yellow">{{ counts.unpublished }}</span>
                     </x-link>
 
-                    <div class="h-8 border-r mx-3 border-surface2"></div>
+                    <div class="h-8 border-r mx-3 border-gray-600"></div>
 
                     <x-link :href="route('backend.pages.index', { filter: 'deleted' })" class="group filter-link">
                         <span>Deleted</span>
@@ -72,18 +72,18 @@ defineProps({
         <div class="flow-root">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                    <div class="overflow-hidden shadow shadow-mantle ring-1 ring-mantle/5">
-                        <table class="min-w-full divide-y divide-overlay0">
-                            <thead class="bg-surface0">
+                    <div class="overflow-hidden ring-1 ring-primary/5">
+                        <table class="min-w-full divide-y divide-gray-500">
+                            <thead class="bg-gray-800">
                             <tr>
-                                <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-text sm:pl-6 md:w-3/5"
+                                <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-200 sm:pl-6 md:w-3/5"
                                     scope="col">
                                     Title
                                 </th>
-                                <th class="px-3 py-3.5 text-left text-sm font-semibold text-text" scope="col">
+                                <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-200" scope="col">
                                     Published
                                 </th>
-                                <th class="px-3 py-3.5 text-left text-sm font-semibold text-text" scope="col">
+                                <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-200" scope="col">
                                     Created
                                 </th>
                                 <th class="relative py-3.5 pl-3 pr-4 sm:pr-6" scope="col">
@@ -91,19 +91,19 @@ defineProps({
                                 </th>
                             </tr>
                             </thead>
-                            <tbody class="divide-y divide-surface0 bg-surface2">
-                            <tr v-if="pages.data.length === 0" class="bg-mantle">
+                            <tbody class="divide-y divide-gray-600">
+                            <tr v-if="pages.data.length === 0" class="bg-gray-600">
                                 <td colspan="4">
-                                    <div class="text-3xl text-blue flex justify-center items-center h-32">
+                                    <div class="text-3xl text-primary flex justify-center items-center h-32">
                                         No data to show
                                     </div>
                                 </td>
                             </tr>
                             <tr v-else v-for="(page, i) in pages.data" :key="i"
-                                :class="[i % 2 === 0 ? 'bg-surface0' : 'bg-surface1', 'hover:bg-surface2 select-none cursor-default']">
+                                :class="[i % 2 === 0 ? 'bg-gray-700' : 'bg-gray-800', 'hover:bg-gray-900 select-none cursor-default transition duration-150 ease-in']">
                                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium md:w-3/5">
-                                    <p class="text-text" v-text="page.title" />
-                                    <p class="text-subtext0 font-normal" v-text="page.author.name" />
+                                    <p class="text-white" v-text="page.title" />
+                                    <p class="text-gray-300 font-normal" v-text="page.author.name" />
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm space-x-2">
                                     <div class=" inline-flex items-center space-x-2">
@@ -119,13 +119,13 @@ defineProps({
                                 <td class="relative whitespace-nowrap text-right text-sm font-medium pr-4">
                                     <x-link v-if="!page.is_deleted"
                                             :href="route('backend.pages.edit', { id: page.id })"
-                                            class="bg-blue text-mantle hover:bg-base hover:text-text py-3 px-4 transition duration-150 ease-in">
+                                            class="bg-primary text-white hover:bg-primary-dark py-3 px-4 transition duration-150 ease-in">
                                         Edit
                                     </x-link>
 
                                     <x-link v-else
                                             :href="route('backend.pages.show', { page })"
-                                            class="bg-red text-mantle hover:bg-base hover:text-text py-3 px-4 transition duration-150 ease-in">
+                                            class="bg-secondary text-black hover:bg-secondary/60 hover:text-white py-3 px-4 transition duration-150 ease-in">
                                         Restore
                                     </x-link>
                                 </td>
@@ -146,7 +146,7 @@ defineProps({
 <style scoped>
 .filter-link {
     @apply flex items-center space-x-2 px-2 py-2 text-gray-300 hover:text-white hover:bg-gray-600/50
-    hover:shadow hover:shadow-black transition duration-150 ease-in;
+    transition duration-150 ease-in;
 }
 
 .filter-counter {

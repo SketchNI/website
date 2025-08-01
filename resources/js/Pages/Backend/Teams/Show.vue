@@ -221,7 +221,7 @@ const clearLogoInput = () => {
 
                 <div class="bg-gray-800 px-6 py-4">
                     <primary-button :aria-disabled="form.processing"
-                                    :class="[form.processing ? 'bg-primary/60 cursor-not-allowed disabled:bg-primary/60 disabled:text-mantle' : '']"
+                                    :class="[form.processing ? 'bg-primary/60 cursor-not-allowed disabled:bg-primary/60 disabled:text-gray-800' : '']"
                                     :disabled="form.processing"
                                     class="w-full text-xl text-center justify-center space-x-1"
                                     type="submit">

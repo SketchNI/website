@@ -1,6 +1,5 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
-import catppuccin from '@catppuccin/tailwindcss';
 import typography from '@tailwindcss/typography';
 import colors from "tailwindcss/colors";
 
@@ -90,18 +89,11 @@ export default {
             textSize: {
                 md: defaultTheme.fontSize.base,
             },
-            boxShadow: {
-                sm: '.2rem .2rem 0 0',
-                DEFAULT: '.4rem .4rem 0 0',
-                md: '.4rem .4rem 0 0',
-            },
             animation: {
                 'spin-slow': 'spin 1.5s ease-in-out infinite',
             }
         },
     },
 
-    plugins: [forms, typography, catppuccin({
-        defaultFlavour: "mocha",
-    })],
+    plugins: [forms, typography],
 };

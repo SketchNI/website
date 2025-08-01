@@ -120,6 +120,6 @@ const toggleProperties = () => {
 
 <style scoped>
 .target-url {
-    @apply pr-3 block py-4 hover:bg-base text-primary pl-4 transition duration-150 ease-in text-ellipsis truncate w-[25ch];
+    @apply pr-3 block py-4 hover:bg-gray-600 text-primary pl-4 transition duration-150 ease-in text-ellipsis truncate w-[25ch];
 }
 </style>

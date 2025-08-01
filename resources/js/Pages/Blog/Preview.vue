@@ -110,12 +110,17 @@ nextTick(() => {
 
 <style lang="postcss" scoped>
 .prose :where(blockquote) {
-    @apply px-6 pt-1 pb-8 bg-crust;
+    @apply px-6 pt-1 pb-8 bg-primary/40;
 }
 
 .tag {
-    @apply font-bold font-mono bg-blue-500 px-1.5 rounded-sm py-0.5 text-xs text-white no-underline text-[1rem] cursor-pointer
+    @apply font-bold font-mono bg-primary px-1.5 rounded-sm py-0.5 text-xs text-white no-underline text-[1rem] cursor-pointer
     items-center hover:bg-blue-600
     transition duration-150 ease-in;
+}
+
+.badge {
+    @apply bg-primary text-white font-black font-mono group-hover:bg-primary rounded-full px-[5px] py-px text-xs;
+    @apply absolute bottom-0 -right-[5px];
 }
 </style>
