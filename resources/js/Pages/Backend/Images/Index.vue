@@ -4,6 +4,7 @@ import { ref } from "vue";
 import Breadcrumb from "@/Components/Breadcrumb.vue";
 import { Deferred } from "@inertiajs/vue3";
 import NoInfoPager from "@/Components/NoInfoPager.vue";
+import { toast } from "vue3-toastify";
 
 defineProps({
     images: {
@@ -18,12 +19,7 @@ const showResponse = ref(false);
 const response = ref({});
 
 window.mitt.on('image:update', e => {
-    response.value = { type: e.type, message: e.message };
-    showResponse.value = true;
-
-    setTimeout(() => {
-        showResponse.value = false;
-    }, 5000);
+    toast(e.message, { type: e.type })
 })
 
 </script>
@@ -40,21 +36,10 @@ window.mitt.on('image:update', e => {
 
     <breadcrumb :breadcrumbs="breadcrumbs" />
 
-    <div v-if="showResponse" class="mb-4">
-        <div v-if="response.type === 'success'"
-             class="bg-green shadow shadow-crust text-base px-6 py-4">
-            {{ response.message }}
-        </div>
-        <div v-else-if="response.type === 'error'"
-             class="bg-red shadow shadow-crust text-base px-6 py-4">
-            {{ response.message }}
-        </div>
-    </div>
-
     <div class="grid grid-cols-5 gap-4 mt-6">
         <div class="col-span-5 md:col-span-3 lg:col-span-1 p-4 shadow shadow-black space-y-3"
-             :class="[image.from.toLowerCase().includes('sharex') ? 'bg-blue-800/40' : 'bg-gray-800']"
-             v-for="image in images" :key="image.id">
+             :class="[image.from.toString().toLowerCase().includes('sharex') ? 'bg-blue-800/40' : 'bg-gray-800']"
+             v-for="image in images.data" :key="image.id">
             <image-tile :image="image" />
         </div>
     </div>

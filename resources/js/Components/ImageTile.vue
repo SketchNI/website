@@ -16,6 +16,7 @@ const props = defineProps({
         from: String,
         caption: String,
         alt_text: String,
+        image_url: String,
     },
 });
 
@@ -44,12 +45,13 @@ const updateImage = () => {
 const isCopied = ref(false);
 
 const copyToClipboard = (path) => {
+    alert(path)
     if(!navigator.clipboard) {
         toast.error('You must be connected over HTTPS to use `navigator.clipboard`.', { theme: 'dark' });
         return;
     }
     isCopied.value = true;
-    navigator.clipboard.writeText(`${import.meta.env.VITE_APP_URL}${path}`).then(() => {
+    navigator.clipboard.writeText(path).then(() => {
         setTimeout(() => isCopied.value = false, 2500);
     });
 }

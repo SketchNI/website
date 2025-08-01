@@ -66,10 +66,10 @@ export default {
             }
         },
         fontFamily: {
-            sans: ['Sen', ...defaultTheme.fontFamily.sans],
-            display: ['Playpen Sans', ...defaultTheme.fontFamily.sans],
+            sans: ['Nunito Sans', ...defaultTheme.fontFamily.sans],
+            display: ['Nunito Sans', ...defaultTheme.fontFamily.sans],
             serif: [...defaultTheme.fontFamily.serif],
-            mono: ['Kode Mono', ...defaultTheme.fontFamily.mono]
+            mono: ['Anonymous Pro', ...defaultTheme.fontFamily.mono]
         },
         fontSize: {
             xs: ['0.75rem', { lineHeight: '1rem' }],

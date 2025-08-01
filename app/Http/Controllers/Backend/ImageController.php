@@ -6,6 +6,7 @@ use App\Exceptions\ForbiddenException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Image\CreateRequest;
 use App\Http\Requests\Backend\Image\UpdateRequest;
+use App\Http\Resources\Backend\ImageResource;
 use App\Models\Image;
 use App\Traits\Flashable;
 use App\Traits\ThrowsException;
@@ -44,7 +45,7 @@ class ImageController extends Controller
         }
 
         return inertia('Backend/Images/Index', [
-            'images' => $images->paginate(perPage: 25),
+            'images' => ImageResource::collection($images->paginate(25)),
             'breadcrumbs' => $breadcrumbs,
         ]);
     }
