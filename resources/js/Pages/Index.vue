@@ -13,7 +13,9 @@ const socials = [
 const eightyeights = [
     { name: 'Kaya', href: 'https://tired.moe', picture: '/images/kaya.gif' },
     { name: 'robin roses', href: 'https://robinroses.xyz', picture: 'https://robinroses.xyz/badges/me.gif' },
-    { name: 'isabel roses', href: 'https://isabelroses.com', picture: 'https://isabelroses.com/badges/me.gif' },
+    { name: 'isabel roses', href: 'https://isabelroses.com', picture: 'https://isabelroses.com/_astro/me.C-4zIveh_Z2h1zVf.webp' },
+    { name: 'Alyxia', href: 'https://alyxia.dev/', picture: 'https://alyxia.dev/static/img/88x31/self.png' },
+    { name: 'thermia', href: 'https://girlthi.ng/~thermia/', picture: 'https://girlthi.ng/~thermia/img/88x31/thermia.gif' }
 ];
 </script>
 
