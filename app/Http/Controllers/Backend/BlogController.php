@@ -103,8 +103,11 @@ class BlogController
                 $this->flash('Blog post not created.', 'error');
             }
 
-            $tags = Arr::wrap($request->get('tags'));
-            $post->attachTags($tags, 'post');
+            $tags = $request->get('tags');
+            if (gettype($tags) === 'array') {
+                $post->attachTags($tags, 'post');
+            }
+            $post->attachTag($tags, 'post');
 
             activity('admin')
                 ->by($request->user())
