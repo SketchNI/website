@@ -11,7 +11,7 @@ const socials = [
 ]
 
 const eightyeights = [
-    { name: 'Kaya', href: 'https://tired.moe', picture: '/images/kaya.gif' },
+    { name: 'Kaya', href: 'https://tired.moe', picture: 'https://tired.moe/assets/badges/tired.moe.gif' },
     { name: 'robin roses', href: 'https://robinroses.xyz', picture: 'https://robinroses.xyz/badges/me.gif' },
     { name: 'isabel roses', href: 'https://isabelroses.com', picture: 'https://isabelroses.com/_astro/me.C-4zIveh_Z2h1zVf.webp' },
     { name: 'Alyxia', href: 'https://alyxia.dev/', picture: 'https://alyxia.dev/static/img/88x31/self.png' },
@@ -109,7 +109,9 @@ const eightyeights = [
                 <div class="flex items-start text-sm mt-4">
                     <div>
                         <p>Add mine:</p>
-                        <code class="block select-all p-2 !overflow-x-clip leading-6">&lt;img
+                        <img
+                        src="https://sketchni.uk/images/sketch.png" alt="SketchNI" title="SketchNI" />
+                        <code class="block select-all p-2 !overflow-x-clip leading-6 mt-2">&lt;img
                             src="https://sketchni.uk/images/sketch.png" alt="SketchNI" title="SketchNI" /></code>
                     </div>
                 </div>
