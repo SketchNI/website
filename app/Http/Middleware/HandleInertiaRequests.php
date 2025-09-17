@@ -74,7 +74,7 @@ class HandleInertiaRequests extends Middleware
         Hook::trigger('pre-content', $entries);
         Hook::trigger('post-content', $entries);
 
-        if (auth()->user()->hasAnyRole(['mod', 'admin', 'super-admin'])) {
+        if (auth()->user()?->hasAnyRole(['mod', 'admin', 'super-admin'])) {
             Hook::trigger('admin::sidebar', $entries);
             Hook::trigger('admin::footer', $entries);
             Hook::trigger('admin::pre-content', $entries);

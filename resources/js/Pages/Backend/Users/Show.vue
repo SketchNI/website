@@ -1,21 +1,12 @@
 <script setup>
-import {
-    ArrowPathIcon,
-    CheckIcon,
-    ChevronUpDownIcon,
-} from "@heroicons/vue/20/solid/index.js";
+import { ArrowPathIcon, CheckIcon, ChevronUpDownIcon, } from "@heroicons/vue/20/solid/index.js";
 import { UserCircleIcon } from '@heroicons/vue/24/outline';
 import { useForm, usePage } from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import useApp from "@/Composables/useApp.js";
-import {
-    Listbox,
-    ListboxButton,
-    ListboxOption,
-    ListboxOptions,
-} from "@headlessui/vue";
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions, } from "@headlessui/vue";
 import Checkbox from "@/Components/Checkbox.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Divider from "@/Components/divider.vue";
@@ -110,7 +101,7 @@ const updateUser = () => {
             <div>
                 <form @submit.prevent="updateUser" class="flex items-start space-x-6 mb-12">
                     <div class="w-4/5">
-                        <div class="w-full bg-mantle shadow shadow-crust px-6 py-4 space-y-4">
+                        <div class="w-full bg-gray-800 px-6 py-4 space-y-4">
                             <div>
                                 <input-label for="name" value="Name" />
                                 <text-input id="title" v-model="form.name" class="mt-1 block w-full" type="text" />
@@ -150,7 +141,7 @@ const updateUser = () => {
                         </div>
 
                         <div
-                            class="w-full bg-mantle shadow shadow-crust px-6 py-4 space-y-4 flex justify-end items-center">
+                            class="w-full bg-gray-800 px-6 py-4 space-y-4 flex justify-end items-center">
 
                             <primary-button type="submit">
                                 <div v-if="form.processing" class="inline-flex items-center space-x-1.5 w-[8.6rem]">
@@ -165,10 +156,10 @@ const updateUser = () => {
                         </div>
                     </div>
 
-                    <div class="w-1/5 bg-mantle shadow shadow-crust px-6 py-4 space-y-4 max-h-96 overflow-x-auto">
-                        <h1 class="uppercase text-sm text-subtext2 font-bold">
+                    <div class="w-1/5 bg-gray-800 px-6 py-4 space-y-4 max-h-96 overflow-x-auto">
+                        <h1 class="uppercase text-sm text-gray-200 font-bold">
                             Permissions
-                            <span class="font-normal text-overlay1 normal-case">(Read-Only)</span>
+                            <span class="font-normal text-gray-400 normal-case">(Read-Only)</span>
                         </h1>
                         <ul class="space-y-2 text-lg">
                             <li v-for="permission in permissions" :key="permissions.name" class="space-y-2">
@@ -177,10 +168,10 @@ const updateUser = () => {
                                               disabled="disabled"
                                               :checked="form.permissions.includes(permission.name)"
                                               :value="permission.id" />
-                                    <span class="font-bold text-sm text-text">
+                                    <span class="font-bold text-sm text-gray-200">
                                         {{ permission.name }}
                                     </span>
-                                    <span class="font-normal text-sm text-overlay1">
+                                    <span class="font-normal text-sm text-gray-400">
                                         ({{ permission.type }})
                                     </span>
                                 </label>
@@ -189,15 +180,15 @@ const updateUser = () => {
                     </div>
                 </form>
 
-                <divider class="my-6 from-gray-900 to-gray-900" />
+                <divider class="my-6 from-gray-800/0 to-gray-800/0" />
 
-                <h3 class="text-text font-semibold mb-5">Stats</h3>
+                <h3 class="text-gray-200 font-semibold mb-5">Stats</h3>
 
-                <div class="w-full bg-mantle shadow shadow-crust p-4 space-y-4">
+                <div class="w-full bg-gray-800 p-4 space-y-4">
                     <div class="grid grid-cols-4">
                         <div v-for="item in stats" :key="item.name" class="px-4 py-5 sm:p-6">
-                            <dt class="text-normal font-normal text-overlay1">{{ item.name }}</dt>
-                            <dd class="mt-1 flex items-baseline text-2xl font-semibold justify-between md:block lg:flex text-text">
+                            <dt class="text-normal font-normal text-gray-400">{{ item.name }}</dt>
+                            <dd class="mt-1 flex items-baseline text-2xl font-semibold justify-between md:block lg:flex text-gray-200">
                                 {{ item.stat }}
                             </dd>
                         </div>
@@ -210,17 +201,17 @@ const updateUser = () => {
 
 <style scoped>
 .button {
-    @apply w-full block border border-overlay1 focus:border-blue bg-crust text-text shadow-sm shadow-surface1;
+    @apply w-full block border border-gray-600 focus:border-blue bg-gray-700 text-gray-200;
     @apply text-left inline-flex space-x-2 items-center px-3 py-2;
     @apply transition duration-150 ease-in;
 }
 
 .selected {
-    @apply bg-blue text-crust px-3 -mx-3;
+    @apply bg-blue text-gray-600 px-3 -mx-3;
 }
 
 .active {
-    @apply bg-blue text-crust -mx-3 px-3;
+    @apply bg-blue text-gray-600 -mx-3 px-3;
 }
 
 .option {
@@ -232,7 +223,7 @@ const updateUser = () => {
 }
 
 .options {
-    @apply absolute z-10 cursor-pointer px-3 max-h-60 w-72 overflow-auto bg-crust py-1 text-left text-text shadow-sm
-    shadow-surface2 focus:outline-none sm:text-sm;
+    @apply absolute z-10 cursor-pointer px-3 max-h-60 w-72 overflow-auto bg-gray-700 py-1 text-left text-gray-200
+    focus:outline-none sm:text-sm;
 }
 </style>

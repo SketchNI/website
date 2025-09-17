@@ -5,7 +5,7 @@ import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
 import TextAreaInput from "@/Components/TextAreaInput.vue";
 import Checkbox from "@/Components/Checkbox.vue";
-import { SwitchGroup, Switch, SwitchLabel } from "@headlessui/vue";
+import { Switch, SwitchGroup, SwitchLabel } from "@headlessui/vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
@@ -27,24 +27,16 @@ const form = useForm({
     content: '',
     published_at: '',
     published: false,
-    tags: [],
+    tag: '',
 });
 
 const toggleSelection = (name) => {
-    if (!checkAndRemoveSelection(name)) {
-        form.tags.push(name);
+    if (name === '') {
+        form.tag = '';
     }
+    form.tag = name.en;
 }
 
-const checkAndRemoveSelection = (name) => {
-    if (form.tags.includes(name)) {
-        form.tags = form.tags.filter(names => names !== name);
-
-        return true;
-    }
-
-    return false;
-}
 
 const handleUpload = async (files, func) => {
     const res = await Promise.all(files.map(file => {
@@ -124,7 +116,7 @@ const handleUpload = async (files, func) => {
                                 <label :for="`checkbox.${tag.id}`" class="flex items-center space-x-2">
                                     <checkbox @click="toggleSelection(tag.name)"
                                               :id="`checkbox.${tag.id}`"
-                                              :checked="form.tags.includes(tag.name)"
+                                              :checked="form.tag === tag.name"
                                               :value="tag.name" />
                                     <span class="font-bold text-sm text-white">{{ tag.name.en }}</span>
                                 </label>

@@ -13,7 +13,7 @@ class CreateRequest extends FormRequest
             'content' => ['string', 'nullable'],
             'excerpt' => ['required', 'string'],
             'published' => ['required', 'boolean'],
-            'tags' => ['required', 'array'],
+            'tag' => ['required', 'string'],
         ];
     }
 

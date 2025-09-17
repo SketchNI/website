@@ -33,7 +33,7 @@
 
     .social-link {
         @apply text-2xl lg:text-4xl px-3 py-2 size-16 inline-flex items-center justify-center
-        hover:bg-primary/60 hover:shadow-md hover:shadow-black hover:text-text
+        hover:bg-primary/60 hover:shadow-md hover:shadow-black hover:text-blue-300
         transition duration-150 ease-in;
     }
 

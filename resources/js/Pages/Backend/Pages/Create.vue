@@ -67,15 +67,15 @@ const handleUpload = async (files, func) => {
     <x-head title="Create Page" />
 
     <div class="mb-6 inline-flex space-x-2 items-end">
-        <h1 class="font-semibold text-text text-xl"><span class="text-subtext0">Create Page</span></h1>
-        <p class="text-subtext0">Create your page.</p>
+        <h1 class="font-semibold text-white text-xl"><span class="text-gray-300">Create Page</span></h1>
+        <p class="text-gray-300">Create your page.</p>
     </div>
 
     <breadcrumb :breadcrumbs="breadcrumbs" />
 
     <div class="mt-6">
         <form class="flex items-start space-x-6" @submit.prevent="createPage">
-            <div class="w-4/5 bg-mantle shadow shadow-crust px-6 py-4 space-y-4">
+            <div class="w-4/5 bg-gray-800 px-6 py-4 space-y-4">
                 <div>
                     <input-label for="title" value="Title" />
                     <text-input id="title" v-model="form.title" class="mt-1 block w-full" type="text" />
@@ -110,27 +110,27 @@ const handleUpload = async (files, func) => {
             </div>
 
             <div class="w-1/5 space-y-4">
-                <div class="bg-mantle shadow shadow-crust px-6 py-4">
-                    <h1 class="uppercase text-sm text-subtext2 font-bold">Manage</h1>
+                <div class="bg-gray-800 px-6 py-4">
+                    <h1 class="uppercase text-sm text-gray-400 font-bold">Manage</h1>
 
                     <div class="my-4">
                         <SwitchGroup as="div" class="flex items-center">
                             <Switch v-model="form.is_published"
-                                    :class="[form.is_published ? 'bg-blue/60' : 'bg-surface1', 'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue focus:ring-offset-mantle focus:ring-offset-2']">
+                                    :class="[form.is_published ? 'bg-blue/60' : 'bg-gray-600', 'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue focus:ring-offset-gray-800 focus:ring-offset-2']">
                                 <span
-                                    :class="[form.is_published ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block size-5 transform rounded-full bg-base shadow-lg ring-0 transition duration-200 ease-in-out']"
+                                    :class="[form.is_published ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block size-5 transform rounded-full bg-white ring-0 transition duration-200 ease-in-out']"
                                     aria-hidden="true" />
                             </Switch>
                             <SwitchLabel as="span" class="ml-3 text select-none">
-                                <span class="font-medium text-subtext2">Publish</span>
+                                <span class="font-medium text-gray-400">Publish</span>
                             </SwitchLabel>
                         </SwitchGroup>
                     </div>
                 </div>
 
-                <div class="bg-mantle shadow shadow-crust px-6 py-4">
+                <div class="bg-gray-800 px-6 py-4">
                     <primary-button :aria-disabled="form.processing"
-                                    :class="[form.processing ? 'bg-blue/60 cursor-not-allowed disabled:bg-blue/60 disabled:text-mantle' : '']"
+                                    :class="[form.processing ? 'bg-blue/60 cursor-not-allowed disabled:bg-blue/60 disabled:text-gray-800' : '']"
                                     :disabled="form.processing"
                                     class="w-full text-xl text-center justify-center space-x-1"
                                     type="submit">

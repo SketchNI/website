@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -38,7 +39,6 @@ use Venturecraft\Revisionable\RevisionableTrait;
 class Image extends Model
 {
     use HasUuids;
-    use RevisionableTrait;
 
     protected $fillable = [
         'image',
@@ -46,6 +46,13 @@ class Image extends Model
         'caption',
         'alt_text',
     ];
+
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => url($value),
+        );
+    }
 
     public function setCaption(string $caption): Image
     {

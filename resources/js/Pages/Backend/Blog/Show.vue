@@ -6,7 +6,7 @@ import InputError from "@/Components/InputError.vue";
 import { TrashIcon } from "@heroicons/vue/16/solid/index";
 import TextAreaInput from "@/Components/TextAreaInput.vue";
 import Checkbox from "@/Components/Checkbox.vue";
-import { SwitchGroup, Switch, SwitchLabel } from "@headlessui/vue";
+import { Switch, SwitchGroup, SwitchLabel } from "@headlessui/vue";
 import moment from "moment/moment";
 import useApp from "@/Composables/useApp.js";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
@@ -188,7 +188,7 @@ const deletePost = () => {
                             <Switch v-model="form.published"
                                     :class="[form.published ? 'bg-primary' : 'bg-gray-700', 'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-gray-800 focus:ring-offset-2']">
                                 <span
-                                    :class="[form.published ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block size-5 transform rounded-full bg-gray-900 shadow-lg ring-0 transition duration-200 ease-in-out']"
+                                    :class="[form.published ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block size-5 transform rounded-full bg-gray-900 ring-0 transition duration-200 ease-in-out']"
                                     aria-hidden="true" />
                             </Switch>
                             <SwitchLabel as="span" class="ml-3 text select-none">
@@ -198,10 +198,9 @@ const deletePost = () => {
 
                         <p v-if="form.published_at !== null" class="mt-4 text-sm">
                             <span class="text-gray-200">Published at </span>
-                            <time :class="[app.theme === 'latte' ? 'text-black' : 'text-white']"
+                            <time class="text-white font-semibold no-underline"
                                   :datetime="post.published_at"
-                                  :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')"
-                                  class="font-semibold no-underline">
+                                  :title="moment(post.published_at).format('Do MMM YYYY [at] hh:mma')">
                                 {{ moment(post.published_at).format('Do MMM YYYY [at] hh:mma') }}
                             </time>
                         </p>
@@ -249,7 +248,7 @@ const deletePost = () => {
 
                 <div class="bg-gray-800 px-6 py-4">
                     <primary-button :aria-disabled="form.processing"
-                                    :class="[form.processing ? 'bg-primary/60 cursor-not-allowed disabled:bg-primary/60 disabled:text-mantle' : '']"
+                                    :class="[form.processing ? 'bg-primary/60 cursor-not-allowed disabled:bg-primary/60 disabled:text-gray-800' : '']"
                                     :disabled="form.processing"
                                     class="w-full text-xl text-center justify-center space-x-1"
                                     type="submit">

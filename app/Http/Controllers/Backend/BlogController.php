@@ -13,6 +13,7 @@ use App\Traits\ThrowsException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Arr;
 use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\Tags\Tag;
@@ -102,7 +103,7 @@ class BlogController
                 $this->flash('Blog post not created.', 'error');
             }
 
-            $post->attachTags($request->get('tags'), 'post');
+            $post->attachTag($request->get('tag'), 'post');
 
             activity('admin')
                 ->by($request->user())

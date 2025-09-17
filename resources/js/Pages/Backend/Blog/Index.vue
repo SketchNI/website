@@ -114,13 +114,13 @@ const showViewCategoryModal = () => {
         </div>
 
         <div class="flex space-x-4 items-center">
-            <secondary-button class="shadow-sm shadow-crust space-x-1.5 text-sm"
+            <secondary-button class="space-x-1.5 text-sm"
                               @click.prevent="showViewCategoryModal">
                 <list-bullet-icon class="size-5 shrink-0" />
                 <span class="text-sm normal-case">Categories</span>
             </secondary-button>
             <div>
-                <x-link :href="route('backend.blog.create')" class="inline-flex space-x-1 text-overlay2">
+                <x-link :href="route('backend.blog.create')" class="inline-flex space-x-1 text-gray-300">
                     <primary-button class="space-x-1.5 normal-case text-sm" type="button">
                         <plus-circle-icon class="size-5 shrink-0" />
                         <span class="text-sm">New Post</span>
@@ -134,7 +134,7 @@ const showViewCategoryModal = () => {
         <div class="flow-root">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                    <div class="overflow-hidden shadow shadow-black ring-1 ring-primary/5">
+                    <div class="overflow-hidden ring-1 ring-primary/5">
                         <table class="min-w-full divide-y divide-gray-500">
                             <thead class="bg-gray-800">
                             <tr>
@@ -224,7 +224,7 @@ const showViewCategoryModal = () => {
                     <h2 class="text-lg font-medium text-white">
                         Viewing Categories
                     </h2>
-                    <primary-button class="shadow-sm shadow-black space-x-1.5 text-sm"
+                    <primary-button class="space-x-1.5 text-sm"
                                     @click.prevent="showCategoryModal">
                         <plus-circle-icon class="size-5 shrink-0" />
                         <span class="text-sm normal-case">New Category</span>
@@ -323,7 +323,7 @@ const showViewCategoryModal = () => {
 <style scoped>
 .filter-link {
     @apply flex items-center space-x-2 px-2 py-2 text-gray-300 hover:text-white hover:bg-gray-600/50
-    hover:shadow hover:shadow-black transition duration-150 ease-in;
+    transition duration-150 ease-in;
 }
 
 .filter-counter {

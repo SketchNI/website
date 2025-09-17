@@ -102,18 +102,18 @@ const props = defineProps({
 <style scoped>
 .category {
     @apply font-bold text-primary border-b-2 border-transparent cursor-pointer inline-flex items-center
-    hover:bg-primary hover:text-base px-2 py-1.5
+    hover:bg-primary hover:text-gray-200 px-2 py-1.5
     transition duration-150 ease-in;
 }
 
 .cat-count {
-    @apply text-sm font-normal text-subtext0 group-hover:text-black;
+    @apply text-sm font-normal text-gray-400 group-hover:text-black;
     @apply transition duration-150 ease-in;
 }
 
 .tag {
-    @apply text-xs font-semibold text-base bg-primary px-2 py-1 shadow-sm shadow-overlay0 mx-1
-    hover:bg-overlay0 hover:text-text hover:shadow-none uppercase tracking-wide;
+    @apply text-xs font-semibold text-gray-200 bg-primary px-2 py-1 shadow-sm shadow-black mx-1
+    hover:bg-gray-600 hover:text-gray-400 hover:shadow-none uppercase tracking-wide;
     @apply transition duration-150 ease-in;
 }
 </style>
