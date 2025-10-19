@@ -104,7 +104,7 @@ const eightyeights = [
                 <ul class="inline-flex space-x-1 sm:space-x-2 max-lg:justify-center max-lg:w-full">
                     <li v-for="(item, i) in eightyeights" :key="i" class="flex justify-between">
                         <a :href="item.href">
-                            <img :src="item.picture" :alt="item.name" :title="item.name" class="w-[88px] h-[31px]" />
+                            <img :src="item.picture" :alt="item.name" :title="item.name" class="h-[31px]" />
                             <span class="sr-only" v-text="item.name" />
                         </a>
                     </li>
