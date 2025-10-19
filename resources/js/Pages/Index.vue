@@ -102,7 +102,7 @@ const eightyeights = [
                     <span class="font-display font-bold text-primary">Meet The Weirdos</span>
                 </p>
                 <ul class="inline-flex space-x-1 sm:space-x-2 max-lg:justify-center max-lg:w-full">
-                    <li v-for="(item, i) in eightyeights" :key="i" class="flex justify-between">
+                    <li v-for="(item, i) in eightyeights" :key="i" class="flex flex-wrap justify-between">
                         <a :href="item.href">
                             <img :src="item.picture" :alt="item.name" :title="item.name" class="h-[31px]" />
                             <span class="sr-only" v-text="item.name" />
