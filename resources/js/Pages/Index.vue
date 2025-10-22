@@ -4,10 +4,11 @@ import moment from "moment/moment";
 
 const socials = [
     { name: 'Blue Sky', href: 'https://bsky.app/profile/sketchni.uk', logo: 'bluesky', brand: true },
-    { name: 'Fediverse', href: 'https://matrix.to/#/@sketchnx:matrix.org', logo: 'hashtag', brand: false },
+    { name: 'Fediverse', href: 'https://akko.isabelroses.com/sketchni', logo: 'mastodon', brand: true },
     { name: 'Twitch', href: 'https://twitch.tv/SketchNI', logo: 'twitch', brand: true },
     { name: 'Discord', href: 'https://discord.com/invite/8RVhHeJH3x', logo: 'discord', brand: true },
     { name: 'Steam', href: 'https://steamcommunity.com/id/sketchni/', logo: 'steam', brand: true },
+    { name: 'Instagram', href: 'https://instagram.com/SketchNI.UK/', logo: 'instagram', brand: true },
 ]
 
 const eightyeights = [
@@ -19,7 +20,7 @@ const eightyeights = [
     { name: 'Elissa', href: 'https://elissa.moe', picture: '/storage/elissa.png' },
     { name: 'diza', href: 'https://dbw.neocities.org', picture: 'https://dbw.neocities.org/assets/me.png' },
     { name: 'tasky', href: 'https://tasky.nuxt.dev', picture: '/storage/tasky.webp' },
-    
+
 ];
 </script>
 
@@ -101,10 +102,10 @@ const eightyeights = [
                 <p class="mb-4">
                     <span class="font-display font-bold text-primary">Meet The Weirdos</span>
                 </p>
-                <ul class="inline-flex space-x-1 sm:space-x-2 max-lg:justify-center max-lg:w-full">
-                    <li v-for="(item, i) in eightyeights" :key="i" class="flex flex-wrap justify-between">
-                        <a :href="item.href">
-                            <img :src="item.picture" :alt="item.name" :title="item.name" class="h-[31px]" />
+                <ul class="inline-flex flex-wrap max-lg:justify-center max-lg:w-full">
+                    <li v-for="(item, i) in eightyeights" :key="i" class="justify-between">
+                        <a :href="item.href" class="inline-block mr-2">
+                            <img :src="item.picture" :alt="item.name" :title="item.name" class="w-[88px]" />
                             <span class="sr-only" v-text="item.name" />
                         </a>
                     </li>
@@ -115,8 +116,10 @@ const eightyeights = [
                         <p>Add mine:</p>
                         <img
                         src="https://sketchni.uk/images/sketch.png" alt="SketchNI" title="SketchNI" />
-                        <code class="block select-all p-2 !overflow-x-clip leading-6 mt-2">&lt;img
-                            src="https://sketchni.uk/images/sketch.png" alt="SketchNI" title="SketchNI" /></code>
+                        <code class="block select-all p-2 !overflow-x-clip leading-6 mt-2">
+                            &lt;a href="https://sketchni.uk" ref="&lt;your site>" target="_blank">&lt;img
+                            src="https://sketchni.uk/images/sketch.png" alt="SketchNI" title="SketchNI" />&lt;/a>
+                        </code>
                     </div>
                 </div>
             </div>
