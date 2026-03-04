@@ -13,13 +13,13 @@ const socials = [
 
 const eightyeights = [
     { name: 'Kaya', href: 'https://tired.moe', picture: 'https://tired.moe/assets/badges/tired.moe.gif' },
-    { name: 'robin roses', href: 'https://robinroses.xyz', picture: 'https://robinroses.xyz/badges/me.gif' },
+    { name: 'robin roses', href: 'https://robinwobin.dev/', picture: 'https://robinwobin.dev/badges/me.gif' },
     { name: 'isabel roses', href: 'https://isabelroses.com', picture: 'https://isabelroses.com/badges/me.gif' },
     { name: 'Alyxia', href: 'https://alyxia.dev/', picture: 'https://alyxia.dev/static/img/88x31/self.png' },
     { name: 'thermia', href: 'https://girlthi.ng/~thermia/', picture: 'https://girlthi.ng/~thermia/img/88x31/thermia.gif' },
-    { name: 'Elissa', href: 'https://elissa.moe', picture: '/storage/elissa.png' },
+    { name: 'Elissa', href: 'https://elissa.moe', picture: 'https://elissa.moe/_astro/me.CXG_6iqd.png' },
     { name: 'diza', href: 'https://dbw.neocities.org', picture: 'https://dbw.neocities.org/assets/me.png' },
-    { name: 'tasky', href: 'https://tasky.nuxt.dev', picture: '/storage/tasky.webp' },
+    { name: 'tasky', href: 'https://tasky.nuxt.dev', picture: 'https://tasky.nuxt.dev/88x31.webp' },
 
 ];
 </script>
