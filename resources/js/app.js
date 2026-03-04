@@ -8,6 +8,7 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/index.js';
 import Vue3Toastify from 'vue3-toastify';
 import AppLayout from "@/Layouts/AppLayout.vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
+import VueMatomo from 'vue-matomo';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -24,6 +25,10 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
+            .use(VueMatomo, {
+                host: 'https://analytics.sketchni.uk',
+                siteId: 1,
+            })
             .use(Vue3Toastify, {
                 autoHideDuration: 5000,
             })
@@ -37,3 +42,6 @@ createInertiaApp({
 }).then(() => {
     console.debug('[npm] sketchni.uk ready')
 });
+
+window._paq.push(['trackPageView']);
+window._paq.push(['enableLinkTracking']);

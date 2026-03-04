@@ -28,6 +28,7 @@
         "md-editor-v3": "^5.5.0",
         "mitt": "^3.0.1",
         "moment": "^2.30.1",
+        "vue-matomo": "^4.2.0",
         "vue3-toastify": "^0.2.8"
     }
 }
