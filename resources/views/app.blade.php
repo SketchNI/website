@@ -19,12 +19,11 @@
     <script>
         var _paq = window._paq = window._paq || [];
     </script>
-
-    <script src="https://analytics.sketchni.uk/index.php?module=CoreAdminHome&action=optOutJS&divId=matomo-opt-out&language=auto&backgroundColor=000000&fontColor=e3e3e3&fontSize=1.1em&showIntro=1"></script>
 </head>
 <body class="font-sans antialiased h-full">
 @inertia
 
 <div id="matomo-opt-out"></div>
+<script src="https://analytics.sketchni.uk/index.php?module=CoreAdminHome&action=optOutJS&divId=matomo-opt-out&language=auto&backgroundColor=000000&fontColor=e3e3e3&fontSize=1.1em&showIntro=1"></script>
 </body>
 </html>
