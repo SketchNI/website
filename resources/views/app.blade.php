@@ -18,19 +18,9 @@
 
     <script>
         var _paq = window._paq = window._paq || [];
-        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-        _paq.push(['trackPageView']);
-        _paq.push(['enableLinkTracking']);
-        (function() {
-            var u="//analytics.sketchni.uk/";
-            _paq.push(['setTrackerUrl', u+'matomo.php']);
-            _paq.push(['setSiteId', '1']);
-            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-            g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-        })();
     </script>
 
-    <script src="https://analytics.sketchni.uk/index.php?module=CoreAdminHome&action=optOutJS&divId=matomo-opt-out&language=auto&backgroundColor=000000&fontColor=e3e3e3&fontSize=1.1em&fontFamily=Anonymous Pro&showIntro=1"></script>
+    <script src="https://analytics.sketchni.uk/index.php?module=CoreAdminHome&action=optOutJS&divId=matomo-opt-out&language=auto&backgroundColor=000000&fontColor=e3e3e3&fontSize=1.1em&showIntro=1"></script>
 </head>
 <body class="font-sans antialiased h-full">
 @inertia
