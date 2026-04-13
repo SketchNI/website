@@ -93,6 +93,7 @@ const getCount = (reaction) => {
         <meta content="Written by" name="twitter:label1" />
         <meta :content="post.author.name" name="twitter:data1" />
         <link :href="post.url" rel="canonical" />
+        <meta name="fediverse:creator" content="@sketchni@phpc.social">
     </x-head>
 
     <div class="flex max-lg:flex-col gap-6 items-start max-lg:px-4">

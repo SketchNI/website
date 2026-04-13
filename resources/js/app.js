@@ -37,6 +37,3 @@ createInertiaApp({
 }).then(() => {
     console.debug('[npm] sketchni.uk ready')
 });
-
-window._paq.push(['trackPageView']);
-window._paq.push(['enableLinkTracking']);

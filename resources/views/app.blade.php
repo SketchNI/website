@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="me" href="https://phpc.social/@sketchni" />
+    <link rel="preconnect" href="https://fonts.bunny.net" />
     <link
         href="https://fonts.bunny.net/css?family=anonymous+pro:400,700|sen:400,500,600,700,800|Nunito+Sans:wght@100..800&display=swap"
         crossorigin="anonymous"
