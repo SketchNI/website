@@ -38,7 +38,7 @@ window.mitt.on('image:update', e => {
 
     <div class="grid grid-cols-5 gap-4 mt-6">
         <div class="col-span-5 md:col-span-3 lg:col-span-1 p-4 shadow shadow-black space-y-3"
-             :class="[image.from.toString().toLowerCase().includes('sharex') ? 'bg-blue-800/40' : 'bg-gray-800']"
+             :class="[image.from?.toString().toLowerCase().includes('sharex') ? 'bg-blue-800/40' : 'bg-gray-800']"
              v-for="image in images.data" :key="image.id">
             <image-tile :image="image" />
         </div>
